@@ -2,6 +2,7 @@
 "use client";
 import * as React from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
 
 type SigilWrapperProps = {
   children: React.ReactNode;
@@ -9,7 +10,7 @@ type SigilWrapperProps = {
 };
 
 const SigilWrapper = ({ children, className }: SigilWrapperProps) => {
-    const meshRef = React.useRef<any>();
+    const meshRef = React.useRef<THREE.Group>(null);
     useFrame((state, delta) => {
         if (meshRef.current) {
             meshRef.current.rotation.y += delta * 0.3;
@@ -32,7 +33,7 @@ const SigilWrapper = ({ children, className }: SigilWrapperProps) => {
 }
 
 const SigilMaterial = () => {
-    const materialRef = React.useRef<any>();
+    const materialRef = React.useRef<THREE.MeshStandardMaterial>(null);
     useFrame((state) => {
         if (materialRef.current) {
             // Smoothly pulsate the emissive intensity

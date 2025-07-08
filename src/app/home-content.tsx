@@ -11,7 +11,7 @@ import { LambdaXiVONIcon } from '@/components/icons';
 
 // New component for the particle swarm
 function AgentSwarm({ count = 5000 }) {
-    const pointsRef = React.useRef<any>();
+    const pointsRef = React.useRef<THREE.Points>(null);
     const { size } = useThree();
     const [points] = React.useState(() => {
         const positions = new Float32Array(count * 3);
@@ -48,7 +48,7 @@ function AgentSwarm({ count = 5000 }) {
 
 // New component for the "parasite" SaaS particles
 function SaaSParticles({ count = 200 }) {
-    const pointsRef = React.useRef<any>();
+    const pointsRef = React.useRef<THREE.Points>(null);
     const scroll = useScroll();
 
     const [positions] = React.useState(() => {
@@ -151,14 +151,14 @@ function Monolith() {
   );
 }
 
-function Section({ children, start, end, ...props }) {
-  const ref = React.useRef<any>(null!);
+function Section({ children, start, end, ...props }: any) {
+  const ref = React.useRef<HTMLDivElement>(null);
   const scroll = useScroll();
   
   useFrame(() => {
     const r = scroll.range(start, end - start);
     if(ref.current) {
-        ref.current.style.opacity = r;
+        ref.current.style.opacity = String(r);
         ref.current.style.pointerEvents = r > 0 ? 'auto' : 'none';
     }
   });

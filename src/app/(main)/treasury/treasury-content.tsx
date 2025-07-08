@@ -1,9 +1,11 @@
 
 "use client"
 import * as React from "react"
-import { Line, LineChart, ResponsiveContainer } from "recharts"
+import { Line, LineChart, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ReferenceLine } from "recharts"
 import {
   ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent
 } from "@/components/ui/chart"
 import { PageHeader } from "@/components/page-header";
 import { GlassCard } from "@/components/glass-card";
@@ -84,8 +86,8 @@ const trajectoryData = [
 ];
 
 const chartConfig = {
-    revenue: { color: "hsl(var(--primary))" },
-    ebitda: { color: "hsl(var(--accent))" },
+    revenue: { label: "Total Revenue ($M)", color: "hsl(var(--primary))" },
+    ebitda: { label: "EBITDA ($M)", color: "hsl(var(--accent))" },
 };
 
 function DataRoomDialog() {
@@ -226,14 +228,16 @@ export default function TreasuryContent() {
             <h2 className="text-center font-headline text-3xl font-semibold md:text-4xl text-glow mb-6">From Burn to Sovereignty in Under 12 Months.</h2>
             <GlassCard className="p-6">
                 <ChartContainer config={chartConfig} className="min-h-[400px] w-full">
-                    <LineChart data={trajectoryData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                        <line x1="0" y1="100%" x2="100%" y2="100%" stroke="hsl(var(--border))" />
-                        <text x="50%" y="95%" textAnchor="middle" fill="hsl(var(--foreground))" className="text-xs">Month</text>
-                        <Line type="monotone" dataKey="revenue" stroke="var(--color-revenue)" name="Total Revenue ($M)" strokeWidth={3} dot={{r: 4, fill: "hsl(var(--background))", stroke: "hsl(var(--primary))"}} />
-                        <Line type="monotone" dataKey="ebitda" stroke="var(--color-ebitda)" name="EBITDA ($M)" strokeWidth={2} strokeDasharray="5 5" dot={{r: 4, fill: "hsl(var(--background))", stroke: "hsl(var(--accent))"}} />
-                        <line x1={trajectoryData.findIndex(d=>d.ebitda >=0)/trajectoryData.length * 100 + "%"} y1="0" x2={trajectoryData.findIndex(d=>d.ebitda >=0)/trajectoryData.length*100+"%"} y2="100%" strokeDasharray="3 3" stroke="hsl(var(--foreground))" />
-                         <text x={trajectoryData.findIndex(d=>d.ebitda >=0)/trajectoryData.length*100 + 2 + "%"} y="10%" fill="hsl(var(--foreground))" className="text-xs font-headline">EBITDA Positive (Mo. 8)</text>
-                    </LineChart>
+                  <LineChart data={trajectoryData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                      <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                      <XAxis dataKey="month" unit=" mo" tickLine={false} axisLine={false} tickMargin={10} />
+                      <YAxis unit="$M" tickLine={false} axisLine={false} tickMargin={10} />
+                      <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" />} />
+                      <Legend />
+                      <Line type="monotone" dataKey="revenue" stroke="var(--color-revenue)" name="Total Revenue ($M)" strokeWidth={3} dot={{r: 4, fill: "hsl(var(--background))", stroke: "hsl(var(--primary))"}} />
+                      <Line type="monotone" dataKey="ebitda" stroke="var(--color-ebitda)" name="EBITDA ($M)" strokeWidth={2} strokeDasharray="5 5" dot={{r: 4, fill: "hsl(var(--background))", stroke: "hsl(var(--accent))"}} />
+                      <ReferenceLine x={8} strokeDasharray="3 3" stroke="hsl(var(--foreground))" label={{ value: "EBITDA Positive", position: "insideTopRight", fill: "hsl(var(--foreground))", className:"text-xs font-headline" }} />
+                  </LineChart>
                 </ChartContainer>
             </GlassCard>
         </div>
@@ -272,3 +276,4 @@ export default function TreasuryContent() {
   );
 
     
+
