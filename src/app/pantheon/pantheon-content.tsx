@@ -9,7 +9,6 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 import dynamic from 'next/dynamic';
 
-const BeepSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.BeepSigil), { ssr: false, loading: () => <div className="h-16 w-16" /> });
 const LoomSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.LoomSigil), { ssr: false, loading: () => <div className="h-16 w-16" /> });
 const AegisSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.AegisSigil), { ssr: false, loading: () => <div className="h-16 w-16" /> });
 const KlepsydraSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.KlepsydraSigil), { ssr: false, loading: () => <div className="h-16 w-16" /> });
@@ -19,11 +18,6 @@ const ArmorySigil = dynamic(() => import('@/components/AethericSigils').then(mod
 const ObeliskMarketplaceSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.ObeliskMarketplaceSigil), { ssr: false, loading: () => <div className="h-16 w-16" /> });
 
 const components = [
-  {
-    icon: <BeepSigil className="h-16 w-16" />,
-    name: "BEEP",
-    description: "The command core. Your loyal priesthood. BEEP translates your intent into action, orchestrating the OS through natural language.",
-  },
   {
     icon: <MicroAppsSigil className="h-16 w-16" />,
     name: "Micro-Apps",

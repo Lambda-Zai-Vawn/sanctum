@@ -29,7 +29,7 @@ const docSections = [
     { id: "genesis-protocol", title: "Architect's Genesis Protocol", icon: <Code/>, subItems: ["Environment Setup", "Database Seeding", "Running Services", "App Launch"] },
     { id: "core-doctrine", title: "The Core Doctrine", icon: <Book/>, subItems: ["Agentic Mythware™", "Sovereignty-as-a-Service™", "The Silence of True Automation", "Ancient Roman Glass Aesthetic"] },
     { id: "nexus-architecture", title: "Nexus Architecture", icon: <Workflow/>, subItems: ["System Overview", "Microservices", "Tech Stack"] },
-    { id: "agentic-pantheon", title: "The Agentic Pantheon", icon: <BrainCircuit/>, subItems: ["BEEP's Triune Voice", "Swarm Orchestration", "Tool Registry", "Agent Profiles"] },
+    { id: "agentic-pantheon", title: "The Agentic Pantheon", icon: <BrainCircuit/>, subItems: ["Swarm Orchestration", "Tool Registry", "Agent Profiles"] },
     { id: "loom-of-fates", title: "The Loom of Fates", icon: <LoomSigilIcon/>, subItems: ["Loom Studio", "KLEPSYDRA Engine", "ΞCredits", "Folly Instruments", "Obelisk Marketplace"] },
     { id: "aegis-protocols", title: "The Aegis Protocols", icon: <AegisSigilIcon/>, subItems: ["Threat Detection", "Agent Governance", "Data Integrity", "Zero-Trust Architecture"] },
     { id: "micro-app-canvas", title: "The Micro-App Canvas", icon: <MicroAppsSigilIcon/>, subItems: ["SDK", "Canvas UX Laws", "Mobile UX Guidelines", "Verdigris Interface Protocol™"] },
@@ -106,7 +106,7 @@ export default function DocsPage() {
                                     <Input
                                         value={term}
                                         onChange={(e) => setTerm(e.target.value)}
-                                        placeholder="Consult the Lorekeeper... (e.g., BEEP)"
+                                        placeholder="Consult the Lorekeeper... (e.g., Aegis)"
                                         disabled={loading}
                                         className="text-base"
                                     />

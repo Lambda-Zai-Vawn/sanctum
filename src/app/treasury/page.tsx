@@ -1,6 +1,6 @@
 
 import type { Metadata } from 'next';
-import TreasuryContent from "./treasury-content";
+import TreasuryContent from "../(main)/treasury/treasury-content";
 
 export const metadata: Metadata = {
     title: "The Treasury: An Invitation to Forge the Post-SaaS Economy",

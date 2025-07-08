@@ -1,6 +1,6 @@
 
 import type { Metadata } from 'next';
-import AegisPostContent from './aegis-post-content';
+import AegisPostContent from '../(main)/aegis-post/aegis-post-content';
 
 export const metadata: Metadata = {
     title: "The Aegis Post: AI-Powered Cybersecurity",

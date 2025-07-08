@@ -1,6 +1,6 @@
 
 import type { Metadata } from 'next';
-import ChancelContent from './chancel-content';
+import ChancelContent from '../(main)/chancel/chancel-content';
 
 export const metadata: Metadata = {
     title: "The Chancel: Doctrine of an Autonomous Age",

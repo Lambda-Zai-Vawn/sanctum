@@ -1,6 +1,6 @@
 
 import type { Metadata } from 'next';
-import PantheonContent from './pantheon-content';
+import PantheonContent from '../(main)/pantheon/pantheon-content';
 
 export const metadata: Metadata = {
     title: "The Pantheon: Core Components of ΛΞVON OS",
