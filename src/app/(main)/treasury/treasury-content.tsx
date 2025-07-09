@@ -47,28 +47,24 @@ const unitEconomics = [
         title: "LTV:CAC Ratio",
         value: "> 5:1",
         note: "Our model demonstrates a path to an exceptionally strong ratio due to high ARPA growth and low-cost viral acquisition channels.",
-        chartData: [ {v: 1.2}, {v: 2.1}, {v: 3.5}, {v: 4.8}, {v: 5.2} ],
     },
     {
         icon: <ShieldCheck className="h-10 w-10 text-primary" />,
         title: "CAC Payback Period",
         value: "< 18 Months",
         note: "Our product-led motion and viral loops are engineered to drive this period down significantly as the platform scales.",
-        chartData: [ {v: 24}, {v: 21}, {v: 19}, {v: 18.5}, {v: 17} ],
     },
     {
         icon: <Target className="h-10 w-10 text-primary" />,
         title: "Monthly Customer Churn",
         value: "< 1.5%",
         note: "Achieved via the Nudge-Lock Engine, which creates extreme product stickiness and makes leaving the ecosystem logistically impractical.",
-        chartData: [ {v: 4.5}, {v: 3.2}, {v: 2.1}, {v: 1.8}, {v: 1.4} ],
     },
     {
         icon: <DollarSign className="h-10 w-10 text-primary" />,
         title: "ARPA (Annual)",
         value: "$3.1k ➔ $6.4k+",
         note: "Projected to grow from ~$3,150 (Year 1) to over $6,400 (Year 5). Growth is driven by tier upgrades and increased usage.",
-        chartData: [ {v: 3150}, {v: 3800}, {v: 4500}, {v: 5600}, {v: 6450} ],
     }
 ];
 
@@ -200,22 +196,15 @@ export default function TreasuryContent() {
                         className={cn(economicsSection.isInView ? "animate-fade-in-up" : "opacity-0")}
                         style={{ animationDelay: `${200 + index * 150}ms` }}
                     >
-                        <GlassCard className="p-6">
+                        <GlassCard className="p-8 h-full">
                            <div className="flex items-start gap-6">
                                 {item.icon}
                                 <div className="flex-1">
                                     <h3 className="font-headline text-xl font-bold text-foreground/80">{item.title}</h3>
                                     <p className="font-code text-4xl font-bold text-glow">{item.value}</p>
-                                </div>
-                                <div className="w-32 h-16">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <LineChart data={item.chartData}>
-                                            <Line type="monotone" dataKey="v" stroke="hsl(var(--primary))" strokeWidth={2} dot={false} />
-                                        </LineChart>
-                                    </ResponsiveContainer>
+                                    <p className="text-sm text-foreground/70 mt-4">{item.note}</p>
                                 </div>
                            </div>
-                           <p className="text-sm text-foreground/70 mt-4 pl-16">{item.note}</p>
                         </GlassCard>
                     </div>
                 ))}
@@ -276,4 +265,5 @@ export default function TreasuryContent() {
   );
 
     
+
 
