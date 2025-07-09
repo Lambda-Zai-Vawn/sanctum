@@ -87,39 +87,71 @@ const chartConfig = {
 };
 
 function DataRoomDialog() {
+    const [submitted, setSubmitted] = React.useState(false);
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        // In a real application, you would handle form submission here.
+        // For this prototype, we'll just show the success state.
+        setSubmitted(true);
+    };
+
+    // Reset form state when dialog is closed
+    const handleOpenChange = (open: boolean) => {
+        if (!open) {
+            // Use a timeout to avoid seeing the form flash before closing
+            setTimeout(() => {
+                setSubmitted(false);
+            }, 300);
+        }
+    };
+
     return (
-        <Dialog>
+        <Dialog onOpenChange={handleOpenChange}>
             <DialogTrigger asChild>
                 <Button size="lg" className="font-headline text-lg mt-8">[ Request Access to the Data Room ]</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px] bg-background/80 backdrop-blur-lg border-primary/20">
-                <DialogHeader>
-                    <DialogTitle className="font-headline text-glow text-2xl">Access the Dossier</DialogTitle>
-                    <DialogDescription className="text-foreground/70">
-                        Provide your credentials to begin the vetting process. Access is restricted to accredited investors and strategic partners.
-                    </DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="name" className="text-right text-foreground/80">
-                            Name
-                        </Label>
-                        <Input id="name" placeholder="John Doe" className="col-span-3" />
+                {submitted ? (
+                     <div className="text-center py-8">
+                        <DialogHeader>
+                             <DialogTitle className="font-headline text-glow text-2xl">Request Received</DialogTitle>
+                             <DialogDescription className="text-foreground/70 pt-4">
+                                Your credentials have been submitted for verification. We will be in contact shortly. The gateway remains open.
+                            </DialogDescription>
+                        </DialogHeader>
                     </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="firm" className="text-right text-foreground/80">
-                            Firm
-                        </Label>
-                        <Input id="firm" placeholder="Sovereign Ventures" className="col-span-3" />
-                    </div>
-                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="email" className="text-right text-foreground/80">
-                            Email
-                        </Label>
-                        <Input id="email" type="email" placeholder="architect@sv.com" className="col-span-3" />
-                    </div>
-                </div>
-                <Button type="submit" className="w-full font-headline">Submit Request</Button>
+                ) : (
+                    <>
+                        <DialogHeader>
+                            <DialogTitle className="font-headline text-glow text-2xl">Access the Dossier</DialogTitle>
+                            <DialogDescription className="text-foreground/70">
+                                Provide your credentials to begin the vetting process. Access is restricted to accredited investors and strategic partners.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <form onSubmit={handleSubmit} className="grid gap-4 pt-4">
+                            <div className="grid gap-2">
+                                <Label htmlFor="name" className="text-foreground/80">
+                                    Name
+                                </Label>
+                                <Input id="name" placeholder="John Doe" required />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="firm" className="text-foreground/80">
+                                    Firm
+                                </Label>
+                                <Input id="firm" placeholder="Sovereign Ventures" required />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="email" className="text-foreground/80">
+                                    Email
+                                </Label>
+                                <Input id="email" type="email" placeholder="architect@sv.com" required />
+                            </div>
+                            <Button type="submit" className="w-full font-headline mt-4">Submit Request</Button>
+                        </form>
+                    </>
+                )}
             </DialogContent>
         </Dialog>
     )
@@ -265,5 +297,6 @@ export default function TreasuryContent() {
   );
 
     
+
 
 
