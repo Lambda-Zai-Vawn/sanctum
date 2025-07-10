@@ -4,6 +4,29 @@ import * as React from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
+const SigilMaterial = React.memo(() => {
+    const materialRef = React.useRef<THREE.MeshStandardMaterial>(null);
+    useFrame((state) => {
+        if (materialRef.current) {
+            // Smoothly pulsate the emissive intensity
+            materialRef.current.emissiveIntensity = Math.sin(state.clock.getElapsedTime() * 1.5) * 0.2 + 0.6;
+        }
+    });
+
+    return (
+        <meshStandardMaterial 
+            ref={materialRef}
+            color="hsl(var(--accent))" 
+            emissive="hsl(var(--primary))" 
+            emissiveIntensity={0.6}
+            metalness={0.9} 
+            roughness={0.1} 
+        />
+    );
+});
+SigilMaterial.displayName = 'SigilMaterial';
+
+
 type SigilWrapperProps = {
   children: React.ReactNode;
   className?: string;
@@ -32,33 +55,14 @@ const SigilWrapper = ({ children, className }: SigilWrapperProps) => {
     );
 }
 
-const SigilMaterial = () => {
-    const materialRef = React.useRef<THREE.MeshStandardMaterial>(null);
-    useFrame((state) => {
-        if (materialRef.current) {
-            // Smoothly pulsate the emissive intensity
-            materialRef.current.emissiveIntensity = Math.sin(state.clock.getElapsedTime() * 1.5) * 0.2 + 0.6;
-        }
-    });
-
-    return (
-        <meshStandardMaterial 
-            ref={materialRef}
-            color="hsl(var(--accent))" 
-            emissive="hsl(var(--primary))" 
-            emissiveIntensity={0.6}
-            metalness={0.9} 
-            roughness={0.1} 
-        />
-    );
-};
+const SharedSigilMaterial = <SigilMaterial />;
 
 export function MicroAppsSigil(props: { className?: string }) {
     return (
         <SigilWrapper {...props}>
             <mesh>
                 <cylinderGeometry args={[0.8, 0.8, 0.5, 6]} />
-                <SigilMaterial />
+                {SharedSigilMaterial}
             </mesh>
         </SigilWrapper>
     );
@@ -69,7 +73,7 @@ export function LoomSigil(props: { className?: string }) {
         <SigilWrapper {...props}>
             <mesh>
                 <boxGeometry args={[1.5, 1.5, 0.2]} />
-                <SigilMaterial />
+                {SharedSigilMaterial}
             </mesh>
              <mesh>
                 <boxGeometry args={[1.5, 1.5, 0.2]} />
@@ -84,7 +88,7 @@ export function AegisSigil(props: { className?: string }) {
         <SigilWrapper {...props}>
             <mesh>
                 <octahedronGeometry args={[1, 0]} />
-                <SigilMaterial />
+                {SharedSigilMaterial}
             </mesh>
         </SigilWrapper>
     );
@@ -95,11 +99,11 @@ export function KlepsydraSigil(props: { className?: string }) {
         <SigilWrapper {...props}>
             <mesh position={[0, 0.5, 0]}>
                 <coneGeometry args={[0.8, 1, 4]} />
-                <SigilMaterial />
+                {SharedSigilMaterial}
             </mesh>
             <mesh position={[0, -0.5, 0]} rotation={[Math.PI, 0, 0]}>
                 <coneGeometry args={[0.8, 1, 4]} />
-                <SigilMaterial />
+                {SharedSigilMaterial}
             </mesh>
         </SigilWrapper>
     );
@@ -110,7 +114,7 @@ export function PantheonSigil(props: { className?: string }) {
         <SigilWrapper {...props}>
             <mesh>
                 <dodecahedronGeometry args={[1, 0]} />
-                <SigilMaterial />
+                {SharedSigilMaterial}
             </mesh>
         </SigilWrapper>
     );
@@ -121,7 +125,7 @@ export function ArmorySigil(props: { className?: string }) {
         <SigilWrapper {...props}>
             <mesh>
                 <torusKnotGeometry args={[0.7, 0.2, 128, 16, 2, 3]} />
-                <SigilMaterial />
+                {SharedSigilMaterial}
             </mesh>
         </SigilWrapper>
     );
@@ -132,7 +136,7 @@ export function ObeliskMarketplaceSigil(props: { className?: string }) {
         <SigilWrapper {...props}>
             <mesh>
                 <torusGeometry args={[0.8, 0.3, 16, 100]} />
-                <SigilMaterial />
+                {SharedSigilMaterial}
             </mesh>
         </SigilWrapper>
     );
@@ -152,7 +156,7 @@ export function SovereignsSigil(props: { className?: string }) {
                 </mesh>
                 <mesh position={[0, 1.25, 0]}>
                     <icosahedronGeometry args={[0.3, 0]} />
-                    <SigilMaterial />
+                    {SharedSigilMaterial}
                 </mesh>
             </group>
         </SigilWrapper>

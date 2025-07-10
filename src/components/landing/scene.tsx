@@ -4,13 +4,12 @@
 import * as React from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useScroll, Stars } from '@react-three/drei';
-import type { AppRouterInstance } from 'next/navigation';
 import { Monolith } from './monolith';
 import { AgentSwarm } from './agent-swarm';
 import { Section, sections } from './section';
 import { CommandPrompt } from './command-prompt';
 
-export function LandingScene({ router }: { router: AppRouterInstance }) {
+export function LandingScene() {
   const scroll = useScroll();
   const { camera } = useThree();
 
@@ -27,6 +26,8 @@ export function LandingScene({ router }: { router: AppRouterInstance }) {
 
   return (
     <>
+      <ambientLight intensity={0.5} />
+      <pointLight position={[10, 10, 10]} color="hsl(var(--primary))" intensity={2} />
       <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
       <Monolith />
       
@@ -64,7 +65,7 @@ export function LandingScene({ router }: { router: AppRouterInstance }) {
       </group>
 
       <Section start={sections.cta.start} end={sections.cta.end} className="flex flex-col items-center justify-center text-center">
-        <CommandPrompt router={router} />
+        <CommandPrompt />
       </Section>
     </>
   );
