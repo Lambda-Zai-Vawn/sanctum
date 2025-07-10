@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, type AppRouterInstance } from 'next/navigation';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { ScrollControls, useScroll, Html, Stars, Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
@@ -166,10 +166,9 @@ function Section({ children, start, end, ...props }: any) {
   return <Html ref={ref} portal={{current: scroll.fixed}} {...props}>{children}</Html>
 }
 
-function CommandPrompt() {
+function CommandPrompt({ router }: { router: AppRouterInstance }) {
   const [input, setInput] = React.useState('');
   const [typed, setTyped] = React.useState('');
-  const router = useRouter();
   const placeholder = "Type INITIATE_RITE and press Enter";
 
   React.useEffect(() => {
@@ -210,7 +209,7 @@ function CommandPrompt() {
   );
 }
 
-function Scene() {
+function Scene({ router }: { router: AppRouterInstance }) {
   const scroll = useScroll();
   const { camera } = useThree();
 
@@ -264,7 +263,7 @@ function Scene() {
       </group>
 
       <Section start={sections.cta.start} end={sections.cta.end} className="flex flex-col items-center justify-center text-center">
-        <CommandPrompt/>
+        <CommandPrompt router={router} />
       </Section>
     </>
   );
@@ -279,25 +278,24 @@ function Footer() {
     return (
         <Html portal={{current: scroll.fixed}} as="footer" className="w-full bottom-0 p-4">
             <div className="w-full text-center text-xs text-foreground/50">
-                <p>
-                    <button onClick={scrollToTop} className="mx-auto block mb-2 text-primary hover:text-glow focus:outline-none">
-                        <LambdaXiVONIcon className="h-6 w-6" />
-                    </button>
-                    ΛΞVON Inc © 2025 | Terms of Sovereignty | Privacy Protocol
-                </p>
+                <button onClick={scrollToTop} className="mx-auto block mb-2 text-primary hover:text-glow focus:outline-none">
+                    <LambdaXiVONIcon className="h-6 w-6" />
+                </button>
+                <p>ΛΞVON Inc © 2025 | Terms of Sovereignty | Privacy Protocol</p>
             </div>
         </Html>
     )
 }
 
 export default function HomeContent() {
+  const router = useRouter();
   return (
     <div className="h-svh w-full bg-background">
       <Canvas>
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} color="hsl(var(--primary))" intensity={2} />
         <ScrollControls pages={6} damping={0.2}>
-          <Scene />
+          <Scene router={router}/>
           <Footer />
         </ScrollControls>
       </Canvas>
