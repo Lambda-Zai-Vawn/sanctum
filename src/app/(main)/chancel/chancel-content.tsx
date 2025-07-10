@@ -3,13 +3,10 @@
 "use client";
 
 import * as React from "react";
+import ReactMarkdown from "react-markdown";
 import { PageHeader } from "@/components/page-header";
 import { GlassCard } from "@/components/glass-card";
-import { ArrowRight, Loader2, Sparkles } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
-import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { cn } from "@/lib/utils";
+import { Loader2, Sparkles } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
@@ -65,7 +62,7 @@ export default function ChancelContent() {
                         disabled={loading}
                         className="text-base"
                     />
-                    <Button type="submit" disabled={loading || !topic} className="font-headline">
+                    <Button type="submit" disabled={loading || !topic}>
                         {loading ? <Loader2 className="animate-spin" /> : <Sparkles className="h-4 w-4" />}
                         <span>{loading ? "Forging..." : "Ignite"}</span>
                     </Button>
@@ -83,7 +80,7 @@ export default function ChancelContent() {
                         <h2 className="!text-3xl !mb-2">{communique.title}</h2>
                         <p className="lead !text-foreground/70 !my-0"><em>{communique.excerpt}</em></p>
                         <hr className="!my-6 !border-border" />
-                        {communique.content.split('\n\n').map((paragraph, i) => <p key={i}>{paragraph.trim()}</p>)}
+                        <ReactMarkdown>{communique.content}</ReactMarkdown>
                     </div>
                 </GlassCard>
             </div>

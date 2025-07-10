@@ -30,14 +30,25 @@ export function PageHeader({ title, subtitle, children, animationType = 'fade' }
         )} style={{ animationDelay: '150ms' }}>
         {subtitle}
       </p>
-      <div 
-        className={cn(
-            "mt-8 w-48 h-px mx-auto bg-gradient-to-r from-transparent via-accent to-transparent", 
-            isInView ? animationClass : 'opacity-0'
-        )}
-        style={{ animationDelay: '300ms' }}
-      />
-      {children}
+      {children ? (
+        <div 
+          className={cn(
+              "w-full",
+              isInView ? animationClass : 'opacity-0'
+          )}
+          style={{ animationDelay: '300ms' }}
+        >
+          {children}
+        </div>
+      ) : (
+         <div 
+          className={cn(
+              "mt-8 w-48 h-px mx-auto bg-gradient-to-r from-transparent via-accent to-transparent", 
+              isInView ? animationClass : 'opacity-0'
+          )}
+          style={{ animationDelay: '300ms' }}
+        />
+      )}
     </header>
   );
 }

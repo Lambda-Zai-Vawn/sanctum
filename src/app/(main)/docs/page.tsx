@@ -1,6 +1,7 @@
 
 "use client"
 import * as React from "react";
+import ReactMarkdown from "react-markdown";
 import { Loader2 } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { Input } from "@/components/ui/input";
@@ -49,7 +50,7 @@ export default function DocsPage() {
                                 disabled={loading}
                                 className="text-base"
                             />
-                            <Button type="submit" disabled={loading || !term} className="font-headline">
+                            <Button type="submit" disabled={loading || !term}>
                                 {loading ? <Loader2 className="animate-spin" /> : "Inquire"}
                             </Button>
                         </div>
@@ -58,8 +59,8 @@ export default function DocsPage() {
                     {definition && !loading && !error && (
                         <Alert className="mt-4 text-left">
                             <AlertTitle className="font-headline text-glow">The Lorekeeper Speaks:</AlertTitle>
-                            <AlertDescription className="pt-2 text-base text-foreground/80">
-                                {definition}
+                            <AlertDescription className="prose prose-invert pt-2 text-base prose-p:text-foreground/80">
+                                <ReactMarkdown>{definition}</ReactMarkdown>
                             </AlertDescription>
                         </Alert>
                     )}
