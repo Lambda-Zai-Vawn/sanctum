@@ -69,7 +69,7 @@ function SaaSParticles({ count = 200 }) {
         if (!pointsRef.current) return;
         
         const problemRange = scroll.range(sections.problem.start, sections.problem.end - sections.problem.start);
-        pointsRef.current.material.opacity = problemRange * 2;
+        (pointsRef.current.material as THREE.PointsMaterial).opacity = problemRange * 2;
         pointsRef.current.visible = problemRange > 0;
 
         const solutionRange = scroll.range(sections.solution.start, sections.solution.end - sections.solution.start);
@@ -82,7 +82,7 @@ function SaaSParticles({ count = 200 }) {
                 pos.setXYZ(i, x, y, z);
             }
             pos.needsUpdate = true;
-            pointsRef.current.material.opacity = Math.max(0, 1.0 - solutionRange * 2);
+            (pointsRef.current.material as THREE.PointsMaterial).opacity = Math.max(0, 1.0 - solutionRange * 2);
         } else if (problemRange <= 0) {
             pointsRef.current.geometry.attributes.position.array.set(originalPositions);
             pointsRef.current.geometry.attributes.position.needsUpdate = true;
@@ -121,7 +121,7 @@ function Monolith() {
     const progressToRevelation = scroll.offset / revelationStart;
 
     if (monolithRef.current) {
-        monolithRef.current.material.opacity = Math.max(0, 1 - progressToRevelation * 1.5);
+        (monolithRef.current.material as THREE.MeshPhysicalMaterial).opacity = Math.max(0, 1 - progressToRevelation * 1.5);
         monolithRef.current.visible = progressToRevelation < 0.9;
     }
   });
@@ -278,7 +278,7 @@ function Footer() {
 
     return (
         <Html portal={{current: scroll.fixed}} as="footer" className="w-full bottom-0 p-4">
-            <div className="w-full text-center text-xs text-foreground/50 font-code">
+            <div className="w-full text-center text-xs text-foreground/50">
                 <p>
                     <button onClick={scrollToTop} className="mx-auto block mb-2 text-primary hover:text-glow focus:outline-none">
                         <LambdaXiVONIcon className="h-6 w-6" />
