@@ -2,8 +2,8 @@
 "use client";
 
 import * as React from 'react';
-import { useScroll, useThree, useFrame } from '@react-three/drei';
-import { Stars } from '@react-three/drei';
+import { useFrame, useThree } from '@react-three/fiber';
+import { useScroll, Stars } from '@react-three/drei';
 import type { AppRouterInstance } from 'next/navigation';
 import { Monolith } from './monolith';
 import { AgentSwarm } from './agent-swarm';
