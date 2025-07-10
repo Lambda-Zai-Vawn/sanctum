@@ -276,17 +276,19 @@ function Footer() {
     };
 
     return (
-        <Html portal={{current: scroll.fixed}} as="footer" className="w-full bottom-0 p-4">
-            <div className="w-full flex flex-col items-center text-center text-xs text-foreground/50">
+        <Html portal={{current: scroll.fixed}} as="footer" className="w-full bottom-0 p-4 pointer-events-none">
+            <div className="w-full flex flex-col items-center text-center text-xs text-foreground/50 pointer-events-auto">
                 <button onClick={scrollToTop} className="mb-4 text-primary hover:text-glow focus:outline-none">
                     <LambdaXiVONIcon className="h-10 w-10" style={{filter: 'drop-shadow(0 0 10px hsl(var(--primary)))'}} />
                 </button>
-                <p>ΛΞVON Inc</p>
-                <p>© 2025</p>
-                <p>|</p>
-                <p>Terms of Sovereignty</p>
-                <p>|</p>
-                <p>Privacy Protocol</p>
+                <div className="flex flex-col items-center gap-1">
+                  <p>ΛΞVON Inc</p>
+                  <p>© 2025</p>
+                  <p>|</p>
+                  <p>Terms of Sovereignty</p>
+                  <p>|</p>
+                  <p>Privacy Protocol</p>
+                </div>
             </div>
         </Html>
     )
