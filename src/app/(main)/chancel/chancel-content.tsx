@@ -7,36 +7,40 @@ import ReactMarkdown from "react-markdown";
 import { PageHeader } from "@/components/page-header";
 import { GlassCard } from "@/components/glass-card";
 import { Loader2, Sparkles } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { generateCommunique, type ChancelScribeOutput } from "@/ai/flows/chancel-scribe-flow";
+import { useVoiceTranscription } from "@/hooks/use-voice-transcription";
+import { MicrophoneIcon } from "@/components/icons";
 
 export default function ChancelContent() {
-  const [topic, setTopic] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
+  const [isForging, setIsForging] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [communique, setCommunique] = React.useState<ChancelScribeOutput | null>(null);
 
-  const handleGenerateCommunique = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleGenerateCommunique = async (topic: string) => {
     if (!topic) return;
 
-    setLoading(true);
+    setIsForging(true);
     setError(null);
     setCommunique(null);
 
     try {
-        const result = await generateCommunique({ topic });
-        setCommunique(result);
+      const result = await generateCommunique({ topic });
+      setCommunique(result);
     } catch (err) {
-        setError("The Scribe is otherwise occupied. Contemplate your query and try again.");
-        console.error(err);
+      setError("The Scribe is otherwise occupied. Contemplate your query and try again.");
+      console.error(err);
     } finally {
-        setLoading(false);
+      setIsForging(false);
     }
   };
 
+  const { isListening, isTranscribing, transcript, start, stop } = useVoiceTranscription({
+    onTranscriptionEnd: handleGenerateCommunique,
+  });
+
+  const isLoading = isListening || isTranscribing || isForging;
 
   return (
     <div className="container mx-auto px-4">
@@ -48,31 +52,34 @@ export default function ChancelContent() {
       <section className="py-8">
         <GlassCard className="max-w-3xl mx-auto p-8">
             <div className="text-center">
-                <h2 className="font-headline text-3xl font-semibold text-glow mb-4">Ignite a Communique</h2>
+                <h2 className="font-headline text-3xl font-semibold text-glow mb-4">The Orator's Crucible</h2>
                 <p className="text-foreground/80 mb-8">
-                    Present a topic to the Chancel Scribe. From your raw thought, a new doctrine will be forged.
+                    Speak your raw thought. The Chancel Scribe is listening. From your voice, a new doctrine will be forged.
                 </p>
             </div>
-            <form onSubmit={handleGenerateCommunique} className="w-full">
-                <div className="flex gap-2">
-                    <Input
-                        value={topic}
-                        onChange={(e) => setTopic(e.target.value)}
-                        placeholder="e.g., The nature of digital identity"
-                        disabled={loading}
-                        className="text-base"
-                    />
-                    <Button type="submit" disabled={loading || !topic}>
-                        {loading ? <Loader2 className="animate-spin" /> : <Sparkles className="h-4 w-4" />}
-                        <span>{loading ? "Forging..." : "Ignite"}</span>
-                    </Button>
+            
+            <div className="w-full flex flex-col items-center gap-6">
+                <Button 
+                  size="icon" 
+                  className="h-24 w-24 rounded-full" 
+                  onClick={isListening ? stop : start}
+                  disabled={isTranscribing || isForging}
+                >
+                  {isLoading ? <Loader2 className="h-10 w-10 animate-spin" /> : <MicrophoneIcon className={`h-10 w-10 ${isListening ? 'text-accent' : ''}`} />}
+                </Button>
+                 <div className="h-12 text-center text-foreground/70 italic">
+                    {isListening && <p className="animate-pulse">The Scribe is listening...</p>}
+                    {isTranscribing && <p>The Scribe contemplates your words...</p>}
+                    {isForging && <p>The Scribe forges your thought into doctrine...</p>}
+                    {!isLoading && transcript && <p>"{transcript}"</p>}
+                    {!isLoading && !transcript && <p>Press the orb to begin dictation.</p>}
                 </div>
-            </form>
+            </div>
         </GlassCard>
 
         {error && <Alert variant="destructive" className="mt-8 max-w-3xl mx-auto text-left"><AlertTitle>A Disturbance</AlertTitle><AlertDescription>{error}</AlertDescription></Alert>}
 
-        {communique && !loading && !error && (
+        {communique && !isLoading && !error && (
             <div className="mt-12 max-w-4xl mx-auto">
                 <GlassCard className="p-8 md:p-12">
                     <div className="prose prose-invert max-w-none prose-p:text-foreground/80 prose-headings:font-headline prose-h2:font-semibold prose-headings:text-glow prose-headings:text-foreground prose-a:text-accent prose-strong:text-foreground">
