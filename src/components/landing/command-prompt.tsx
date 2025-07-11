@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from 'react';
-import { type AppRouterInstance } from 'next/navigation';
+import { type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 export function CommandPrompt({ router }: { router: AppRouterInstance }) {
     const [input, setInput] = React.useState('');
