@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import TreasuryContent from "./treasury-content";
 
