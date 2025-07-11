@@ -3,10 +3,7 @@
 
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
-import { GlassCard } from "@/components/glass-card";
 import { Button } from "@/components/ui/button";
-import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { cn } from "@/lib/utils";
 import { ObeliskCanvas } from "@/components/ledger/obelisk-canvas";
 import { SermonScroll } from "@/components/ledger/sermon-scroll";
 import { Marketplace } from "@/components/ledger/marketplace";
