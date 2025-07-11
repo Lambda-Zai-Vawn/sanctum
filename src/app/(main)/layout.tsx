@@ -1,3 +1,5 @@
+
+import { CommandDialog } from "@/components/command-dialog";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/navigation";
 
@@ -19,6 +21,7 @@ export default function MainLayout({
             </main>
             <Footer />
         </div>
+        <CommandDialog />
     </div>
   );
 }

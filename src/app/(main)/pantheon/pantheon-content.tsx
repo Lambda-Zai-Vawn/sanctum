@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import Link from "next/link";
@@ -54,6 +53,14 @@ const components = [
 export default function PantheonContent() {
   const componentsSection = useScrollAnimation();
 
+  // In a real app, this would be handled by a global command/modal state
+  const openCommandPaletteWithTerm = (term: string) => {
+    // This is a placeholder for the real implementation
+    // A real implementation would likely use a global state manager (Zustand, Context)
+    // to open the command palette and set its initial input value.
+    alert(`The Scriptorium has been summoned for: ${term}\n\n(This would open the command palette)`);
+  };
+
   return (
     <div className="container mx-auto px-4">
       <PageHeader
@@ -76,10 +83,13 @@ export default function PantheonContent() {
               </div>
               <h3 className="font-headline text-2xl font-semibold text-center mb-3 text-glow">{component.name}</h3>
               <p className="text-foreground/80 text-center flex-grow mb-6">{component.description}</p>
-              <Link href={`/docs#${component.name.toLowerCase().replace(/ /g, '-')}`} className="inline-flex items-center justify-center text-accent font-bold group mt-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm">
+              <button 
+                onClick={() => openCommandPaletteWithTerm(component.name)}
+                className="inline-flex items-center justify-center text-accent font-bold group mt-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+              >
                 <span className="transition-all group-hover:text-glow">Consult the Scriptorium</span>
                 <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
-              </Link>
+              </button>
             </GlassCard>
           </div>
         ))}

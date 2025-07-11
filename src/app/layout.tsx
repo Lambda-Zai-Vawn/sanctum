@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.aevon.io'),
@@ -39,7 +40,7 @@ const organizationSchema = {
   "name": "ΛΞVON",
   "url": "https://www.aevon.io",
   "logo": "https://placehold.co/200x200.png",
-  "description": "ΛΞVON builds agentic mythware to replace outdated SaaS, offering a unified OS for business sovereignty.",
+  "description": "ΛΞVON builds agentic mythware to replace outdated SaaS, a unified OS for business sovereignty.",
   "sameAs": []
 };
 
@@ -59,7 +60,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Lexend:wght@400;500;700&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-body antialiased bg-background text-foreground">
+      <body className={cn("font-body", "antialiased", "bg-background", "text-foreground")}>
         {children}
         <Toaster />
       </body>
