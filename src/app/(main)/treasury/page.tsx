@@ -3,11 +3,11 @@ import type { Metadata } from 'next';
 import TreasuryContent from "./treasury-content";
 
 export const metadata: Metadata = {
-    title: "The Treasury: An Invitation to Forge the Post-SaaS Economy",
-    description: "This is not an investment memo. This is a declaration of economic conquest. Discover the investment thesis for ΛΞVON OS and our path to market dominance.",
+    title: "The Sovereign's Ledger: The Architecture of a New Economy",
+    description: "This is not a vault; it is an engine. Discover the closed-loop economic reality of ΛΞVON OS, powered by ΞCredits and the KLEPSYDRA Protocol.",
     openGraph: {
-        title: "The Treasury: An Invitation to Forge the Post-SaaS Economy",
-        description: "This is not an investment memo. This is a declaration of economic conquest. Discover the investment thesis for ΛΞVON OS and our path to market dominance.",
+        title: "The Sovereign's Ledger: The Architecture of a New Economy",
+        description: "This is not a vault; it is an engine. Discover the closed-loop economic reality of ΛΞVON OS, powered by ΞCredits and the KLEPSYDRA Protocol.",
     }
 };
 

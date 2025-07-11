@@ -45,19 +45,9 @@ export const OrbIcon = (props: React.HTMLAttributes<SVGElement>) => (
 );
 
 export const ObeliskIcon = (props: React.HTMLAttributes<SVGElement>) => (
-    <IconWrapper viewBox="0 0 100 280" {...props}>
-        <defs>
-            <linearGradient id="obeliskGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#111" />
-                <stop offset="50%" stopColor="#333" />
-                <stop offset="100%" stopColor="#111" />
-            </linearGradient>
-            <filter id="obeliskGlow">
-                <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="hsl(var(--primary))" floodOpacity="0.5" />
-            </filter>
-        </defs>
-        <path d="M40,0 L60,0 L90,270 L10,270 Z" fill="url(#obeliskGradient)" filter="url(#obeliskGlow)" />
-        <path d="M40,0 L60,0 L50,10 Z" fill="hsl(var(--accent))" />
+    <IconWrapper viewBox="0 0 24 24" {...props}>
+        <path d="M6 2h12l-2 20H8L6 2z" />
+        <path d="M6 2L12 0l6 2" />
     </IconWrapper>
 );
 
