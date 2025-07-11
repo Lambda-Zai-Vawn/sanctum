@@ -1,6 +1,7 @@
 
 "use client"
 import * as React from "react";
+import { useSearchParams } from 'next/navigation';
 import ReactMarkdown from "react-markdown";
 import { Loader2 } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
@@ -9,22 +10,24 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { getDefinition } from "@/ai/flows/glossary-flow";
 
-export default function DocsPage() {
-    const [term, setTerm] = React.useState("");
+function ScriptoriumContent() {
+    const searchParams = useSearchParams();
+    const initialTerm = searchParams.get('term');
+    
+    const [term, setTerm] = React.useState(initialTerm || "");
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState<string | null>(null);
     const [definition, setDefinition] = React.useState<string | null>(null);
 
-    const handleGetDefinition = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!term) return;
+    const handleGetDefinition = React.useCallback(async (currentTerm: string) => {
+        if (!currentTerm) return;
 
         setLoading(true);
         setError(null);
         setDefinition(null);
 
         try {
-            const result = await getDefinition({ term });
+            const result = await getDefinition({ term: currentTerm });
             setDefinition(result.definition);
         } catch (err) {
             setError("The Lorekeeper is silent. Please try again later.");
@@ -32,6 +35,18 @@ export default function DocsPage() {
         } finally {
             setLoading(false);
         }
+    }, []);
+
+    React.useEffect(() => {
+        if (initialTerm) {
+            setTerm(initialTerm);
+            handleGetDefinition(initialTerm);
+        }
+    }, [initialTerm, handleGetDefinition]);
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        handleGetDefinition(term);
     };
 
     return (
@@ -41,7 +56,7 @@ export default function DocsPage() {
                 subtitle="Where arcane knowledge becomes a weapon. You struggle with opaque systems; the Scriptorium illuminates every protocol, transforming confusion into mastery. This is the source of truth."
             >
                  <div className="mt-8 max-w-xl mx-auto">
-                    <form onSubmit={handleGetDefinition} className="w-full">
+                    <form onSubmit={handleSubmit} className="w-full">
                         <div className="flex gap-2">
                             <Input
                                 value={term}
@@ -67,5 +82,14 @@ export default function DocsPage() {
                 </div>
             </PageHeader>
         </div>
+    )
+}
+
+
+export default function DocsPage() {
+    return (
+        <React.Suspense fallback={<div>Loading Scriptorium...</div>}>
+            <ScriptoriumContent />
+        </React.Suspense>
     )
 }

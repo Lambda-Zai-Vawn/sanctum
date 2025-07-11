@@ -1,26 +1,26 @@
-
 "use client";
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { OrbIcon } from "@/components/icons";
 
 const navLinks = [
-  { href: "/", label: "The Nexus" },
-  { href: "/pantheon", label: "The Pantheon" },
-  { href: "/sigil", label: "The Sovereign's Sigil" },
-  { href: "/aegis-post", label: "The Aegis Post" },
-  { href: "/chancel", label: "The Chancel" },
-  { href: "/docs", label: "The Scriptorium" },
-  { href: "/treasury", label: "The Treasury" },
+  { href: "/", label: "The Nexus", isQuery: false },
+  { href: "/pantheon", label: "The Pantheon", isQuery: true },
+  { href: "/sigil", label: "The Sovereign's Sigil", isQuery: true },
+  { href: "/aegis-post", label: "The Aegis Post", isQuery: true },
+  { href: "/chancel", label: "The Chancel", isQuery: true },
+  { href: "/docs", label: "The Scriptorium", isQuery: false },
+  { href: "/treasury", label: "The Treasury", isQuery: true },
 ];
 
 export function Navigation() {
   const [isOpen, setIsOpen] = React.useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   React.useEffect(() => {
     // When route changes, close menu
@@ -35,6 +35,14 @@ export function Navigation() {
     }
     return () => { document.body.style.overflow = 'auto'; };
   }, [isOpen]);
+
+  const handleLinkClick = (e: React.MouseEvent, link: typeof navLinks[0]) => {
+    if (link.isQuery) {
+        e.preventDefault();
+        const encodedTerm = encodeURIComponent(link.label);
+        router.push(`/docs?term=${encodedTerm}`);
+    }
+  };
 
   return (
     <>
@@ -70,10 +78,14 @@ export function Navigation() {
                     transitionDelay: isOpen ? `${i * 100}ms` : '0ms'
                   }}
                 >
-                  <Link href={link.href} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm">
+                  <Link 
+                    href={link.href}
+                    onClick={(e) => handleLinkClick(e, link)}
+                    className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+                  >
                     <span className={cn(
                       "font-headline text-4xl md:text-5xl text-foreground/70 transition-all duration-300 hover:text-foreground hover:text-glow hover:-translate-y-1 focus-visible:text-glow focus-visible:-translate-y-1",
-                      pathname === link.href && "text-foreground text-glow"
+                      pathname === link.href && !link.isQuery && "text-foreground text-glow"
                     )}>
                       {link.label}
                     </span>
