@@ -14,7 +14,7 @@ const navLinks = [
   { href: "/sigil", label: "The Sovereign's Sigil" },
   { href: "/aegis-post", label: "The Aegis Post" },
   { href: "/chancel", label: "The Chancel" },
-  { href: "/treasury", label: "The Treasury" },
+  { href: "/ledger", label: "The Sovereign's Ledger" },
 ];
 
 export function Navigation() {
