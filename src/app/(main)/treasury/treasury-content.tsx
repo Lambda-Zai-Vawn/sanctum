@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -8,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 import { InteractiveObelisk } from "@/components/interactive-obelisk";
-import { Gem, ShieldCheck, Zap, HandCoins, BrainCircuit, SquareTerminal, Briefcase, GemIcon, Award } from "lucide-react";
+import { Award, Briefcase, GemIcon, SquareTerminal } from "lucide-react";
 
 const Section = ({ children, className }: { children: React.ReactNode, className?: string }) => {
     const { ref, isInView } = useScrollAnimation();
