@@ -17,7 +17,8 @@ export function LandingFooter() {
                 <button onClick={scrollToTop} className="mb-4 text-primary hover:text-glow focus:outline-none">
                     <LambdaXiVONIcon className="h-10 w-10" style={{filter: 'drop-shadow(0 0 10px hsl(var(--primary)))'}} />
                 </button>
-                <p>ΛΞVON Inc | © 2025 | Terms of Sovereignty | Privacy Protocol</p>
+                <p>ΛΞVON Inc | © 2025</p>
+                <p>Terms of Sovereignty | Privacy Protocol</p>
             </div>
         </Html>
     )
