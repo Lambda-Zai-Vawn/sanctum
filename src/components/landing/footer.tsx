@@ -12,7 +12,7 @@ export function LandingFooter() {
     };
 
     return (
-        <Html portal={{current: scroll.fixed}} as="footer" className="w-full bottom-0 p-4 pointer-events-none">
+        <Html as="footer" portal={{current: scroll.fixed}} className="w-full bottom-0 p-4 pointer-events-none">
             <div className="w-full flex flex-col items-center text-center text-xs text-foreground/50 pointer-events-auto">
                 <button onClick={scrollToTop} className="mb-4 text-primary hover:text-glow focus:outline-none">
                     <LambdaXiVONIcon className="h-10 w-10" style={{filter: 'drop-shadow(0 0 10px hsl(var(--primary)))'}} />
