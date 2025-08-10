@@ -9,7 +9,6 @@ import { AgentSwarm } from './agent-swarm';
 import { Section, sections } from './section';
 import { CommandPrompt } from './command-prompt';
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { useRouter } from 'next/navigation';
 
 export function LandingScene({ router }: { router: AppRouterInstance }) {
   const scroll = useScroll();
