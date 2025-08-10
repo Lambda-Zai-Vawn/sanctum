@@ -2,6 +2,7 @@
 import { CommandDialog } from "@/components/command-dialog";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/navigation";
+import { Soundscape } from "@/components/soundscape";
 
 export default function MainLayout({
   children,
@@ -22,6 +23,7 @@ export default function MainLayout({
             <Footer />
         </div>
         <CommandDialog />
+        <Soundscape />
     </div>
   );
 }
