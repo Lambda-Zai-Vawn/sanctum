@@ -4,9 +4,40 @@
 import * as React from 'react';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { cn } from '@/lib/utils';
-import { LambdaXiVONIcon, ChainsIcon, ShatteredIcon, SkullIcon } from '@/components/icons';
+import { LambdaXiVONIcon, ShatteredIcon } from '@/components/icons';
 import { Button } from '../ui/button';
 import Link from 'next/link';
+
+const mobileSections = [
+  {
+    icon: <ShatteredIcon className="w-16 h-16 text-destructive mb-6" />,
+    title: "The SaaS Industrial Complex is a parasite.",
+    paragraphs: [
+      "A reality of 112-253 disparate apps.",
+      "A reality of $135,000 in wasted annual spending.",
+      "A reality of constant, draining administrative tax.",
+    ],
+    textAlign: "text-left"
+  },
+  {
+    icon: <LambdaXiVONIcon className="w-16 h-16 text-primary mb-6" />,
+    title: "We don't fix SaaS. We end it.",
+    paragraphs: [
+      "ΛΞVON OS is not a tool.",
+      "It is a sovereign agentic operating system.",
+      "It delivers sovereignty, not a dashboard.",
+    ],
+    textAlign: "text-left"
+  },
+  {
+    title: "This is self-assembling software.",
+    paragraphs: [
+      "Our methodology is the product.",
+      "We are building the machine that builds the machine.",
+    ],
+    textAlign: "text-center"
+  }
+];
 
 function MobileHero() {
     return (
@@ -22,10 +53,15 @@ function MobileHero() {
     )
 }
 
-function MobileSection({ children, className }: { children: React.ReactNode, className?: string }) {
+function MobileSection({ icon, title, paragraphs, textAlign, children, className }: { icon?: React.ReactNode, title: string, paragraphs?: string[], textAlign?: string, children?: React.ReactNode, className?: string }) {
     const { ref, isInView } = useScrollAnimation();
     return (
-        <section ref={ref} className={cn("min-h-[50vh] p-8 flex flex-col justify-center transition-opacity duration-1000", isInView ? 'opacity-100' : 'opacity-0', className)}>
+        <section ref={ref} className={cn("min-h-[50vh] p-8 flex flex-col justify-center transition-opacity duration-1000", isInView ? 'opacity-100' : 'opacity-0', textAlign, className)}>
+            {icon}
+            <h2 className="text-3xl font-headline text-glow mb-4">{title}</h2>
+            {paragraphs && paragraphs.map((p, i) => (
+                <p key={i} className="text-lg text-foreground/80">{p}</p>
+            ))}
             {children}
         </section>
     )
@@ -36,32 +72,19 @@ export function MobileLanding() {
     <div className="w-full bg-background">
       <MobileHero />
 
-      <MobileSection className="text-left">
-        <ShatteredIcon className="w-16 h-16 text-destructive mb-6" />
-        <h2 className="text-3xl font-headline text-glow mb-4">The SaaS Industrial Complex is a parasite.</h2>
-        <p className="text-lg text-foreground/80">A reality of 112-253 disparate apps.</p>
-        <p className="text-lg text-foreground/80">A reality of $135,000 in wasted annual spending.</p>
-        <p className="text-lg text-foreground/80">A reality of constant, draining administrative tax.</p>
-      </MobileSection>
-
-      <MobileSection className="text-left">
-        <LambdaXiVONIcon className="w-16 h-16 text-primary mb-6" />
-        <h2 className="text-3xl font-headline text-glow mb-4">We don't fix SaaS. We end it.</h2>
-        <p className="text-lg text-foreground/80">ΛΞVON OS is not a tool.</p>
-        <p className="text-lg text-foreground/80">It is a sovereign agentic operating system.</p>
-        <p className="text-lg text-foreground/80">It delivers sovereignty, not a dashboard.</p>
-      </MobileSection>
+      {mobileSections.map((section, index) => (
+        <MobileSection 
+          key={index}
+          icon={section.icon}
+          title={section.title}
+          paragraphs={section.paragraphs}
+          textAlign={section.textAlign}
+        />
+      ))}
       
-      <MobileSection className="text-center">
-        <h2 className="text-3xl font-headline text-glow mb-4">This is self-assembling software.</h2>
-        <p className="text-lg text-foreground/80">Our methodology is the product.</p>
-        <p className="text-lg text-foreground/80">We are building the machine that builds the machine.</p>
-      </MobileSection>
-      
-      <MobileSection className="text-center">
-        <h2 className="text-3xl font-headline text-glow mb-4">You have witnessed the architecture.</h2>
+      <MobileSection title="You have witnessed the architecture." textAlign="text-center">
         <p className="text-lg text-foreground/80 mb-8">Sovereignty requires a vow.</p>
-        <Button size="lg" className="font-headline text-lg animate-glow-primary" asChild>
+        <Button size="lg" className="font-headline text-lg animate-glow-primary self-center" asChild>
             <Link href="/pantheon">[ BEGIN YOUR INITIATION ]</Link>
         </Button>
       </MobileSection>
