@@ -3,7 +3,6 @@ import { CommandDialog } from "@/components/command-dialog";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/navigation";
 import { Soundscape } from "@/components/soundscape";
-import { usePathname } from "next/navigation";
 
 export default function MainLayout({
   children,
