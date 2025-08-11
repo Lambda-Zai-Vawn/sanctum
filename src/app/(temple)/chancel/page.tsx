@@ -1,87 +1,152 @@
 
 "use client";
 
-import Link from "next/link";
+import * as React from 'react';
 import { PageHeader } from "@/components/page-header";
-import { GlassCard } from "@/components/glass-card";
 import { Button } from "@/components/ui/button";
-import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { cn } from "@/lib/utils";
-import { Check } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { generateCommunique, ChancelScribeOutput } from '@/ai/flows/chancel-scribe-flow';
+import { GlassCard } from '@/components/glass-card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Badge } from '@/components/ui/badge';
+import ReactMarkdown from 'react-markdown';
+import Image from 'next/image';
+import { Bot, Wand2 } from 'lucide-react';
 
-const pacts = [
-    {
-        name: "The Initiate's Pact",
-        price: "A Vow of Attention",
-        description: "Begin your pilgrimage. Access the core OS and wield a limited number of Agent Actions per month. Witness the silence of true automation.",
-        features: [
-            "Core ΛΞVON OS Access",
-            "Limited Agent Actions",
-            "Basic Agentic Mythware™",
-            "Scriptorium Access"
-        ],
-        cta: "Begin the Whisper"
-    },
-    {
-        name: "The Sovereign's Pact",
-        price: "A Monthly Tribute",
-        description: "Ascend to true command. Wield vast agentic power, access the Obelisk Marketplace, and earn the right to the Sovereign's Sigil.",
-        features: [
-            "Unlimited Agent Actions",
-            "Full Agentic Mythware™ Suite",
-            "Obelisk Marketplace Access",
-            "Priority Access to The Sovereign's Sigil"
-        ],
-        cta: "Declare Your Sovereignty"
-    }
-]
+const FormSchema = z.object({
+  topic: z.string().min(5, {
+    message: "Your thought must be at least 5 characters long.",
+  }).max(100, {
+      message: "The Scribe can only process thoughts up to 100 characters."
+  }),
+})
 
 export default function ChancelPage() {
-    const pactsSection = useScrollAnimation();
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [response, setResponse] = React.useState<ChancelScribeOutput | null>(null);
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      topic: "",
+    },
+  });
+
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setIsLoading(true);
+    setResponse(null);
+    try {
+      const res = await generateCommunique({ topic: data.topic });
+      setResponse(res);
+    } catch (error) {
+      console.error("Error generating communique:", error);
+      toast({
+        variant: "destructive",
+        title: "The Scribe Has Failed",
+        description: "An unexpected error occurred while forging the communique. The connection to the ether may have been lost.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <div className="container mx-auto px-4">
       <PageHeader
-        title="The Chancel"
-        subtitle="This is the final realm. The altar where a visitor can choose to become an Initiate. The Rite of Invocation begins here."
+        title="The Chancel Scribe"
+        subtitle="This is the altar of creation. Present a raw thought to the Scribe, and BEEP will transmute it into a full communique, forging it into the annals of the ΛΞVON doctrine."
       />
 
-      <section ref={pactsSection.ref} className="py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {pacts.map((pact, index) => (
-                 <div
-                    key={pact.name}
-                    className={cn(pactsSection.isInView ? "animate-fade-in-up" : "opacity-0")}
-                    style={{ animationDelay: `${200 + index * 150}ms` }}
-                >
-                    <GlassCard className="p-8 h-full flex flex-col">
-                        <h3 className="font-headline text-3xl font-semibold text-glow mb-2 text-center">{pact.name}</h3>
-                        <p className="font-headline text-lg text-primary text-center mb-4">{pact.price}</p>
-                        <p className="text-foreground/80 text-center flex-grow">{pact.description}</p>
-                        <ul className="my-8 space-y-3">
-                            {pact.features.map(feature => (
-                                <li key={feature} className="flex items-center gap-3">
-                                    <Check className="h-5 w-5 text-accent" />
-                                    <span className="text-foreground/90">{feature}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <Button size="lg" className="font-headline text-lg w-full mt-auto">
-                            {pact.cta}
-                        </Button>
-                    </GlassCard>
-                </div>
-            ))}
-        </div>
+      <section className="max-w-2xl mx-auto py-8">
+        <GlassCard className="p-6 md:p-8">
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <FormField
+                  control={form.control}
+                  name="topic"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className='text-lg font-headline'>Your Thought or Topic</FormLabel>
+                      <FormControl>
+                        <Input 
+                            placeholder="e.g., 'The nature of digital sovereignty'" 
+                            {...field} 
+                            className="text-base"
+                            disabled={isLoading}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" size="lg" className='w-full font-headline' disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Bot className="mr-2 h-5 w-5 animate-spin" />
+                      The Scribe is Forging...
+                    </>
+                  ) : (
+                    <>
+                      <Wand2 className="mr-2 h-5 w-5" />
+                      Transmute Thought
+                    </>
+                  )}
+                </Button>
+              </form>
+            </Form>
+        </GlassCard>
       </section>
 
-       <section className="text-center py-24">
-        <div className="max-w-2xl mx-auto">
-            <Button size="lg" className="font-headline text-lg mt-8 animate-glow-primary" asChild>
-                <Link href="/">[ Return to the Nexus ]</Link>
-            </Button>
-        </div>
+      <section className='py-12'>
+        {isLoading && <ScribeLoadingSkeleton />}
+        {response && <CommuniqueDisplay response={response} />}
       </section>
     </div>
   );
+}
+
+
+function CommuniqueDisplay({ response }: { response: ChancelScribeOutput }) {
+    return (
+        <GlassCard className='overflow-hidden'>
+            <div className="relative h-64 w-full">
+                <Image src={response.imageDataUri} alt={`Sigil for ${response.title}`} layout='fill' objectFit='cover' />
+                <div className='absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent' />
+            </div>
+            <div className='p-6 md:p-8'>
+                <Badge variant="outline" className='mb-2'>{response.category}</Badge>
+                <h2 className="font-headline text-3xl md:text-4xl text-glow mb-2">{response.title}</h2>
+                <p className='text-muted-foreground text-lg mb-6'>{response.excerpt}</p>
+                <div className='prose prose-invert max-w-none prose-p:text-foreground/80 prose-headings:text-glow prose-a:text-accent prose-strong:text-foreground'>
+                    <ReactMarkdown>{response.content}</ReactMarkdown>
+                </div>
+            </div>
+        </GlassCard>
+    );
+}
+
+function ScribeLoadingSkeleton() {
+  return (
+    <GlassCard className='overflow-hidden'>
+        <Skeleton className="h-64 w-full" />
+        <div className='p-6 md:p-8'>
+            <Skeleton className="h-6 w-24 mb-4" />
+            <Skeleton className="h-10 w-3/4 mb-2" />
+            <Skeleton className="h-8 w-full mb-6" />
+            <div className="space-y-3">
+              <Skeleton className="h-5 w-full" />
+              <Skeleton className="h-5 w-full" />
+              <Skeleton className="h-5 w-[90%]" />
+               <Skeleton className="h-5 w-full" />
+              <Skeleton className="h-5 w-[85%]" />
+            </div>
+        </div>
+    </GlassCard>
+  )
 }
