@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import { Color } from 'three';
 
 function Obelisk() {
@@ -50,7 +50,6 @@ export function InteractiveObelisk() {
         <pointLight position={[-10, -10, -10]} intensity={0.8} color="hsl(var(--accent))" />
         <React.Suspense fallback={null}>
             <Obelisk />
-            <Environment preset="city" />
         </React.Suspense>
         <OrbitControls 
           autoRotate 

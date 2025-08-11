@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Environment, useScroll } from '@react-three/drei';
+import { OrbitControls, useScroll } from '@react-three/drei';
 import * as THREE from 'three';
 
 function Obelisk() {
@@ -59,7 +59,6 @@ export function ObeliskCanvas() {
         <pointLight position={[-10, -10, 10]} intensity={1.5} color="hsl(var(--accent))" />
         <React.Suspense fallback={null}>
             <Obelisk />
-            <Environment preset="city" />
         </React.Suspense>
       </Canvas>
     </div>
