@@ -26,6 +26,15 @@
   }
 }
 
+@keyframes glow-accent {
+  0%, 100% { 
+    box-shadow: 0 0 20px hsl(var(--accent)/0.4), 0 0 30px hsl(var(--accent)/0.3);
+  }
+  50% { 
+    box-shadow: 0 0 30px hsl(var(--accent)/0.6), 0 0 45px hsl(var(--accent)/0.4);
+  }
+}
+
 @keyframes border-flow {
   0% {
     background-position: 0% 50%;
@@ -51,48 +60,48 @@
 
 @layer base {
   :root {
-    --background: 220 14% 10%;
+    --background: 210 14% 56%; /* conchoidal-gray: #778899 */
     --foreground: 210 40% 98%;
-    --card: 220 14% 12%;
+    --card: 210 14% 61%;
     --card-foreground: 210 40% 98%;
-    --popover: 220 14% 10%;
+    --popover: 210 14% 56%;
     --popover-foreground: 210 40% 98%;
-    --primary: 262 100% 50%; /* deep-purple: #5500ff */
+    --primary: 275 100% 34%; /* imperial-purple: #6A0DAD */
     --primary-foreground: 0 0% 98%;
-    --secondary: 220 14% 15%;
+    --secondary: 210 14% 61%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 220 14% 20%;
-    --muted-foreground: 220 10% 60%;
-    --accent: 187 100% 50%; /* aqua: #00f0ff */
-    --accent-foreground: 220 14% 10%;
+    --muted: 210 14% 66%;
+    --muted-foreground: 210 10% 80%;
+    --accent: 177 70% 41%; /* roman-aqua: #20B2AA */
+    --accent-foreground: 210 14% 10%;
     --destructive: 0 70% 50%;
     --destructive-foreground: 210 40% 98%;
-    --border: 220 14% 20%;
-    --input: 220 14% 15%;
-    --ring: 262 100% 50%;
+    --border: 210 14% 66%;
+    --input: 210 14% 61%;
+    --ring: 275 100% 34%;
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 0 0% 0%; /* obsidian-black */
+    --background: 210 14% 56%; /* conchoidal-gray: #778899 */
     --foreground: 0 0% 99%; /* vitreous-white */
-    --card: 220 14% 12%;
+    --card: 210 14% 61%;
     --card-foreground: 0 0% 99%;
-    --popover: 220 14% 10%;
+    --popover: 210 14% 56%;
     --popover-foreground: 0 0% 99%;
-    --primary: 262 100% 50%;
+    --primary: 275 100% 34%; /* imperial-purple: #6A0DAD */
     --primary-foreground: 0 0% 99%;
-    --secondary: 220 14% 15%;
+    --secondary: 210 14% 61%;
     --secondary-foreground: 0 0% 99%;
-    --muted: 220 14% 20%;
-    --muted-foreground: 220 10% 60%;
-    --accent: 187 100% 50%;
-    --accent-foreground: 220 14% 10%;
+    --muted: 210 14% 66%;
+    --muted-foreground: 210 10% 80%;
+    --accent: 177 70% 41%; /* roman-aqua: #20B2AA */
+    --accent-foreground: 210 14% 10%;
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 99%;
-    --border: 220 14% 20%;
-    --input: 220 14% 15%;
-    --ring: 262 100% 50%;
+    --border: 210 14% 66%;
+    --input: 210 14% 61%;
+    --ring: 275 100% 34%;
     --radius: 0.5rem;
   }
 }
