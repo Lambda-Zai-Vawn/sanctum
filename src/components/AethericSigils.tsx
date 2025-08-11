@@ -26,13 +26,11 @@ const SigilMaterial = React.memo(() => {
 });
 SigilMaterial.displayName = 'SigilMaterial';
 
-
-type SigilWrapperProps = {
+type SigilAnimatorProps = {
   children: React.ReactNode;
-  className?: string;
 };
 
-const SigilWrapper = ({ children, className }: SigilWrapperProps) => {
+const SigilAnimator = ({ children }: SigilAnimatorProps) => {
     const meshRef = React.useRef<THREE.Group>(null);
     useFrame((state, delta) => {
         if (meshRef.current) {
@@ -41,15 +39,25 @@ const SigilWrapper = ({ children, className }: SigilWrapperProps) => {
         }
     });
 
+    return <group ref={meshRef}>{children}</group>;
+}
+
+
+type SigilWrapperProps = {
+  children: React.ReactNode;
+  className?: string;
+};
+
+const SigilWrapper = ({ children, className }: SigilWrapperProps) => {
     return (
         <div className={className}>
             <Canvas camera={{ position: [0, 0, 3.5], fov: 50 }}>
                 <ambientLight intensity={1.5} />
                 <pointLight position={[5, 5, 5]} intensity={2} color="hsl(var(--primary))" />
                 <pointLight position={[-5, -5, -5]} intensity={1} color="hsl(var(--accent))" />
-                <group ref={meshRef}>
+                <SigilAnimator>
                     {children}
-                </group>
+                </SigilAnimator>
             </Canvas>
         </div>
     );
