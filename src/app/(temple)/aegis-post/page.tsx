@@ -16,6 +16,11 @@ const AegisSigil = dynamic(() => import('@/components/AethericSigils').then(mod 
   loading: () => <div className="h-48 w-48" />
 });
 
+export const metadata: Metadata = {
+    title: "The Aegis Post: The Sentinel's Vow",
+    description: "Our commitment to security is absolute, woven into the very fabric of the OS. Here, we detail The Sentinel's Vow.",
+};
+
 const features = [
   {
     icon: <ShieldCheck className="h-8 w-8 text-accent" />,

@@ -1,10 +1,18 @@
 
-"use client";
-
+import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { CommandProvider } from "@/hooks/use-command";
+
+export const metadata: Metadata = {
+  title: {
+    default: "ΛΞVON OS: The Digital Temple",
+    template: "%s | ΛΞVON OS",
+  },
+  description: "This is not a website. This is the Gateway of Sovereignty. A meticulously crafted crucible designed to forge a new relationship between you and your digital dominion.",
+};
+
 
 export default function RootLayout({
   children,
