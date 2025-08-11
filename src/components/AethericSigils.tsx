@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { AegisSigil as ExtractedAegisSigil } from '@/components/aetheric-sigils/aegis-sigil';
 
 /**
  * A reusable group that rotates its children on the X and Y axes, creating a consistent floating and turning animation for all sigils.
@@ -143,17 +144,9 @@ export function LoomSigil() {
 /**
  * The sigil for Aegis, the guardian and security protocol of ΛΞVON OS.
  * Represented by an octahedron, a platonic solid symbolizing strength, stability, and a shield-like structure.
+ * This now delegates to the extracted component for better modularity.
  */
-export function AegisSigil() {
-    return (
-        <RotatingGroup>
-            <mesh>
-                <octahedronGeometry args={[1, 0]} />
-                {SharedSigilMaterial}
-            </mesh>
-        </RotatingGroup>
-    );
-}
+export const AegisSigil = ExtractedAegisSigil;
 
 /**
  * The sigil for the KLEPSYDRA Engine, the economic heart of the system.

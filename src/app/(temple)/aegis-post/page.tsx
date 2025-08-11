@@ -10,7 +10,7 @@ import dynamic from 'next/dynamic';
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-const AegisSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.AegisSigil), {
+const AegisSigil = dynamic(() => import('@/components/aetheric-sigils/aegis-sigil').then(mod => mod.AegisSigil), {
   ssr: false,
   loading: () => <div className="h-48 w-48" />
 });
@@ -52,18 +52,18 @@ export default function AegisPostPage() {
         <div className="flex justify-center mb-16">
             <AegisSigil className="h-48 w-48" />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 perspective-container" ref={featuresSection.ref}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8" ref={featuresSection.ref}>
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className={cn(featuresSection.isInView ? "animate-fade-in-up" : "opacity-0")}
-              style={{ animationDelay: `${200 + index * 150}ms` }}
+              className={cn("transition-all duration-700", featuresSection.isInView ? "animate-fade-in-up" : "opacity-0 translate-y-10")}
+              style={{ transitionDelay: `${index * 150}ms` }}
             >
               <GlassCard className="p-8 h-full">
                 <div className="flex items-start gap-4">
                   <div className="mt-1">{feature.icon}</div>
                   <div>
-                    <h3 className="font-headline text-2xl font-semibold mb-2">{feature.title}</h3>
+                    <h2 className="font-headline text-2xl font-semibold mb-2">{feature.title}</h2>
                     <p className="text-foreground/80">{feature.description}</p>
                   </div>
                 </div>
