@@ -3,7 +3,7 @@
 
 import { PageHeader } from "@/components/page-header";
 import { GlassCard } from "@/components/glass-card";
-import { ShieldCheck, Bot, DatabaseZap, Lock } from "lucide-react";
+import { ShieldCheck, Bot, Fingerprint, MessageSquareWarning } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 import dynamic from 'next/dynamic';
@@ -16,23 +16,23 @@ const AegisSigil = dynamic(() => import('@/components/AethericSigils').then(mod 
 const features = [
   {
     icon: <ShieldCheck className="h-8 w-8 text-accent" />,
-    title: "Multi-Phased Threat Detection",
-    description: "Aegis combines rules-based logic with ML-powered analysis to neutralize threats before they manifest.",
+    title: "The Phalanx Protocol",
+    description: "Aegis protects your perception of reality. Phishing is obsolete when there are no passwords to steal. Malicious links are inert because every critical action is a conversation, not a click.",
   },
   {
     icon: <Bot className="h-8 w-8 text-accent" />,
-    title: "Agent Governance & The Ring System",
-    description: "Aegis is the Protocol Guardian for the Agentic Ring System™, a concentric hierarchy of command. Ring 0 (The Core) contains BEEP & the Economy Engine. Ring 1 (Strategists) plans complex tasks. Ring 2 (Executors) performs discrete actions. Ring 3 (Specialists) provides data. Ring 4 (Sentries) monitors. Aegis enforces the Mobility Protocol—the system's spine—ensuring agents are demoted for any failure.",
+    title: "Agent Governance Protocol",
+    description: "We tame the agentic swarm. Every agent functions with controlled autonomy, their behavior continuously monitored by Aegis for the slightest deviation to ensure unwavering loyalty. This is Human Oversight, canonized.",
   },
   {
-    icon: <DatabaseZap className="h-8 w-8 text-accent" />,
-    title: "Data Integrity Protocol",
-    description: "The protocol guarantees data immutability through Aegis-signed logs and atomic transactions, preserving its sanctity.",
+    icon: <MessageSquareWarning className="h-8 w-8 text-accent" />,
+    title: "Sentinel's Scrutiny",
+    description: "Aegis performs real-time analysis of commands and conversations for signs of social engineering or manipulation *before* they can cause harm, shielding your intent.",
   },
   {
-    icon: <Lock className="h-8 w-8 text-accent" />,
-    title: "Zero-Trust Architecture",
-    description: "Aegis operates on a foundational principle: 'never trust, always verify.' It secures your digital domain at every vector.",
+    icon: <Fingerprint className="h-8 w-8 text-accent" />,
+    title: "The Final Vow",
+    description: "For your most vital assets, a 'Final Vow' requires your unique biometric signature. This protocol makes you the ultimate, unforgeable gatekeeper to your digital dominion.",
   },
 ];
 
@@ -43,7 +43,7 @@ export default function AegisPostContent() {
     <div className="container mx-auto px-4">
       <PageHeader
         title="The Aegis Post"
-        subtitle="Your bastion against the void. You are targeted by unseen threats, overwhelmed by complexity. The Aegis Post reveals how Aegis renders these threats invisible, delivering brainless cybersecurity and absolute peace of mind."
+        subtitle="Security for your reality. Aegis protects you from the world's deceptions, delivering absolute peace of mind through a shielded reality and an AI workforce governed by your command."
       />
 
       <section className="py-16">
@@ -57,7 +57,7 @@ export default function AegisPostContent() {
               className={cn(featuresSection.isInView ? "animate-fade-in-up" : "opacity-0")}
               style={{ animationDelay: `${200 + index * 150}ms` }}
             >
-              <GlassCard className="p-8">
+              <GlassCard className="p-8 h-full">
                 <div className="flex items-start gap-4">
                   <div className="mt-1">{feature.icon}</div>
                   <div>

@@ -3,11 +3,11 @@ import type { Metadata } from 'next';
 import AegisPostContent from './aegis-post-content';
 
 export const metadata: Metadata = {
-    title: "The Aegis Post: AI-Powered Cybersecurity",
-    description: "Discover Aegis, the brainless cybersecurity layer of ΛΞVON OS. Learn about our multi-phased threat detection, agent governance, and zero-trust architecture for absolute peace of mind.",
+    title: "The Aegis Post: Security For Your Reality",
+    description: "Aegis protects you from deception with the Phalanx Protocol and governs your AI workforce with the Agent Governance Protocol. This is security for the agentic age.",
     openGraph: {
-        title: "The Aegis Post: AI-Powered Cybersecurity",
-        description: "Discover Aegis, the brainless cybersecurity layer of ΛΞVON OS. Learn about our multi-phased threat detection, agent governance, and zero-trust architecture for absolute peace of mind.",
+        title: "The Aegis Post: Security For Your Reality",
+        description: "Aegis protects you from deception with the Phalanx Protocol and governs your AI workforce with the Agent Governance Protocol. This is security for the agentic age.",
     }
 };
 
