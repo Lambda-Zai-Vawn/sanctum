@@ -22,7 +22,7 @@ const features = [
   {
     icon: <Bot className="h-8 w-8 text-accent" />,
     title: "Agent Governance & The Ring System",
-    description: "Aegis governs the Agentic Ring System™, a strict hierarchy organizing the agent swarm. It enforces the Mobility Protocol, ensuring agents are demoted for any operational failure.",
+    description: "Aegis is the Protocol Guardian for the Agentic Ring System™, a concentric hierarchy of command. Ring 0 (The Core) contains BEEP & the Economy Engine. Ring 1 (Strategists) plans complex tasks. Ring 2 (Executors) performs discrete actions. Ring 3 (Specialists) provides data. Ring 4 (Sentries) monitors. Aegis enforces the Mobility Protocol—the system's spine—ensuring agents are demoted for any failure.",
   },
   {
     icon: <DatabaseZap className="h-8 w-8 text-accent" />,
