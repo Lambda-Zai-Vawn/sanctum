@@ -17,30 +17,14 @@ declare global {
   }
 }
 
-type UseVoiceTranscriptionProps = {
-  onTranscriptionEnd: (text: string) => void;
-};
-
-export const useVoiceTranscription = ({ onTranscriptionEnd }: UseVoiceTranscriptionProps) => {
+export const useVoiceTranscription = () => {
   const [isListening, setIsListening] = useState(false);
-  const [isTranscribing, setIsTranscribing] = useState(false);
   const [transcript, setTranscript] = useState('');
   
   const recognitionRef = useRef<any>(null);
-  const finalTranscriptRef = useRef('');
-
-  const processFinalTranscript = useCallback(() => {
-    const finalTranscript = finalTranscriptRef.current.trim();
-    if (finalTranscript) {
-      onTranscriptionEnd(finalTranscript);
-    }
-    finalTranscriptRef.current = '';
-    setIsTranscribing(false);
-  }, [onTranscriptionEnd]);
-
+  const timeoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
-    // Check for browser support
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
       console.warn('Speech Recognition API is not supported in this browser.');
@@ -57,53 +41,66 @@ export const useVoiceTranscription = ({ onTranscriptionEnd }: UseVoiceTranscript
     recognition.onstart = () => {
       setIsListening(true);
       setTranscript('');
-      finalTranscriptRef.current = '';
     };
 
     recognition.onend = () => {
       setIsListening(false);
-      processFinalTranscript();
     };
 
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       console.error('Speech recognition error:', event.error);
       setIsListening(false);
-      setIsTranscribing(false);
     };
 
     recognition.onresult = (event: SpeechRecognitionEvent) => {
-      let interimTranscript = '';
-      for (let i = event.resultIndex; i < event.results.length; ++i) {
-        if (event.results[i].isFinal) {
-          finalTranscriptRef.current += event.results[i][0].transcript;
-        } else {
-          interimTranscript += event.results[i][0].transcript;
+        let finalTranscript = '';
+        let interimTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+            const transcriptPiece = event.results[i][0].transcript;
+            if (event.results[i].isFinal) {
+                finalTranscript += transcriptPiece;
+            } else {
+                interimTranscript += transcriptPiece;
+            }
         }
-      }
-      setTranscript(finalTranscriptRef.current + interimTranscript);
+        
+        // Use the interim transcript for live updates
+        setTranscript(current => (current.substring(0, current.length - interimTranscript.length) + finalTranscript + interimTranscript).trim());
+        
+        // Debounce the stop action
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+        timeoutRef.current = setTimeout(() => {
+            if (isListening) {
+                stop();
+            }
+        }, 2000); // Stop after 2 seconds of silence
     };
 
     return () => {
       if (recognition) {
-        recognition.onend = null; // Prevent onend from firing on unmount
         recognition.stop();
       }
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
     };
-  }, [processFinalTranscript]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const start = () => {
     if (recognitionRef.current && !isListening) {
+      setTranscript('');
       recognitionRef.current.start();
     }
   };
 
   const stop = () => {
     if (recognitionRef.current && isListening) {
-        setIsTranscribing(true); // Indicate that we are processing the result
         recognitionRef.current.stop();
-        // The onend event will now handle the final transcript processing.
     }
   };
 
-  return { isListening, isTranscribing, transcript, start, stop };
+  return { isListening, transcript, start, stop };
 };

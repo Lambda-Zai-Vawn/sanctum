@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import * as React from "react";
@@ -7,20 +6,22 @@ import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 import { PageHeader } from "@/components/page-header";
 import { GlassCard } from "@/components/glass-card";
-import { Loader2, Sparkles } from "lucide-react";
+import { Loader2, Sparkles, Wand2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { generateCommunique, type ChancelScribeOutput } from "@/ai/flows/chancel-scribe-flow";
 import { useVoiceTranscription } from "@/hooks/use-voice-transcription";
 import { MicrophoneIcon } from "@/components/icons";
 import { cn } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function ChancelContent() {
+  const [topic, setTopic] = React.useState('');
   const [isForging, setIsForging] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [communique, setCommunique] = React.useState<ChancelScribeOutput | null>(null);
 
-  const handleGenerateCommunique = async (topic: string) => {
+  const handleGenerateCommunique = async () => {
     if (!topic) return;
 
     setIsForging(true);
@@ -38,11 +39,16 @@ export default function ChancelContent() {
     }
   };
 
-  const { isListening, isTranscribing, transcript, start, stop } = useVoiceTranscription({
-    onTranscriptionEnd: handleGenerateCommunique,
-  });
+  const { isListening, transcript, start, stop } = useVoiceTranscription();
+  
+  React.useEffect(() => {
+    if (transcript) {
+        setTopic(transcript);
+    }
+  }, [transcript]);
 
-  const isLoading = isListening || isTranscribing || isForging;
+
+  const isLoading = isListening || isForging;
 
   return (
     <div className="container mx-auto px-4">
@@ -56,30 +62,53 @@ export default function ChancelContent() {
             <div className="text-center">
                 <h2 className="font-headline text-3xl font-semibold text-glow mb-4">The Orator's Crucible</h2>
                 <p className="text-foreground/80 mb-8">
-                    Speak your raw thought. The Chancel Scribe is listening. From your voice, a new doctrine will be forged.
+                    Speak or write your raw thought. The Chancel Scribe is listening. From your will, a new doctrine will be forged.
                 </p>
             </div>
             
-            <div className="w-full flex flex-col items-center gap-6">
-                <Button 
-                  size="icon" 
-                  className={cn("h-24 w-24 rounded-full", isListening && "animate-mic-pulse")}
-                  onClick={isListening ? stop : start}
-                  disabled={isTranscribing || isForging}
-                >
-                  {isLoading ? <Loader2 className="h-10 w-10 animate-spin" /> : <MicrophoneIcon className={`h-10 w-10 ${isListening ? 'text-accent' : ''}`} />}
-                </Button>
-                 <div className="h-12 text-center text-foreground/70 italic">
-                    {isListening && <p className="animate-pulse">The Scribe is listening...</p>}
-                    {isTranscribing && <p>The Scribe contemplates your words...</p>}
-                    {isForging && <p>The Scribe forges your thought into doctrine...</p>}
-                    {!isLoading && transcript && <p>"{transcript}"</p>}
-                    {!isLoading && !transcript && <p>Press the orb to begin dictation.</p>}
+            <div className="w-full flex flex-col items-center gap-4">
+                <div className="w-full relative">
+                    <Textarea 
+                        value={topic}
+                        onChange={(e) => setTopic(e.target.value)}
+                        placeholder="Speak or type your raw thought..."
+                        className="w-full min-h-[120px] bg-background/50 text-lg p-4 pr-16"
+                        disabled={isLoading}
+                    />
+                    <Button 
+                        size="icon" 
+                        variant="ghost"
+                        className={cn("absolute top-3 right-3 h-10 w-10 rounded-full", isListening && "animate-mic-pulse text-accent")}
+                        onClick={isListening ? stop : start}
+                        disabled={isForging}
+                        aria-label={isListening ? "Stop listening" : "Start listening"}
+                    >
+                        <MicrophoneIcon className="h-6 w-6" />
+                    </Button>
                 </div>
+                 <div className="h-6 text-center text-foreground/70 italic">
+                    {isListening && <p className="animate-pulse">The Scribe is listening...</p>}
+                 </div>
+                <Button 
+                  size="lg" 
+                  className="font-headline text-lg"
+                  onClick={handleGenerateCommunique}
+                  disabled={isLoading || !topic}
+                >
+                  {isLoading ? <Loader2 className="h-6 w-6 animate-spin" /> : <Wand2 className="h-6 w-6" />}
+                  <span>Forge Communique</span>
+                </Button>
             </div>
         </GlassCard>
 
         {error && <Alert variant="destructive" className="mt-8 max-w-3xl mx-auto text-left"><AlertTitle>A Disturbance</AlertTitle><AlertDescription>{error}</AlertDescription></Alert>}
+
+        {isForging && !error && (
+            <div className="mt-12 text-center text-lg italic text-foreground/80">
+                <p>The Scribe contemplates your words...</p>
+                <p>A new doctrine is being forged from the aether...</p>
+            </div>
+        )}
 
         {communique && !isLoading && !error && (
             <div className="mt-12 max-w-4xl mx-auto">
