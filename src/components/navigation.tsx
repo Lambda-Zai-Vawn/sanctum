@@ -38,7 +38,7 @@ export function Navigation() {
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 h-16 w-16 rounded-full flex items-center justify-center text-white transition-transform hover:scale-110 active:scale-90"
+        className="fixed bottom-6 right-6 z-50 h-20 w-20 flex items-center justify-center text-white transition-transform hover:scale-110 active:scale-90"
         aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
       >
         <OrbIcon className="h-full w-full" data-state={isOpen ? 'open' : 'closed'} />

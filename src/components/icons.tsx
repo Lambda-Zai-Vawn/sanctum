@@ -26,24 +26,31 @@ export const LambdaXiVONIcon = (props: React.HTMLAttributes<SVGElement>) => (
 );
 
 export const OrbIcon = (props: React.HTMLAttributes<SVGElement>) => (
-    <IconWrapper viewBox="0 0 24 24" {...props}>
-        <defs>
-            <radialGradient id="orbGradient" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
-                <stop offset="0%" stopColor="hsl(var(--primary) / 0.8)" />
-                <stop offset="100%" stopColor="hsl(var(--accent) / 0.7)" />
-            </radialGradient>
-            <filter id="orbGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="1.5" result="coloredBlur" />
-                <feMerge>
-                    <feMergeNode in="coloredBlur" />
-                    <feMergeNode in="SourceGraphic" />
-                </feMerge>
-            </filter>
-        </defs>
-        <circle cx="12" cy="12" r="10" fill="url(#orbGradient)" filter="url(#orbGlow)" />
-        <g className="transition-transform duration-300 ease-in-out" style={{ transformOrigin: 'center' }}>
-            <line x1="8" y1="12" x2="16" y2="12" className="transition-transform duration-300 ease-in-out" style={{ transform: props['data-state'] === 'open' ? 'rotate(45deg)' : 'rotate(0deg)', transformOrigin: 'center' }}/>
-            <line x1="8" y1="12" x2="16" y2="12" className="transition-transform duration-300 ease-in-out" style={{ transform: props['data-state'] === 'open' ? 'rotate(-45deg)' : 'rotate(0deg)', transformOrigin: 'center' }}/>
+    <IconWrapper viewBox="0 0 100 100" {...props}>
+      <defs>
+        <clipPath id="ice-clip">
+          <path d="M50 0 L85.3 14.7 L100 50 L85.3 85.3 L50 100 L14.7 85.3 L0 50 L14.7 14.7 Z" />
+        </clipPath>
+        <radialGradient id="iceGradient" cx="50%" cy="50%" r="70%" fx="30%" fy="30%">
+          <stop offset="0%" stopColor="hsl(var(--accent) / 0.9)" />
+          <stop offset="50%" stopColor="hsl(var(--primary) / 0.8)" />
+          <stop offset="100%" stopColor="hsl(var(--primary) / 0.6)" />
+        </radialGradient>
+        <filter id="iceGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
+          <feMerge>
+            <feMergeNode in="coloredBlur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      <g clipPath="url(#ice-clip)" filter="url(#iceGlow)">
+        <path d="M50 0 L85.3 14.7 L100 50 L85.3 85.3 L50 100 L14.7 85.3 L0 50 L14.7 14.7 Z" fill="url(#iceGradient)" />
+        <path d="M50 0 L85.3 14.7 L100 50 L85.3 85.3 L50 100 L14.7 85.3 L0 50 L14.7 14.7 Z" stroke="hsl(var(--accent) / 0.5)" strokeWidth="1" />
+      </g>
+       <g className="transition-transform duration-300 ease-in-out" style={{ transformOrigin: 'center' }}>
+            <line x1="35" y1="50" x2="65" y2="50" strokeWidth="4" className="transition-transform duration-300 ease-in-out" style={{ transform: props['data-state'] === 'open' ? 'rotate(45deg)' : 'rotate(0deg)', transformOrigin: 'center' }}/>
+            <line x1="35" y1="50" x2="65" y2="50" strokeWidth="4" className="transition-transform duration-300 ease-in-out" style={{ transform: props['data-state'] === 'open' ? 'rotate(-45deg)' : 'rotate(0deg)', transformOrigin: 'center' }}/>
         </g>
     </IconWrapper>
 );
