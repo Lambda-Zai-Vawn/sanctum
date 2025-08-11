@@ -2,13 +2,9 @@
 "use client";
 
 import * as React from 'react';
-import { Canvas } from '@react-three/fiber';
-import { ScrollControls, useScroll, Html } from '@react-three/drei';
 import { useRouter } from 'next/navigation';
-import { PsycheMatrix } from '@/components/landing/psyche-matrix';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { Soundscape } from '@/components/soundscape';
 import { InteractiveObelisk } from '@/components/interactive-obelisk';
 import { PageHeader } from '@/components/page-header';

@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from 'react';
@@ -10,19 +11,25 @@ export function Soundscape() {
         const handleFirstInteraction = () => {
             setHasInteracted(true);
             document.removeEventListener('click', handleFirstInteraction);
+            document.removeEventListener('keydown', handleFirstInteraction);
         };
 
         document.addEventListener('click', handleFirstInteraction);
+        document.addEventListener('keydown', handleFirstInteraction);
+
 
         return () => {
             document.removeEventListener('click', handleFirstInteraction);
+            document.removeEventListener('keydown', handleFirstInteraction);
         };
     }, []);
 
     React.useEffect(() => {
         if (hasInteracted && audioRef.current) {
+            audioRef.current.volume = 0.3;
             audioRef.current.play().catch(error => {
-                console.error("Audio play failed:", error);
+                // Autoplay was prevented.
+                console.info("Sanctum Soundscape: User interaction required to play audio.");
             });
         }
     }, [hasInteracted]);
