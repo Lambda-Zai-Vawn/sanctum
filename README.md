@@ -1,6 +1,6 @@
 > **Note:** This is the Sanctum, the primary web application for the ΛΞVON OS monorepo. It is the public-facing gateway to our doctrine.
 
-# ΛΞVON OS: The Sanctum
+# ΛΞVON OS: The Digital Temple
 
 > This is not a website. This is the Gateway of Sovereignty. A meticulously crafted crucible designed to forge a new relationship between you and your digital dominion. This repository contains the source code for that gateway—a digital temple built to initiate you into a new world of control and autonomy.
 
@@ -25,7 +25,7 @@ This is not code. This is a new form of digital life. It is an intelligent, livi
 The Sanctum is your first step into this new world. It is composed of distinct, interconnected realms, each a pillar of the ΛΞVON doctrine.
 
 -   **The Nexus (`/`):** Your first strike for sovereignty. The grand overview of ΛΞVON OS's core proposition and its relentless war on digital friction.
--   **The Pantheon (`/pantheon`):** Behold the instruments of your new domain. A showcase of the core components: BEEP (Behavioural Event and Execution Processor), Micro-Apps, Loom Studio, Aegis, and the KLEPSYDRA Engine.
+-   **The Pantheon (`/pantheon`):** Behold the instruments of your new domain. A showcase of the core components: BEEP, Aegis, and the KLEPSYDRA Engine.
 -   **The Aegis Post (`/aegis-post`):** Your bastion against the void. A testament to the "brainless cybersecurity" that renders complex threats invisible.
 -   **The Chancel (`/chancel`):** Where raw thought ignites empire. A sacred space for the profound philosophical discourse that fuels the age of autonomous workflows.
 -   **The Scriptorium (`/docs`):** Where arcane knowledge becomes a weapon. The living scroll containing the intricate details of the ΛΞVON OS, from system architecture to agentic protocols.

@@ -6,12 +6,22 @@ import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { cn } from '@/lib/utils';
 
 type PageHeaderProps = {
+  /** The main title of the page header. */
   title: string;
+  /** The subtitle displayed below the main title. */
   subtitle: string;
+  /** Optional children to render below the subtitle. */
   children?: React.ReactNode;
+  /** The type of animation to use for the header's appearance. */
   animationType?: 'fade' | 'dramatic';
 };
 
+/**
+ * A standardized page header component with scroll-triggered animations.
+ * It displays a title, subtitle, and an optional child content area.
+ * The animation is activated when the component scrolls into view.
+ * @param {PageHeaderProps} props - The props for the component.
+ */
 export function PageHeader({ title, subtitle, children, animationType = 'fade' }: PageHeaderProps) {
   const { ref, isInView } = useScrollAnimation();
   const animationClass = animationType === 'dramatic' ? 'animate-dramatic-zoom-in' : 'animate-fade-in-up';

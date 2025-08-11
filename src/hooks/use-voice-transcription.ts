@@ -17,6 +17,20 @@ declare global {
   }
 }
 
+/**
+ * @typedef VoiceTranscriptionResult
+ * @property {boolean} isListening - Whether the recognition service is currently active.
+ * @property {string} transcript - The real-time transcribed text from the microphone.
+ * @property {() => void} start - Function to start the voice transcription.
+ * @property {() => void} stop - Function to manually stop the voice transcription.
+ */
+
+/**
+ * A custom hook for real-time voice transcription using the Web Speech API.
+ * It provides the listening state, the live transcript, and controls to start/stop transcription.
+ *
+ * @returns {VoiceTranscriptionResult} An object with transcription state and controls.
+ */
 export const useVoiceTranscription = () => {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
@@ -89,6 +103,10 @@ export const useVoiceTranscription = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /**
+   * Starts the speech recognition service.
+   * Resets the transcript and begins listening for input.
+   */
   const start = () => {
     if (recognitionRef.current && !isListening) {
       setTranscript('');
@@ -96,6 +114,9 @@ export const useVoiceTranscription = () => {
     }
   };
 
+  /**
+   * Manually stops the speech recognition service.
+   */
   const stop = () => {
     if (recognitionRef.current && isListening) {
         recognitionRef.current.stop();

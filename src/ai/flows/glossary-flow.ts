@@ -1,11 +1,15 @@
 
 'use server';
 /**
- * @fileOverview a Lorekeeper AI agent for the ΛΞVON Scriptorium.
+ * @fileOverview A Lorekeeper AI agent for the ΛΞVON Scriptorium.
  *
- * - getDefinition - A function that provides definitions for ΛΞVON terminology.
- * - GlossaryInput - The input type for the getDefinition function.
- * - GlossaryOutput - The return type for the getDefinition function.
+ * This flow, `glossaryFlow`, is designed to act as a definitional oracle for the ΛΞVON ecosystem.
+ * It takes a term as input and returns a definition written in the persona of an ancient, wise lorekeeper.
+ * This reinforces the project's mythos and provides a unique, in-character way to explain terminology.
+ *
+ * - `getDefinition`: The primary function exported for use in the application. It's the public-facing interface to the Genkit flow.
+ * - `GlossaryInput`: The Zod schema defining the input for the flow (a single `term` string).
+ * - `GlossaryOutput`: The Zod schema defining the expected output of the flow (a single `definition` string).
  */
 
 import {ai} from '@/ai/genkit';
@@ -23,6 +27,12 @@ export const GlossaryOutputSchema = z.object({
 });
 export type GlossaryOutput = z.infer<typeof GlossaryOutputSchema>;
 
+/**
+ * Retrieves a definition for a given ΛΞVON term.
+ * This function serves as the public interface for the glossaryFlow.
+ * @param {GlossaryInput} input - The input object containing the term to be defined.
+ * @returns {Promise<GlossaryOutput>} The lorekeeper's definition of the term.
+ */
 export async function getDefinition(input: GlossaryInput): Promise<GlossaryOutput> {
   return glossaryFlow(input);
 }

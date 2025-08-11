@@ -3,9 +3,13 @@
 /**
  * @fileOverview An AI Scribe for the ΛΞVON Chancel.
  *
- * - generateCommunique - A function that generates a short article and a visual sigil in the ΛΞVON doctrine.
- * - ChancelScribeInput - The input type for the generateCommunique function.
- * - ChancelScribeOutput - The return type for the generateCommunique function.
+ * This flow, `chancelScribeFlow`, is designed to act as an AI content generator in the persona of a "Scribe"
+ * for the ΛΞVON order. It takes a simple topic and transmutes it into a full-fledged article, or "communique,"
+ * complete with a title, excerpt, category, full markdown content, and a symbolic AI-generated image.
+ *
+ * - `generateCommunique`: The primary function exported for use in the application. It serves as a public interface to the underlying Genkit flow.
+ * - `ChancelScribeInput`: The Zod schema defining the input for the flow (a single `topic` string).
+ * - `ChancelScribeOutput`: The Zod schema defining the expected output structure of the flow.
  */
 
 import {ai} from '@/ai/genkit';
@@ -25,6 +29,12 @@ export const ChancelScribeOutputSchema = z.object({
 });
 export type ChancelScribeOutput = z.infer<typeof ChancelScribeOutputSchema>;
 
+/**
+ * Generates a communique based on a given topic.
+ * This function is the public interface for the chancelScribeFlow.
+ * @param {ChancelScribeInput} input - The input object containing the topic.
+ * @returns {Promise<ChancelScribeOutput>} The generated communique, including title, content, and image data.
+ */
 export async function generateCommunique(input: ChancelScribeInput): Promise<ChancelScribeOutput> {
   return chancelScribeFlow(input);
 }
