@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import { PsycheMatrix } from '@/components/landing/psyche-matrix';
@@ -16,10 +17,21 @@ const realms = [
 export default function SanctumNexus() {
   const [showRealms, setShowRealms] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
+  const lastTap = useRef(0);
+
+  const handleCanvasClick = () => {
+    const now = Date.now();
+    const DOUBLE_TAP_DELAY = 300; // ms
+    if (now - lastTap.current < DOUBLE_TAP_DELAY) {
+      setShowRealms(true);
+    }
+    lastTap.current = now;
+  };
+
 
   return (
     <div className="relative h-svh w-full overflow-hidden bg-background">
-      <Canvas onDoubleClick={() => setShowRealms(true)} camera={{ position: [0, 0, 8], fov: 50 }}>
+      <Canvas onClick={handleCanvasClick} camera={{ position: [0, 0, 8], fov: 50 }}>
         <ambientLight intensity={1.5} />
         <pointLight position={[10, 10, 10]} intensity={3} color="hsl(var(--primary))" />
         <pointLight position={[-10, -10, -10]} intensity={2} color="hsl(var(--accent))" />
@@ -76,7 +88,7 @@ export default function SanctumNexus() {
        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center justify-center pointer-events-none">
           <div className="text-center animate-fade-in-up">
             <p className="mt-4 text-xs max-w-2xl text-foreground/50">
-              Double-click to awaken the realms.
+              Double-tap or double-click to awaken the realms.
             </p>
           </div>
       </div>
