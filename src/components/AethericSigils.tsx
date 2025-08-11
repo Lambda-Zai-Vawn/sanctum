@@ -65,6 +65,39 @@ const SigilWrapper = ({ children, className }: SigilWrapperProps) => {
 
 const SharedSigilMaterial = <SigilMaterial />;
 
+export function LambdaXiVON_Sigil(props: { className?: string }) {
+    const shape = React.useMemo(() => {
+        const s = new THREE.Shape();
+        s.moveTo(-1, -1);
+        s.lineTo(0, 1);
+        s.lineTo(1, -1);
+        s.lineTo(0.8, -1);
+        s.lineTo(0, 0.6);
+        s.lineTo(-0.8, -1);
+        s.closePath();
+        return s;
+    }, []);
+
+    const extrudeSettings = React.useMemo(() => ({
+        steps: 1,
+        depth: 0.2,
+        bevelEnabled: true,
+        bevelThickness: 0.1,
+        bevelSize: 0.05,
+        bevelSegments: 2
+    }), []);
+
+    return (
+        <SigilWrapper {...props}>
+             <mesh scale={1.2}>
+                <extrudeGeometry args={[shape, extrudeSettings]} />
+                {SharedSigilMaterial}
+            </mesh>
+        </SigilWrapper>
+    );
+}
+
+
 export function BEEP_Sigil(props: { className?: string }) {
     return (
         <SigilWrapper {...props}>

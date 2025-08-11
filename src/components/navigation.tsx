@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { OrbIcon } from "@/components/icons";
+import { LambdaXiVON_Sigil } from "./AethericSigils";
 
 const navLinks = [
   { href: "/", label: "The Nexus" },
@@ -36,6 +37,12 @@ export function Navigation() {
 
   return (
     <>
+      <header className="fixed top-0 left-0 z-50 p-4">
+          <Link href="/" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm">
+            <LambdaXiVON_Sigil className="h-16 w-16" />
+            <span className="sr-only">Home</span>
+          </Link>
+      </header>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 z-50 h-20 w-20 flex items-center justify-center text-white transition-transform hover:scale-110 active:scale-90"
