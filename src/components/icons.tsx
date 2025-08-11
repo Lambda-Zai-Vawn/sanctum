@@ -26,14 +26,14 @@ export const LambdaXiVONIcon = (props: React.HTMLAttributes<SVGElement>) => (
 );
 
 export const OrbIcon = (props: React.HTMLAttributes<SVGElement>) => (
-    <IconWrapper {...props}>
+    <IconWrapper viewBox="0 0 24 24" {...props}>
         <defs>
-            <radialGradient id="orbGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.7" />
-                <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0.8" />
+            <radialGradient id="orbGradient" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+                <stop offset="0%" stopColor="hsl(var(--primary) / 0.8)" />
+                <stop offset="100%" stopColor="hsl(var(--accent) / 0.7)" />
             </radialGradient>
             <filter id="orbGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                <feGaussianBlur stdDeviation="1.5" result="coloredBlur" />
                 <feMerge>
                     <feMergeNode in="coloredBlur" />
                     <feMergeNode in="SourceGraphic" />
@@ -41,8 +41,13 @@ export const OrbIcon = (props: React.HTMLAttributes<SVGElement>) => (
             </filter>
         </defs>
         <circle cx="12" cy="12" r="10" fill="url(#orbGradient)" filter="url(#orbGlow)" />
+        <g className="transition-transform duration-300 ease-in-out" style={{ transformOrigin: 'center' }}>
+            <line x1="8" y1="12" x2="16" y2="12" className="transition-transform duration-300 ease-in-out" style={{ transform: props['data-state'] === 'open' ? 'rotate(45deg)' : 'rotate(0deg)', transformOrigin: 'center' }}/>
+            <line x1="8" y1="12" x2="16" y2="12" className="transition-transform duration-300 ease-in-out" style={{ transform: props['data-state'] === 'open' ? 'rotate(-45deg)' : 'rotate(0deg)', transformOrigin: 'center' }}/>
+        </g>
     </IconWrapper>
 );
+
 
 export const ObeliskIcon = (props: React.HTMLAttributes<SVGElement>) => (
     <IconWrapper viewBox="0 0 24 24" {...props}>

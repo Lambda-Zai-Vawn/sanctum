@@ -4,7 +4,6 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { OrbIcon } from "@/components/icons";
 
@@ -42,11 +41,7 @@ export function Navigation() {
         className="fixed bottom-6 right-6 z-50 h-16 w-16 rounded-full flex items-center justify-center text-white transition-transform hover:scale-110 active:scale-90"
         aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
       >
-        <OrbIcon className="absolute inset-0 h-full w-full" />
-        <div className="relative h-8 w-8">
-          <Menu className={cn("absolute h-8 w-8 transition-all duration-300", isOpen ? 'opacity-0 rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100')} />
-          <X className={cn("absolute h-8 w-8 transition-all duration-300", isOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-50')} />
-        </div>
+        <OrbIcon className="h-full w-full" data-state={isOpen ? 'open' : 'closed'} />
       </button>
 
       <div
