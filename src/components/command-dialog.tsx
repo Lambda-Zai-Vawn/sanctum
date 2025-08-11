@@ -9,7 +9,7 @@ import {
   CommandInput,
   CommandList,
 } from "@/components/ui/command"
-import { getDefinition, GlossaryOutput } from "@/ai/flows/glossary-flow"
+import { getDefinition, type GlossaryOutput } from "@/ai/flows/glossary-flow"
 import { Loader2 } from "lucide-react"
 import { LambdaXiVONIcon } from "./icons"
 import { useCommand } from "@/hooks/use-command"
@@ -74,7 +74,8 @@ export function CommandDialog() {
     if (open && searchTerm) {
       handleSearch(searchTerm);
     }
-  }, [open, searchTerm, handleSearch]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
 
   return (
