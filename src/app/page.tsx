@@ -45,7 +45,7 @@ export default function SanctumNexus() {
           color="hsl(var(--foreground))"
           anchorX="center"
           anchorY="middle"
-          glowColor="hsl(var(--primary))"
+          
           castShadow
         >
           ΛΞVON
@@ -76,14 +76,14 @@ export default function SanctumNexus() {
                     color={hovered === realm.path ? "hsl(var(--accent))" : "hsl(var(--foreground))"}
                     onPointerOver={() => setHovered(realm.path)}
                     onPointerOut={() => setHovered(null)}
-                    glowColor="hsl(var(--accent))"
+                    
                 >
                     [ {realm.name} ]
                 </Text>
             </Link>
         ))}
 
-        <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+        <OrbitControls enableZoom={false} enablePan={false} />
       </Canvas>
        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center justify-center pointer-events-none">
           <div className="text-center animate-fade-in-up">

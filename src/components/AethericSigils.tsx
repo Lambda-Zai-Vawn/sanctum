@@ -54,34 +54,6 @@ const SigilAnimator = ({ children }: SigilAnimatorProps) => {
     return <group ref={meshRef}>{children}</group>;
 }
 
-
-/**
- * A wrapper component that provides a consistent 3D environment for rendering a sigil.
- * It sets up the R3F Canvas, lighting, and the animator.
- * @param {SigilWrapperProps} props - The props for the component.
- */
-type SigilWrapperProps = {
-  /** The sigil component to be rendered. */
-  children: React.ReactNode;
-  /** Optional CSS classes to apply to the container div. */
-  className?: string;
-};
-
-const SigilWrapper = ({ children, className }: SigilWrapperProps) => {
-    return (
-        <div className={className}>
-            <Canvas camera={{ position: [0, 0, 3.5], fov: 50 }}>
-                <ambientLight intensity={1.5} />
-                <pointLight position={[5, 5, 5]} intensity={2} color="hsl(var(--primary))" />
-                <pointLight position={[-5, -5, -5]} intensity={1} color="hsl(var(--accent))" />
-                <SigilAnimator>
-                    {children}
-                </SigilAnimator>
-            </Canvas>
-        </div>
-    );
-}
-
 const SharedSigilMaterial = <SigilMaterial />;
 
 /**
@@ -110,12 +82,12 @@ export function LambdaXiVON_Sigil(props: { className?: string }) {
     }), []);
 
     return (
-        <SigilWrapper {...props}>
-             <mesh scale={1.2}>
-                <extrudeGeometry args={[shape, extrudeSettings]} />
-                {SharedSigilMaterial}
-            </mesh>
-        </SigilWrapper>
+        <group {...props}>
+            <mesh scale={1.2}>
+            <extrudeGeometry args={[shape, extrudeSettings]} />
+            {SharedSigilMaterial}
+        </mesh>
+        </group>
     );
 }
 
@@ -125,7 +97,7 @@ export function LambdaXiVON_Sigil(props: { className?: string }) {
  */
 export function BEEP_Sigil(props: { className?: string }) {
     return (
-        <SigilWrapper {...props}>
+        <group {...props}>
             <mesh>
                 <icosahedronGeometry args={[1, 0]} />
                 {SharedSigilMaterial}
@@ -134,7 +106,7 @@ export function BEEP_Sigil(props: { className?: string }) {
                 <icosahedronGeometry args={[1, 0]} />
                  <meshBasicMaterial wireframe color="hsl(var(--primary))" />
             </mesh>
-        </SigilWrapper>
+        </group>
     );
 }
 
@@ -144,12 +116,12 @@ export function BEEP_Sigil(props: { className?: string }) {
  */
 export function MicroAppsSigil(props: { className?: string }) {
     return (
-        <SigilWrapper {...props}>
+        <group {...props}>
             <mesh>
                 <cylinderGeometry args={[0.8, 0.8, 0.5, 6]} />
                 {SharedSigilMaterial}
             </mesh>
-        </SigilWrapper>
+        </group>
     );
 }
 
@@ -159,7 +131,7 @@ export function MicroAppsSigil(props: { className?: string }) {
  */
 export function LoomSigil(props: { className?: string }) {
     return (
-        <SigilWrapper {...props}>
+        <group {...props}>
             <mesh>
                 <boxGeometry args={[1.5, 1.5, 0.2]} />
                 {SharedSigilMaterial}
@@ -168,7 +140,7 @@ export function LoomSigil(props: { className?: string }) {
                 <boxGeometry args={[1.5, 1.5, 0.2]} />
                 <meshBasicMaterial wireframe color="hsl(var(--primary))" />
             </mesh>
-        </SigilWrapper>
+        </group>
     );
 }
 
@@ -178,12 +150,12 @@ export function LoomSigil(props: { className?: string }) {
  */
 export function AegisSigil(props: { className?: string }) {
     return (
-        <SigilWrapper {...props}>
+        <group {...props}>
             <mesh>
                 <octahedronGeometry args={[1, 0]} />
                 {SharedSigilMaterial}
             </mesh>
-        </SigilWrapper>
+        </group>
     );
 }
 
@@ -193,7 +165,7 @@ export function AegisSigil(props: { className?: string }) {
  */
 export function KlepsydraSigil(props: { className?: string }) {
     return (
-        <SigilWrapper {...props}>
+        <group {...props}>
             <mesh position={[0, 0.5, 0]}>
                 <coneGeometry args={[0.8, 1, 4]} />
                 {SharedSigilMaterial}
@@ -202,7 +174,7 @@ export function KlepsydraSigil(props: { className?: string }) {
                 <coneGeometry args={[0.8, 1, 4]} />
                 {SharedSigilMaterial}
             </mesh>
-        </SigilWrapper>
+        </group>
     );
 }
 
@@ -212,12 +184,12 @@ export function KlepsydraSigil(props: { className?: string }) {
  */
 export function PantheonSigil(props: { className?: string }) {
     return (
-        <SigilWrapper {...props}>
+        <group {...props}>
             <mesh>
                 <dodecahedronGeometry args={[1, 0]} />
                 {SharedSigilMaterial}
             </mesh>
-        </SigilWrapper>
+        </group>
     );
 }
 
@@ -227,12 +199,12 @@ export function PantheonSigil(props: { className?: string }) {
  */
 export function ArmorySigil(props: { className?: string }) {
     return (
-        <SigilWrapper {...props}>
+        <group {...props}>
             <mesh>
                 <torusKnotGeometry args={[0.7, 0.2, 128, 16, 2, 3]} />
                 {SharedSigilMaterial}
             </mesh>
-        </SigilWrapper>
+        </group>
     );
 }
 
@@ -242,12 +214,12 @@ export function ArmorySigil(props: { className?: string }) {
  */
 export function ObeliskMarketplaceSigil(props: { className?: string }) {
     return (
-        <SigilWrapper {...props}>
+        <group {...props}>
             <mesh>
                 <torusGeometry args={[0.8, 0.3, 16, 100]} />
                 {SharedSigilMaterial}
             </mesh>
-        </SigilWrapper>
+        </group>
     );
 }
 
@@ -257,7 +229,7 @@ export function ObeliskMarketplaceSigil(props: { className?: string }) {
  */
 export function SovereignsSigil(props: { className?: string }) {
     return (
-        <SigilWrapper {...props}>
+        <group {...props}>
             <group>
                 <mesh position={[0, -0.25, 0]}>
                     <cylinderGeometry args={[0.1, 0.1, 2.5, 8]} />
@@ -272,6 +244,6 @@ export function SovereignsSigil(props: { className?: string }) {
                     {SharedSigilMaterial}
                 </mesh>
             </group>
-        </SigilWrapper>
+        </group>
     );
 }

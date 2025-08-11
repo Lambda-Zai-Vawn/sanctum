@@ -13,45 +13,48 @@ import {
 } from "@/components/ui/tooltip"
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-
-const BEEP_Sigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.BEEP_Sigil), { ssr: false, loading: () => <div className="h-32 w-32" /> });
-const LoomSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.LoomSigil), { ssr: false, loading: () => <div className="h-32 w-32" /> });
-const AegisSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.AegisSigil), { ssr: false, loading: () => <div className="h-32 w-32" /> });
-const KlepsydraSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.KlepsydraSigil), { ssr: false, loading: () => <div className="h-32 w-32" /> });
-const ArmorySigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.ArmorySigil), { ssr: false, loading: () => <div className="h-32 w-32" /> });
-const ObeliskMarketplaceSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.ObeliskMarketplaceSigil), { ssr: false, loading: () => <div className="h-32 w-32" /> });
+import { Canvas } from "@react-three/fiber";
+import * as React from 'react';
+import * as THREE from 'three';
+import { BEEP_Sigil, AegisSigil, KlepsydraSigil, LoomSigil, ArmorySigil, ObeliskMarketplaceSigil } from "@/components/AethericSigils";
 
 
 const components = [
   {
-    sigil: <BEEP_Sigil className="h-32 w-32" />,
+    sigil: BEEP_Sigil,
     name: "BEEP",
     domain: "The Oracle. The voice and will of the machine.",
+    position: new THREE.Vector3(-4, 0, 0),
   },
   {
-    sigil: <AegisSigil className="h-32 w-32" />,
+    sigil: AegisSigil,
     name: "Aegis",
     domain: "The Guardian. The ever-present bodyguard ensuring absolute integrity.",
+    position: new THREE.Vector3(-2, 0, 0),
   },
   {
-    sigil: <KlepsydraSigil className="h-32 w-32" />,
+    sigil: KlepsydraSigil,
     name: "KLEPSYDRA Engine",
     domain: "The Engine. The economic heart that transforms work into power.",
+    position: new THREE.Vector3(0, 0, 0),
   },
   {
-    sigil: <LoomSigil className="h-32 w-32" />,
+    sigil: LoomSigil,
     name: "Loom Studio",
     domain: "The Forge. The Architect's Sanctum for designing autonomous agents.",
+    position: new THREE.Vector3(2, 0, 0),
   },
   {
-    sigil: <ArmorySigil className="h-32 w-32" />,
+    sigil: ArmorySigil,
     name: "Armory Marketplace",
     domain: "The Sanctified Repository for Micro-Apps and Chaos Cards.",
+    position: new THREE.Vector3(4, 0, 0),
   },
    {
-    sigil: <ObeliskMarketplaceSigil className="h-32 w-32" />,
+    sigil: ObeliskMarketplaceSigil,
     name: "Obelisk Marketplace",
     domain: "The Vault of Manifested Sovereignty.",
+    position: new THREE.Vector3(6, 0, 0),
   },
 ];
 
@@ -76,7 +79,14 @@ export default function PantheonPage() {
               <Tooltip>
                 <TooltipTrigger asChild>
                     <Link href="/scriptorium" className="h-32 w-32 mb-6 cursor-pointer transition-transform hover:scale-110 block">
-                        {component.sigil}
+                        <Canvas camera={{ position: [0, 0, 3.5], fov: 50 }}>
+                            <ambientLight intensity={1.5} />
+                            <pointLight position={[5, 5, 5]} intensity={2} color="hsl(var(--primary))" />
+                            <pointLight position={[-5, -5, -5]} intensity={1} color="hsl(var(--accent))" />
+                            <React.Suspense fallback={null}>
+                                <component.sigil />
+                            </React.Suspense>
+                        </Canvas>
                     </Link>
                 </TooltipTrigger>
                 <TooltipContent>

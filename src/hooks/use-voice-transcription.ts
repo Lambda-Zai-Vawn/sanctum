@@ -36,7 +36,6 @@ export const useVoiceTranscription = () => {
   const [transcript, setTranscript] = useState('');
   
   const recognitionRef = useRef<any>(null);
-  const timeoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -80,24 +79,11 @@ export const useVoiceTranscription = () => {
         
         // Use the interim transcript for live updates
         setTranscript(current => (current.substring(0, current.length - interimTranscript.length) + finalTranscript + interimTranscript).trim());
-        
-        // Debounce the stop action
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-        }
-        timeoutRef.current = setTimeout(() => {
-            if (isListening) {
-                stop();
-            }
-        }, 2000); // Stop after 2 seconds of silence
     };
 
     return () => {
       if (recognition) {
         recognition.stop();
-      }
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
       }
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -107,21 +93,21 @@ export const useVoiceTranscription = () => {
    * Starts the speech recognition service.
    * Resets the transcript and begins listening for input.
    */
-  const start = () => {
+  const start = useCallback(() => {
     if (recognitionRef.current && !isListening) {
       setTranscript('');
       recognitionRef.current.start();
     }
-  };
+  }, [isListening]);
 
   /**
    * Manually stops the speech recognition service.
    */
-  const stop = () => {
+  const stop = useCallback(() => {
     if (recognitionRef.current && isListening) {
         recognitionRef.current.stop();
     }
-  };
+  }, [isListening]);
 
   return { isListening, transcript, start, stop };
 };
