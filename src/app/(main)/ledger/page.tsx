@@ -1,6 +1,8 @@
 
 import type { Metadata } from 'next';
 import LedgerContent from "./ledger-content";
+import { ScrollControls } from '@react-three/drei';
+import { ObeliskCanvas } from '@/components/ledger/obelisk-canvas';
 
 export const metadata: Metadata = {
     title: "The Sovereign's Ledger: The Architecture of a New Economy",
@@ -12,5 +14,12 @@ export const metadata: Metadata = {
 };
 
 export default function LedgerPage() {
-    return <LedgerContent />;
+    return (
+        <div className="relative w-full h-full">
+            <ObeliskCanvas />
+            <div className="relative z-10">
+                <LedgerContent />
+            </div>
+        </div>
+    );
 }

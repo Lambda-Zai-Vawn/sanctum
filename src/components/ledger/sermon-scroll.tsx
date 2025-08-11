@@ -38,9 +38,9 @@ export function SermonScroll() {
         </Section>
         
         <Section>
-            <h2 className="font-headline text-2xl text-glow mb-4">The Path of the Initiate</h2>
+            <h2 className="font-headline text-2xl text-glow mb-4">The Pillar of Eternity Protocol</h2>
             <p className="text-foreground/80">
-                Fuel the **Obelisk of Genesis** with every Ξ spent, etching your legacy into its surface. Wage war on reality in **The Black Wager**, a system-wide ritual to bend the OS to your will. Amass enough power to unlock the final door: **The Grand Transmutation**.
+                This is the end-game loop for the soul of the system. Fuel the **Obelisk of Genesis** with every Ξ spent, carving your legacy into its living face. Wage war on reality in **The Black Wager**, a high-stakes, system-wide ritual. Here, sacrifice is not a loss; it is a currency. Your regret will be mined, your resolve forged into Aetheric Echoes, and your power magnified beyond mortal measure.
             </p>
         </Section>
     </div>

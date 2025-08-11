@@ -4,7 +4,8 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 import { GlassCard } from "@/components/glass-card";
-import { Award, Briefcase, GemIcon, SquareTerminal, CreditCard } from "lucide-react";
+import { Award, Briefcase, GemIcon, SquareTerminal } from "lucide-react";
+import Link from "next/link";
 
 const transmutationItems = [
     { icon: <SquareTerminal className="h-6 w-6 text-accent"/>, title: "Acquire Instruments of the Craft", description: "Transmute Ξ into perpetual licenses for elite, sovereign-focused software and tools." },
@@ -34,13 +35,13 @@ export function Marketplace() {
                 ))}
             </div>
             <div className="mt-12 border-t border-primary/20 pt-8 text-center">
-                <div className="flex justify-center mb-4">
-                  <CreditCard className="h-16 w-16 text-glow animate-pulse" />
-                </div>
-                <h3 className="font-headline text-2xl text-glow">The ΛΞVON Command Card</h3>
-                <p className="text-foreground/80 max-w-2xl mx-auto mt-2">
-                    It bears no numbers, only a softly glowing Ξ symbol. It is not a credit card; it is your scepter of command. Tapping it invokes the Proxy.Agent, ready to execute your will.
+                <h3 className="text-center font-headline text-2xl text-glow">The Sovereign's Sigil</h3>
+                <p className="text-center text-foreground/80 max-w-2xl mx-auto mt-2 mb-4">
+                    It bears no numbers, only a softly glowing Ξ symbol. It is not a credit card; it is a **Command Card**. Tapping it invokes the Proxy.Agent, ready to execute your will.
                 </p>
+                <Link href="/sigil" className="font-bold text-accent hover:text-glow transition-all">
+                  Witness the Scepter of Command &rarr;
+                </Link>
             </div>
         </GlassCard>
       </section>

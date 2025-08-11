@@ -56,17 +56,18 @@ export function CommandDialog() {
   }, []);
 
   React.useEffect(() => {
-    handleSearch(debouncedSearchTerm)
+    if (debouncedSearchTerm) {
+        handleSearch(debouncedSearchTerm)
+    } else {
+        setResult(null);
+        setError(null);
+        setLoading(false);
+    }
   }, [debouncedSearchTerm, handleSearch])
 
 
   const handleInputChange = (value: string) => {
     setSearchTerm(value)
-  }
-
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleSearch(searchTerm);
   }
 
   // When dialog opens with a search term, run the search
@@ -80,13 +81,11 @@ export function CommandDialog() {
 
   return (
     <CommandPrimitive open={open} onOpenChange={setOpen}>
-      <form onSubmit={handleFormSubmit}>
         <CommandInput 
             placeholder="Consult the Lorekeeper..." 
             value={searchTerm}
             onValueChange={handleInputChange}
         />
-      </form>
       <CommandList>
         {(loading || result || error) && <CommandEmpty className="py-6 px-4 text-center text-sm flex flex-col items-center justify-center">
             {loading && <div className="flex flex-col items-center gap-4"><Loader2 className="h-8 w-8 animate-spin text-primary" /><p className="text-foreground/70">The Lorekeeper consults the scrolls...</p></div>}

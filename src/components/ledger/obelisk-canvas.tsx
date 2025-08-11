@@ -11,12 +11,15 @@ function Obelisk() {
   const scroll = useScroll();
 
   useFrame((state, delta) => {
+    if (!meshRef.current) return;
     meshRef.current.rotation.y += delta * 0.1;
     
-    // Sigils pulse effect based on scroll
-    const sigilMaterial = (meshRef.current.children[1] as THREE.Mesh).material as THREE.MeshStandardMaterial;
-    const scrollOffset = scroll.offset;
-    sigilMaterial.emissiveIntensity = 0.5 + Math.sin(scrollOffset * Math.PI * 4) * 0.5;
+    const pyramidion = meshRef.current.children[1] as THREE.Mesh;
+    if (pyramidion) {
+        const material = pyramidion.material as THREE.MeshStandardMaterial;
+        // Smoothly pulsate the emissive intensity
+        material.emissiveIntensity = Math.sin(state.clock.getElapsedTime() * 1.5) * 0.5 + 1.5;
+    }
   });
 
   return (
@@ -53,17 +56,11 @@ export function ObeliskCanvas() {
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={2} color="hsl(var(--primary))" />
-        <pointLight position={[-10, -10, -10]} intensity={1} color="hsl(var(--accent))" />
+        <pointLight position={[-10, -10, 10]} intensity={1.5} color="hsl(var(--accent))" />
         <React.Suspense fallback={null}>
             <Obelisk />
             <Environment preset="city" />
         </React.Suspense>
-        <OrbitControls 
-          enableZoom={false} 
-          enablePan={false} 
-          enableRotate={false}
-          autoRotate={false}
-        />
       </Canvas>
     </div>
   );
