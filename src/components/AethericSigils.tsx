@@ -5,8 +5,9 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 /**
- * A reusable group that rotates its children on the X and Y axes.
- * @param {React.PropsWithChildren} props - The component's props.
+ * A reusable group that rotates its children on the X and Y axes, creating a consistent floating and turning animation for all sigils.
+ * This component encapsulates the animation logic, keeping the individual sigil components clean and focused on their geometry.
+ * @param {React.PropsWithChildren} props - The component's props, which include the children to be rendered inside the rotating group.
  */
 function RotatingGroup({ children }: React.PropsWithChildren<{}>) {
     const groupRef = React.useRef<THREE.Group>(null!);
@@ -22,8 +23,8 @@ function RotatingGroup({ children }: React.PropsWithChildren<{}>) {
 /**
  * A shared, memoized material component for all sigils.
  * It creates a physically-based material with a metallic, slightly rough surface.
- * The emissive color pulses over time to create a living, energetic effect.
- * This material is central to the "Ancient Roman Glass" and "Crystalline Glyphs" aesthetic.
+ * The emissive color pulses over time using `useFrame`, creating a living, energetic effect.
+ * This material is central to the "Ancient Roman Glass" and "Crystalline Glyphs" aesthetic of the ΛΞVON brand.
  */
 const SigilMaterial = React.memo(() => {
     const materialRef = React.useRef<THREE.MeshStandardMaterial>(null);
@@ -47,10 +48,12 @@ const SigilMaterial = React.memo(() => {
 });
 SigilMaterial.displayName = 'SigilMaterial';
 
+// Create a single, reusable instance of the material to be shared across all sigils.
 const SharedSigilMaterial = <SigilMaterial />;
 
 /**
  * The primary sigil representing the ΛΞVON brand itself.
+ * Its shape is a stylized 'Λ' (Lambda), symbolizing the core of the brand identity.
  */
 export function LambdaXiVON_Sigil() {
     const shape = React.useMemo(() => {
@@ -86,7 +89,7 @@ export function LambdaXiVON_Sigil() {
 
 /**
  * The sigil for BEEP, the Behavioural Event and Execution Processor.
- * Represented by a wireframe-overlaid icosahedron, symbolizing its complex, multi-faceted intelligence.
+ * Represented by a wireframe-overlaid icosahedron, symbolizing its complex, multi-faceted intelligence and neural network-like structure.
  */
 export function BEEP_Sigil() {
     return (
@@ -105,7 +108,7 @@ export function BEEP_Sigil() {
 
 /**
  * The sigil for Micro-Apps, the atomic units of utility in ΛΞVON OS.
- * Represented by a hexagonal cylinder, symbolizing a self-contained module.
+ * Represented by a hexagonal cylinder, symbolizing a self-contained, modular, and stackable unit of functionality.
  */
 export function MicroAppsSigil() {
     return (
@@ -120,7 +123,7 @@ export function MicroAppsSigil() {
 
 /**
  * The sigil for Loom Studio, the Architect's Sanctum for designing agents.
- * Represented by a flat, square panel, symbolizing a canvas or blueprint.
+ * Represented by a flat, square panel with a wireframe overlay, symbolizing a canvas, blueprint, or a weaver's loom for creating digital agents.
  */
 export function LoomSigil() {
     return (
@@ -139,7 +142,7 @@ export function LoomSigil() {
 
 /**
  * The sigil for Aegis, the guardian and security protocol of ΛΞVON OS.
- * Represented by an octahedron, a platonic solid symbolizing strength and stability.
+ * Represented by an octahedron, a platonic solid symbolizing strength, stability, and a shield-like structure.
  */
 export function AegisSigil() {
     return (
@@ -154,7 +157,7 @@ export function AegisSigil() {
 
 /**
  * The sigil for the KLEPSYDRA Engine, the economic heart of the system.
- * Represented by two cones joined at their apex, like an hourglass, symbolizing the flow of time and resources.
+ * Represented by two cones joined at their apex, like an hourglass (a water clock or 'klepsydra'), symbolizing the flow of time, resources, and economic value.
  */
 export function KlepsydraSigil() {
     return (
@@ -173,7 +176,7 @@ export function KlepsydraSigil() {
 
 /**
  * The sigil for the Pantheon, the collection of core system deities.
- * Represented by a dodecahedron, another platonic solid often associated with the universe or the whole.
+ * Represented by a dodecahedron, another platonic solid often associated with the universe or the whole, symbolizing the complete collection of core components.
  */
 export function PantheonSigil() {
     return (
@@ -188,7 +191,7 @@ export function PantheonSigil() {
 
 /**
  * The sigil for the Armory Marketplace, the repository for Micro-Apps and Chaos Cards.
- * Represented by a complex Torus Knot, symbolizing a woven collection of powerful tools.
+ * Represented by a complex Torus Knot, symbolizing a woven collection of powerful, interconnected tools and instruments.
  */
 export function ArmorySigil() {
     return (
@@ -203,7 +206,7 @@ export function ArmorySigil() {
 
 /**
  * The sigil for the Obelisk Marketplace, where digital power becomes tangible.
- * Represented by a simple Torus, a ring symbolizing value and economy.
+ * Represented by a simple Torus, a ring symbolizing value, economy, and a continuous cycle of transmutation.
  */
 export function ObeliskMarketplaceSigil() {
     return (
@@ -218,7 +221,7 @@ export function ObeliskMarketplaceSigil() {
 
 /**
  * The sigil for the Sovereign's Sigil, the physical command card.
- * Represented by a scepter, a symbol of command and authority, with a glowing gem at its tip.
+ * Represented by a scepter, a symbol of command and authority, with a glowing gem at its tip, signifying the operator's power.
  */
 export function SovereignsSigil() {
     return (

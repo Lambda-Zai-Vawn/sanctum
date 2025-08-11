@@ -4,18 +4,16 @@
 import { PageHeader } from "@/components/page-header";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
-import dynamic from 'next/dynamic';
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Canvas } from "@react-three/fiber";
+import * as React from 'react';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Canvas } from "@react-three/fiber";
-import * as React from 'react';
-import * as THREE from 'three';
 import { BEEP_Sigil, AegisSigil, KlepsydraSigil, LoomSigil, ArmorySigil, ObeliskMarketplaceSigil } from "@/components/AethericSigils";
 
 
