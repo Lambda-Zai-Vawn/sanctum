@@ -3,12 +3,14 @@ import { CommandDialog } from "@/components/command-dialog";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/navigation";
 import { Soundscape } from "@/components/soundscape";
+import { usePathname } from "next/navigation";
 
 export default function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden bg-background">
         <div className="absolute top-0 left-0 -z-10 h-full w-full">
