@@ -4,11 +4,17 @@ import * as React from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
+/**
+ * A shared, memoized material component for all sigils.
+ * It creates a physically-based material with a metallic, slightly rough surface.
+ * The emissive color pulses over time to create a living, energetic effect.
+ * This material is central to the "Ancient Roman Glass" and "Crystalline Glyphs" aesthetic.
+ */
 const SigilMaterial = React.memo(() => {
     const materialRef = React.useRef<THREE.MeshStandardMaterial>(null);
     useFrame((state) => {
         if (materialRef.current) {
-            // Smoothly pulsate the emissive intensity
+            // Smoothly pulsate the emissive intensity for a "living" feel
             materialRef.current.emissiveIntensity = Math.sin(state.clock.getElapsedTime() * 1.5) * 0.2 + 0.6;
         }
     });
@@ -26,6 +32,12 @@ const SigilMaterial = React.memo(() => {
 });
 SigilMaterial.displayName = 'SigilMaterial';
 
+
+/**
+ * A component that wraps a sigil's geometry and applies a continuous rotation animation.
+ * @param {SigilAnimatorProps} props - The props for the component.
+ * @param {React.ReactNode} props.children - The sigil geometry to be animated.
+ */
 type SigilAnimatorProps = {
   children: React.ReactNode;
 };
@@ -43,8 +55,15 @@ const SigilAnimator = ({ children }: SigilAnimatorProps) => {
 }
 
 
+/**
+ * A wrapper component that provides a consistent 3D environment for rendering a sigil.
+ * It sets up the R3F Canvas, lighting, and the animator.
+ * @param {SigilWrapperProps} props - The props for the component.
+ */
 type SigilWrapperProps = {
+  /** The sigil component to be rendered. */
   children: React.ReactNode;
+  /** Optional CSS classes to apply to the container div. */
   className?: string;
 };
 
@@ -65,6 +84,9 @@ const SigilWrapper = ({ children, className }: SigilWrapperProps) => {
 
 const SharedSigilMaterial = <SigilMaterial />;
 
+/**
+ * The primary sigil representing the ΛΞVON brand itself.
+ */
 export function LambdaXiVON_Sigil(props: { className?: string }) {
     const shape = React.useMemo(() => {
         const s = new THREE.Shape();
@@ -97,7 +119,10 @@ export function LambdaXiVON_Sigil(props: { className?: string }) {
     );
 }
 
-
+/**
+ * The sigil for BEEP, the Behavioural Event and Execution Processor.
+ * Represented by a wireframe-overlaid icosahedron, symbolizing its complex, multi-faceted intelligence.
+ */
 export function BEEP_Sigil(props: { className?: string }) {
     return (
         <SigilWrapper {...props}>
@@ -113,6 +138,10 @@ export function BEEP_Sigil(props: { className?: string }) {
     );
 }
 
+/**
+ * The sigil for Micro-Apps, the atomic units of utility in ΛΞVON OS.
+ * Represented by a hexagonal cylinder, symbolizing a self-contained module.
+ */
 export function MicroAppsSigil(props: { className?: string }) {
     return (
         <SigilWrapper {...props}>
@@ -124,6 +153,10 @@ export function MicroAppsSigil(props: { className?: string }) {
     );
 }
 
+/**
+ * The sigil for Loom Studio, the Architect's Sanctum for designing agents.
+ * Represented by a flat, square panel, symbolizing a canvas or blueprint.
+ */
 export function LoomSigil(props: { className?: string }) {
     return (
         <SigilWrapper {...props}>
@@ -139,6 +172,10 @@ export function LoomSigil(props: { className?: string }) {
     );
 }
 
+/**
+ * The sigil for Aegis, the guardian and security protocol of ΛΞVON OS.
+ * Represented by an octahedron, a platonic solid symbolizing strength and stability.
+ */
 export function AegisSigil(props: { className?: string }) {
     return (
         <SigilWrapper {...props}>
@@ -150,6 +187,10 @@ export function AegisSigil(props: { className?: string }) {
     );
 }
 
+/**
+ * The sigil for the KLEPSYDRA Engine, the economic heart of the system.
+ * Represented by two cones joined at their apex, like an hourglass, symbolizing the flow of time and resources.
+ */
 export function KlepsydraSigil(props: { className?: string }) {
     return (
         <SigilWrapper {...props}>
@@ -165,6 +206,10 @@ export function KlepsydraSigil(props: { className?: string }) {
     );
 }
 
+/**
+ * The sigil for the Pantheon, the collection of core system deities.
+ * Represented by a dodecahedron, another platonic solid often associated with the universe or the whole.
+ */
 export function PantheonSigil(props: { className?: string }) {
     return (
         <SigilWrapper {...props}>
@@ -176,6 +221,10 @@ export function PantheonSigil(props: { className?: string }) {
     );
 }
 
+/**
+ * The sigil for the Armory Marketplace, the repository for Micro-Apps and Chaos Cards.
+ * Represented by a complex Torus Knot, symbolizing a woven collection of powerful tools.
+ */
 export function ArmorySigil(props: { className?: string }) {
     return (
         <SigilWrapper {...props}>
@@ -187,6 +236,10 @@ export function ArmorySigil(props: { className?: string }) {
     );
 }
 
+/**
+ * The sigil for the Obelisk Marketplace, where digital power becomes tangible.
+ * Represented by a simple Torus, a ring symbolizing value and economy.
+ */
 export function ObeliskMarketplaceSigil(props: { className?: string }) {
     return (
         <SigilWrapper {...props}>
@@ -198,6 +251,10 @@ export function ObeliskMarketplaceSigil(props: { className?: string }) {
     );
 }
 
+/**
+ * The sigil for the Sovereign's Sigil, the physical command card.
+ * Represented by a scepter, a symbol of command and authority, with a glowing gem at its tip.
+ */
 export function SovereignsSigil(props: { className?: string }) {
     return (
         <SigilWrapper {...props}>

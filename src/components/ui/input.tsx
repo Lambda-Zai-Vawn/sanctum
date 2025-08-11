@@ -3,6 +3,10 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A standard, styled input component for text-based inputs.
+ * It provides consistent styling that aligns with the application's theme.
+ */
 const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
   ({ className, type, ...props }, ref) => {
     return (

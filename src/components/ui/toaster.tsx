@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -11,6 +12,11 @@ import {
   ToastViewport,
 } from "@/components/ui/toast"
 
+/**
+ * A component that renders all active toasts.
+ * It listens to the `useToast` hook and displays toasts as they are created.
+ * It should be placed once in the root layout of the application.
+ */
 export function Toaster() {
   const { toasts } = useToast()
 

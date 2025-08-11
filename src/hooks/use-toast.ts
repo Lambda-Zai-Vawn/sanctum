@@ -1,3 +1,4 @@
+
 "use client"
 
 // Inspired by react-hot-toast library
@@ -74,6 +75,13 @@ const addToRemoveQueue = (toastId: string) => {
   toastTimeouts.set(toastId, timeout)
 }
 
+/**
+ * The reducer function that manages the state of the toasts.
+ * It handles adding, updating, dismissing, and removing toasts.
+ * @param {State} state - The current state.
+ * @param {Action} action - The action to perform.
+ * @returns {State} The new state.
+ */
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "ADD_TOAST":
@@ -142,6 +150,11 @@ function dispatch(action: Action) {
 
 type Toast = Omit<ToasterToast, "id">
 
+/**
+ * Creates and displays a toast notification.
+ * @param {Toast} props - The properties of the toast to display.
+ * @returns An object with methods to `dismiss` or `update` the toast.
+ */
 function toast({ ...props }: Toast) {
   const id = genId()
 
@@ -171,6 +184,18 @@ function toast({ ...props }: Toast) {
   }
 }
 
+/**
+ * @typedef UseToastResult
+ * @property {ToasterToast[]} toasts - An array of the current toasts.
+ * @property {(props: Toast) => { id: string, dismiss: () => void, update: (props: ToasterToast) => void }} toast - A function to create a new toast.
+ * @property {(toastId?: string) => void} dismiss - A function to dismiss a toast by its ID, or all toasts if no ID is provided.
+ */
+
+/**
+ * A custom hook to manage and interact with the toast system.
+ * It provides the current list of toasts and functions to create or dismiss them.
+ * @returns {UseToastResult} The toast state and action dispatchers.
+ */
 function useToast() {
   const [state, setState] = React.useState<State>(memoryState)
 

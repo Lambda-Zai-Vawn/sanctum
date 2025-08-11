@@ -5,6 +5,10 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Defines the visual variants for the Button component.
+ * This includes styles for different interaction states, variants, and sizes.
+ */
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
@@ -38,9 +42,18 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
+  /**
+   * If true, the button will render as a `Slot` component, allowing it to merge its props
+   * with its immediate child. This is useful for wrapping components like `Link` from Next.js.
+   * @default false
+   */
   asChild?: boolean
 }
 
+/**
+ * A versatile button component with consistent styling, supporting multiple variants and sizes.
+ * It can be rendered as a standard button or as a Slot to wrap other components.
+ */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
