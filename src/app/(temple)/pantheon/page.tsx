@@ -1,7 +1,6 @@
 
 "use client";
 
-import type { Metadata } from 'next';
 import { PageHeader } from "@/components/page-header";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
@@ -22,11 +21,6 @@ const KlepsydraSigil = dynamic(() => import('@/components/AethericSigils').then(
 const ArmorySigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.ArmorySigil), { ssr: false, loading: () => <div className="h-32 w-32" /> });
 const ObeliskMarketplaceSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.ObeliskMarketplaceSigil), { ssr: false, loading: () => <div className="h-32 w-32" /> });
 
-
-export const metadata: Metadata = {
-    title: "The Pantheon: Deities of the New Digital Reality",
-    description: "These are not products. They are the fundamental forces of the ΛΞVON ecosystem. The deities of the new digital reality.",
-};
 
 const components = [
   {

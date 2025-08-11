@@ -1,7 +1,6 @@
 
 "use client";
 
-import type { Metadata } from 'next';
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { GlassCard } from "@/components/glass-card";
@@ -9,11 +8,6 @@ import { Button } from "@/components/ui/button";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
-
-export const metadata: Metadata = {
-    title: "The Chancel: The Rite of Invocation",
-    description: "The final realm. The altar where a visitor can choose to become an Initiate. The Rite of Invocation begins here.",
-};
 
 const pacts = [
     {

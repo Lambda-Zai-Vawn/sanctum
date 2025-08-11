@@ -1,15 +1,9 @@
 
-import type { Metadata } from 'next';
 import { PageHeader } from '@/components/page-header';
 import { GlassCard } from '@/components/glass-card';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-
-export const metadata: Metadata = {
-    title: "The Scriptorium: The Living Scroll",
-    description: "The source of truth for all technical and philosophical aspects of ΛΞVON OS.",
-};
 
 const sections = [
     {

@@ -1,7 +1,6 @@
 
 "use client";
 
-import type { Metadata } from 'next';
 import { PageHeader } from "@/components/page-header";
 import { GlassCard } from "@/components/glass-card";
 import { ShieldCheck, Bot, Fingerprint, LockKeyhole } from "lucide-react";
@@ -15,11 +14,6 @@ const AegisSigil = dynamic(() => import('@/components/AethericSigils').then(mod 
   ssr: false,
   loading: () => <div className="h-48 w-48" />
 });
-
-export const metadata: Metadata = {
-    title: "The Aegis Post: The Sentinel's Vow",
-    description: "Our commitment to security is absolute, woven into the very fabric of the OS. Here, we detail The Sentinel's Vow.",
-};
 
 const features = [
   {
