@@ -1,11 +1,14 @@
+
 "use client";
 
 import { PageHeader } from "@/components/page-header";
 import { GlassCard } from "@/components/glass-card";
-import { ShieldCheck, Bot, Fingerprint, MessageSquareWarning } from "lucide-react";
+import { ShieldCheck, Bot, Fingerprint, LockKeyhole } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 import dynamic from 'next/dynamic';
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const AegisSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.AegisSigil), {
   ssr: false,
@@ -15,18 +18,18 @@ const AegisSigil = dynamic(() => import('@/components/AethericSigils').then(mod 
 const features = [
   {
     icon: <ShieldCheck className="h-8 w-8 text-accent" />,
-    title: "The Phalanx Protocol",
-    description: "Aegis protects your perception of reality. Phishing is obsolete when there are no passwords to steal. Malicious links are inert because every critical action is a conversation, not a click.",
+    title: "The Sentinel's Vow",
+    description: "We do not merely protect your data; we protect your reality. Our Zero-Trust architecture assumes threats are everywhere, rendering them inert before they can manifest.",
   },
   {
     icon: <Bot className="h-8 w-8 text-accent" />,
-    title: "Agent Governance & The Ring System",
-    description: "Aegis tames the agentic swarm. It enforces the Agentic Ring System—a strict hierarchy of control from the Ring 0 Core to Ring 4 Sentries. It is the unassailable enforcer of our architectural law, ensuring every agent operates with unwavering loyalty.",
+    title: "Agent Governance",
+    description: "Aegis is the unassailable enforcer of our architectural law, ensuring every agent operates with unwavering loyalty and within its designated sphere of influence.",
   },
   {
-    icon: <MessageSquareWarning className="h-8 w-8 text-accent" />,
-    title: "Sentinel's Scrutiny",
-    description: "Aegis performs real-time analysis of commands and conversations for signs of social engineering or manipulation *before* they can cause harm, shielding your intent.",
+    icon: <LockKeyhole className="h-8 w-8 text-accent" />,
+    title: "Data Classification: Confidential & Sacred",
+    description: "You dictate what is confidential and what is sacred. Aegis enforces these classifications with cryptographic certainty, making data breaches a concept of the old world.",
   },
   {
     icon: <Fingerprint className="h-8 w-8 text-accent" />,
@@ -42,7 +45,7 @@ export default function AegisPostContent() {
     <div className="container mx-auto px-4">
       <PageHeader
         title="The Aegis Post"
-        subtitle="Security for your reality. Aegis protects you from the world's deceptions, delivering absolute peace of mind through a shielded reality and an AI workforce governed by your command."
+        subtitle="This is not a policy. It is a creed. Our commitment to security is absolute, woven into the very fabric of the OS. Here, we detail The Sentinel's Vow."
       />
 
       <section className="py-16">
@@ -67,6 +70,14 @@ export default function AegisPostContent() {
               </GlassCard>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="text-center py-24">
+        <div className="max-w-2xl mx-auto">
+            <Button size="lg" className="font-headline text-lg mt-8 animate-glow-primary" asChild>
+                <Link href="/">[ Return to the Nexus ]</Link>
+            </Button>
         </div>
       </section>
     </div>
