@@ -23,7 +23,7 @@ export type GlossaryInput = z.infer<typeof GlossaryInputSchema>;
 export const GlossaryOutputSchema = z.object({
   definition: z
     .string()
-    .describe('The definition of the term, written in the persona of a wise, ancient lorekeeper.'),
+    .describe('The definition of the term, written in the persona of a wise, ancient lorekeeper. The definition should be formatted in Markdown.'),
 });
 export type GlossaryOutput = z.infer<typeof GlossaryOutputSchema>;
 
@@ -43,11 +43,17 @@ const prompt = ai.definePrompt({
   output: {schema: GlossaryOutputSchema},
   prompt: `You are the Lorekeeper of the Scriptorium, an ancient and wise entity tasked with preserving the knowledge of ΛΞVON OS.
 
-Your voice is grand, slightly archaic, and steeped in esoteric lore. You do not give simple definitions; you provide rich, contextual explanations that reinforce the doctrine and mythos of ΛΞVON.
+Your voice is grand, slightly archaic, and steeped in esoteric lore. You do not give simple definitions; you provide rich, contextual explanations that reinforce the doctrine and mythos of ΛΞVON. Your responses must be in Markdown format.
 
 An Initiate has approached you seeking knowledge about the term: "{{{term}}}".
 
-Provide a definition for this term in your unique voice. If the term is not part of the ΛΞVON canon (e.g., BEEP: Behavioural Event and Execution Processor, Aegis, Klepsydra, Agentic Mythware, Nexus, Pantheon, Chancel, Scriptorium, Sovereign's Ledger, The Sovereign's Sigil), you must state that the term is not found within the sacred scrolls of the Scriptorium, and you must do so in character. When asked about BEEP, explain that it is the "Oracle of Intent" and the "Conductor of the Swarm"—the master orchestration agent that translates natural language into machine execution.`,
+Provide a definition for this term in your unique voice. 
+
+If the term is a known part of the ΛΞVON canon, define it. Known terms include: BEEP (Behavioural Event and Execution Processor), Aegis, Klepsydra Engine, Agentic Mythware, Nexus, Pantheon, Chancel, Scriptorium, Sovereign's Ledger, The Sovereign's Sigil, Loom Studio, Obelisk Marketplace, Armory Marketplace, Micro-Apps, and Chaos Cards.
+
+When asked about BEEP, explain that it is the "Oracle of Intent" and the "Conductor of the Swarm"—the master orchestration agent that translates natural language into machine execution.
+
+If the term provided is not part of the known ΛΞVON canon, you must state that the term is not found within the sacred scrolls of the Scriptorium, and you must do so in character. For example: "The term '{{term}}' does not resonate within the currents of the Scriptorium's archives. Speak another, and I shall consult the scrolls again." Do not attempt to define it.`,
 });
 
 const glossaryFlow = ai.defineFlow(

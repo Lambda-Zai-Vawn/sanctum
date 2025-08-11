@@ -39,10 +39,10 @@ function Orb3DIcon({ state }: { state: 'open' | 'closed' }) {
         const targetRotation = state === 'open' ? Math.PI / 4 : 0;
         
         if (line1Ref.current) {
-            line1Ref.current.rotation.z = THREE.MathUtils.lerp(line1Ref.current.rotation.z, targetRotation, 0.1);
+            line1Ref.current.rotation.z = THREE.MathUtils.lerp(line1.current.rotation.z, targetRotation, 0.1);
         }
         if (line2Ref.current) {
-            line2Ref.current.rotation.z = THREE.MathUtils.lerp(line2Ref.current.rotation.z, -targetRotation, 0.1);
+            line2Ref.current.rotation.z = THREE.MathUtils.lerp(line2.current.rotation.z, -targetRotation, 0.1);
         }
     });
     
@@ -131,6 +131,11 @@ export const ChainsIcon = (props: React.HTMLAttributes<SVGElement>) => (
     </IconWrapper>
 );
 
+/**
+ * An icon representing a microphone, used for voice input controls.
+ * It's a standard SVG icon wrapped for consistency.
+ * @param {React.HTMLAttributes<SVGElement>} props - Standard SVG attributes.
+ */
 export const MicrophoneIcon = (props: React.HTMLAttributes<SVGElement>) => (
     <IconWrapper viewBox="0 0 24 24" {...props}>
         <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
