@@ -1,7 +1,7 @@
 
 "use client";
 import * as React from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 /**
@@ -33,33 +33,19 @@ const SigilMaterial = React.memo(() => {
 SigilMaterial.displayName = 'SigilMaterial';
 
 
-/**
- * A component that wraps a sigil's geometry and applies a continuous rotation animation.
- * @param {SigilAnimatorProps} props - The props for the component.
- * @param {React.ReactNode} props.children - The sigil geometry to be animated.
- */
-type SigilAnimatorProps = {
-  children: React.ReactNode;
-};
-
-const SigilAnimator = ({ children }: SigilAnimatorProps) => {
-    const meshRef = React.useRef<THREE.Group>(null);
-    useFrame((state, delta) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.y += delta * 0.3;
-            meshRef.current.rotation.x += delta * 0.2;
-        }
-    });
-
-    return <group ref={meshRef}>{children}</group>;
-}
-
 const SharedSigilMaterial = <SigilMaterial />;
 
 /**
  * The primary sigil representing the ΛΞVON brand itself.
  */
-export function LambdaXiVON_Sigil(props: { className?: string }) {
+export function LambdaXiVON_Sigil() {
+    const meshRef = React.useRef<THREE.Group>(null!);
+    useFrame((_, delta) => {
+        if (meshRef.current) {
+            meshRef.current.rotation.y += delta * 0.3;
+            meshRef.current.rotation.x += delta * 0.2;
+        }
+    });
     const shape = React.useMemo(() => {
         const s = new THREE.Shape();
         s.moveTo(-1, -1);
@@ -82,7 +68,7 @@ export function LambdaXiVON_Sigil(props: { className?: string }) {
     }), []);
 
     return (
-        <group {...props}>
+        <group ref={meshRef}>
             <mesh scale={1.2}>
             <extrudeGeometry args={[shape, extrudeSettings]} />
             {SharedSigilMaterial}
@@ -95,9 +81,16 @@ export function LambdaXiVON_Sigil(props: { className?: string }) {
  * The sigil for BEEP, the Behavioural Event and Execution Processor.
  * Represented by a wireframe-overlaid icosahedron, symbolizing its complex, multi-faceted intelligence.
  */
-export function BEEP_Sigil(props: { className?: string }) {
+export function BEEP_Sigil() {
+    const meshRef = React.useRef<THREE.Group>(null!);
+    useFrame((_, delta) => {
+        if (meshRef.current) {
+            meshRef.current.rotation.y += delta * 0.3;
+            meshRef.current.rotation.x += delta * 0.2;
+        }
+    });
     return (
-        <group {...props}>
+        <group ref={meshRef}>
             <mesh>
                 <icosahedronGeometry args={[1, 0]} />
                 {SharedSigilMaterial}
@@ -114,9 +107,16 @@ export function BEEP_Sigil(props: { className?: string }) {
  * The sigil for Micro-Apps, the atomic units of utility in ΛΞVON OS.
  * Represented by a hexagonal cylinder, symbolizing a self-contained module.
  */
-export function MicroAppsSigil(props: { className?: string }) {
+export function MicroAppsSigil() {
+    const meshRef = React.useRef<THREE.Group>(null!);
+    useFrame((_, delta) => {
+        if (meshRef.current) {
+            meshRef.current.rotation.y += delta * 0.3;
+            meshRef.current.rotation.x += delta * 0.2;
+        }
+    });
     return (
-        <group {...props}>
+        <group ref={meshRef}>
             <mesh>
                 <cylinderGeometry args={[0.8, 0.8, 0.5, 6]} />
                 {SharedSigilMaterial}
@@ -129,9 +129,16 @@ export function MicroAppsSigil(props: { className?: string }) {
  * The sigil for Loom Studio, the Architect's Sanctum for designing agents.
  * Represented by a flat, square panel, symbolizing a canvas or blueprint.
  */
-export function LoomSigil(props: { className?: string }) {
+export function LoomSigil() {
+    const meshRef = React.useRef<THREE.Group>(null!);
+    useFrame((_, delta) => {
+        if (meshRef.current) {
+            meshRef.current.rotation.y += delta * 0.3;
+            meshRef.current.rotation.x += delta * 0.2;
+        }
+    });
     return (
-        <group {...props}>
+        <group ref={meshRef}>
             <mesh>
                 <boxGeometry args={[1.5, 1.5, 0.2]} />
                 {SharedSigilMaterial}
@@ -148,9 +155,16 @@ export function LoomSigil(props: { className?: string }) {
  * The sigil for Aegis, the guardian and security protocol of ΛΞVON OS.
  * Represented by an octahedron, a platonic solid symbolizing strength and stability.
  */
-export function AegisSigil(props: { className?: string }) {
+export function AegisSigil() {
+    const meshRef = React.useRef<THREE.Group>(null!);
+    useFrame((_, delta) => {
+        if (meshRef.current) {
+            meshRef.current.rotation.y += delta * 0.3;
+            meshRef.current.rotation.x += delta * 0.2;
+        }
+    });
     return (
-        <group {...props}>
+        <group ref={meshRef}>
             <mesh>
                 <octahedronGeometry args={[1, 0]} />
                 {SharedSigilMaterial}
@@ -163,9 +177,16 @@ export function AegisSigil(props: { className?: string }) {
  * The sigil for the KLEPSYDRA Engine, the economic heart of the system.
  * Represented by two cones joined at their apex, like an hourglass, symbolizing the flow of time and resources.
  */
-export function KlepsydraSigil(props: { className?: string }) {
+export function KlepsydraSigil() {
+    const meshRef = React.useRef<THREE.Group>(null!);
+    useFrame((_, delta) => {
+        if (meshRef.current) {
+            meshRef.current.rotation.y += delta * 0.3;
+            meshRef.current.rotation.x += delta * 0.2;
+        }
+    });
     return (
-        <group {...props}>
+        <group ref={meshRef}>
             <mesh position={[0, 0.5, 0]}>
                 <coneGeometry args={[0.8, 1, 4]} />
                 {SharedSigilMaterial}
@@ -182,9 +203,16 @@ export function KlepsydraSigil(props: { className?: string }) {
  * The sigil for the Pantheon, the collection of core system deities.
  * Represented by a dodecahedron, another platonic solid often associated with the universe or the whole.
  */
-export function PantheonSigil(props: { className?: string }) {
+export function PantheonSigil() {
+    const meshRef = React.useRef<THREE.Group>(null!);
+    useFrame((_, delta) => {
+        if (meshRef.current) {
+            meshRef.current.rotation.y += delta * 0.3;
+            meshRef.current.rotation.x += delta * 0.2;
+        }
+    });
     return (
-        <group {...props}>
+        <group ref={meshRef}>
             <mesh>
                 <dodecahedronGeometry args={[1, 0]} />
                 {SharedSigilMaterial}
@@ -197,9 +225,16 @@ export function PantheonSigil(props: { className?: string }) {
  * The sigil for the Armory Marketplace, the repository for Micro-Apps and Chaos Cards.
  * Represented by a complex Torus Knot, symbolizing a woven collection of powerful tools.
  */
-export function ArmorySigil(props: { className?: string }) {
+export function ArmorySigil() {
+    const meshRef = React.useRef<THREE.Group>(null!);
+    useFrame((_, delta) => {
+        if (meshRef.current) {
+            meshRef.current.rotation.y += delta * 0.3;
+            meshRef.current.rotation.x += delta * 0.2;
+        }
+    });
     return (
-        <group {...props}>
+        <group ref={meshRef}>
             <mesh>
                 <torusKnotGeometry args={[0.7, 0.2, 128, 16, 2, 3]} />
                 {SharedSigilMaterial}
@@ -212,9 +247,16 @@ export function ArmorySigil(props: { className?: string }) {
  * The sigil for the Obelisk Marketplace, where digital power becomes tangible.
  * Represented by a simple Torus, a ring symbolizing value and economy.
  */
-export function ObeliskMarketplaceSigil(props: { className?: string }) {
+export function ObeliskMarketplaceSigil() {
+    const meshRef = React.useRef<THREE.Group>(null!);
+    useFrame((_, delta) => {
+        if (meshRef.current) {
+            meshRef.current.rotation.y += delta * 0.3;
+            meshRef.current.rotation.x += delta * 0.2;
+        }
+    });
     return (
-        <group {...props}>
+        <group ref={meshRef}>
             <mesh>
                 <torusGeometry args={[0.8, 0.3, 16, 100]} />
                 {SharedSigilMaterial}
@@ -227,9 +269,16 @@ export function ObeliskMarketplaceSigil(props: { className?: string }) {
  * The sigil for the Sovereign's Sigil, the physical command card.
  * Represented by a scepter, a symbol of command and authority, with a glowing gem at its tip.
  */
-export function SovereignsSigil(props: { className?: string }) {
+export function SovereignsSigil() {
+    const meshRef = React.useRef<THREE.Group>(null!);
+    useFrame((_, delta) => {
+        if (meshRef.current) {
+            meshRef.current.rotation.y += delta * 0.3;
+            meshRef.current.rotation.x += delta * 0.2;
+        }
+    });
     return (
-        <group {...props}>
+        <group ref={meshRef}>
             <group>
                 <mesh position={[0, -0.25, 0]}>
                     <cylinderGeometry args={[0.1, 0.1, 2.5, 8]} />

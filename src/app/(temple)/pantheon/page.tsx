@@ -24,37 +24,37 @@ const components = [
     sigil: BEEP_Sigil,
     name: "BEEP",
     domain: "The Oracle. The voice and will of the machine.",
-    position: new THREE.Vector3(-4, 0, 0),
+    position: [-4, 0, 0],
   },
   {
     sigil: AegisSigil,
     name: "Aegis",
     domain: "The Guardian. The ever-present bodyguard ensuring absolute integrity.",
-    position: new THREE.Vector3(-2, 0, 0),
+    position: [-2, 0, 0],
   },
   {
     sigil: KlepsydraSigil,
     name: "KLEPSYDRA Engine",
     domain: "The Engine. The economic heart that transforms work into power.",
-    position: new THREE.Vector3(0, 0, 0),
+    position: [0, 0, 0],
   },
   {
     sigil: LoomSigil,
     name: "Loom Studio",
     domain: "The Forge. The Architect's Sanctum for designing autonomous agents.",
-    position: new THREE.Vector3(2, 0, 0),
+    position: [2, 0, 0],
   },
   {
     sigil: ArmorySigil,
     name: "Armory Marketplace",
     domain: "The Sanctified Repository for Micro-Apps and Chaos Cards.",
-    position: new THREE.Vector3(4, 0, 0),
+    position: [4, 0, 0],
   },
    {
     sigil: ObeliskMarketplaceSigil,
     name: "Obelisk Marketplace",
     domain: "The Vault of Manifested Sovereignty.",
-    position: new THREE.Vector3(6, 0, 0),
+    position: [6, 0, 0],
   },
 ];
 
