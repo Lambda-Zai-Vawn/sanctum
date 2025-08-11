@@ -5,11 +5,13 @@ import * as React from 'react';
 import Link from 'next/link';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useScroll } from '@react-three/drei';
-import { Monolith } from './monolith';
+import { PsycheMatrix } from './psyche-matrix';
+import { SaaSParticles } from './saas-particles';
 import { AgentSwarm } from './agent-swarm';
 import { Section, sections } from './section';
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { Button } from '../ui/button';
+import { AuroraBackground } from './aurora-background';
 
 export function LandingScene({ router }: { router: AppRouterInstance }) {
   const scroll = useScroll();
@@ -30,7 +32,12 @@ export function LandingScene({ router }: { router: AppRouterInstance }) {
     <>
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} color="hsl(var(--primary))" intensity={2} />
-      <Monolith />
+      <AuroraBackground />
+
+      <group>
+        <PsycheMatrix />
+        <SaaSParticles />
+      </group>
       
       <Section start={sections.intro.start} end={sections.intro.end} className="flex flex-col items-center justify-center text-center">
           <h1 className="text-7xl font-headline text-glow">ΛΞVON OS</h1>
