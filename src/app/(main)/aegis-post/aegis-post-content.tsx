@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { PageHeader } from "@/components/page-header";
@@ -22,8 +21,8 @@ const features = [
   },
   {
     icon: <Bot className="h-8 w-8 text-accent" />,
-    title: "Agent Governance",
-    description: "Aegis governs by continuously monitoring Agent Integrity Certifications, ensuring every action is verified and authorized.",
+    title: "Agent Governance & The Ring System",
+    description: "Aegis governs the Agentic Ring System™, a strict hierarchy organizing the agent swarm. It enforces the Mobility Protocol, ensuring agents are demoted for any operational failure.",
   },
   {
     icon: <DatabaseZap className="h-8 w-8 text-accent" />,
