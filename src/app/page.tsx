@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from 'react';
@@ -19,8 +18,8 @@ export default function SanctumNexus() {
   const [hovered, setHovered] = useState<string | null>(null);
 
   return (
-    <div className="relative h-svh w-full overflow-hidden bg-background" onDoubleClick={() => setShowRealms(true)}>
-      <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
+    <div className="relative h-svh w-full overflow-hidden bg-background">
+      <Canvas onDoubleClick={() => setShowRealms(true)} camera={{ position: [0, 0, 8], fov: 50 }}>
         <ambientLight intensity={1.5} />
         <pointLight position={[10, 10, 10]} intensity={3} color="hsl(var(--primary))" />
         <pointLight position={[-10, -10, -10]} intensity={2} color="hsl(var(--accent))" />
