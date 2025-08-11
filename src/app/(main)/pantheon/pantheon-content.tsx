@@ -21,8 +21,8 @@ const ObeliskMarketplaceSigil = dynamic(() => import('@/components/AethericSigil
 const components = [
   {
     icon: <BEEP_Sigil className="h-16 w-16" />,
-    name: "BEEP",
-    description: "The Agentic Scribe. The core intelligence that transmutes raw, unstructured thought into doctrinally-aligned communiques and artifacts.",
+    name: "BEEP: Behavioural Event and Execution Processor",
+    description: "The master orchestration agent. BEEP is the core intelligence of ΛΞVON OS, processing complex business workflows and executing tasks autonomously. It is the will of the sovereign, made manifest.",
   },
   {
     icon: <MicroAppsSigil className="h-16 w-16" />,
@@ -81,7 +81,7 @@ export default function PantheonContent() {
             className={cn(componentsSection.isInView ? "animate-fade-in-up" : "opacity-0")}
             style={{ animationDelay: `${200 + index * 100}ms` }}
           >
-            <GlassCard className="flex flex-col p-8">
+            <GlassCard className="flex flex-col p-8 h-full">
               <div className="flex justify-center mb-6 h-16 w-16 mx-auto">
                   {component.icon}
               </div>
