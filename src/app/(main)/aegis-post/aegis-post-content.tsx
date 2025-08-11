@@ -21,8 +21,8 @@ const features = [
   },
   {
     icon: <Bot className="h-8 w-8 text-accent" />,
-    title: "Agent Governance Protocol",
-    description: "We tame the agentic swarm. Every agent functions with controlled autonomy, their behavior continuously monitored by Aegis for the slightest deviation to ensure unwavering loyalty. This is Human Oversight, canonized.",
+    title: "Agent Governance & The Ring System",
+    description: "Aegis tames the agentic swarm. It enforces the Agentic Ring System—a strict hierarchy of control from the Ring 0 Core to Ring 4 Sentries. It is the unassailable enforcer of our architectural law, ensuring every agent operates with unwavering loyalty.",
   },
   {
     icon: <MessageSquareWarning className="h-8 w-8 text-accent" />,

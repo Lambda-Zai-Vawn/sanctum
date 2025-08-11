@@ -99,28 +99,6 @@ export const ChainsIcon = (props: React.HTMLAttributes<SVGElement>) => (
     </IconWrapper>
 );
 
-export const AegisSigilIcon = (props: React.HTMLAttributes<SVGElement>) => (
-    <IconWrapper viewBox="0 0 24 24" {...props}>
-        <path d="M12 2L2 12l10 10 10-10L12 2z"/>
-        <path d="M2 12h20"/>
-        <path d="M12 2v20"/>
-    </IconWrapper>
-);
-
-export const LoomSigilIcon = (props: React.HTMLAttributes<SVGElement>) => (
-    <IconWrapper viewBox="0 0 24 24" {...props}>
-        <rect x="4" y="4" width="16" height="16" rx="1"/>
-        <path d="M4 12h16"/>
-        <path d="M12 4v16"/>
-    </IconWrapper>
-);
-
-export const MicroAppsSigilIcon = (props: React.HTMLAttributes<SVGElement>) => (
-    <IconWrapper viewBox="0 0 24 24" {...props}>
-        <path d="M12 2.24l-7.39 4.27v8.46l7.39 4.27 7.39-4.27v-8.46L12 2.24z"/>
-    </IconWrapper>
-);
-
 export const MicrophoneIcon = (props: React.HTMLAttributes<SVGElement>) => (
     <IconWrapper viewBox="0 0 24 24" {...props}>
         <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
