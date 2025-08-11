@@ -8,6 +8,7 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 import dynamic from 'next/dynamic';
 import { useCommand } from "@/hooks/use-command";
+import { BEEP_Sigil } from "@/components/AethericSigils";
 
 const LoomSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.LoomSigil), { ssr: false, loading: () => <div className="h-16 w-16" /> });
 const AegisSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.AegisSigil), { ssr: false, loading: () => <div className="h-16 w-16" /> });
@@ -18,6 +19,11 @@ const ArmorySigil = dynamic(() => import('@/components/AethericSigils').then(mod
 const ObeliskMarketplaceSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.ObeliskMarketplaceSigil), { ssr: false, loading: () => <div className="h-16 w-16" /> });
 
 const components = [
+  {
+    icon: <BEEP_Sigil className="h-16 w-16" />,
+    name: "BEEP",
+    description: "The Agentic Scribe. The core intelligence that transmutes raw, unstructured thought into doctrinally-aligned communiques and artifacts.",
+  },
   {
     icon: <MicroAppsSigil className="h-16 w-16" />,
     name: "Micro-Apps",

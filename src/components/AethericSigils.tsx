@@ -65,6 +65,21 @@ const SigilWrapper = ({ children, className }: SigilWrapperProps) => {
 
 const SharedSigilMaterial = <SigilMaterial />;
 
+export function BEEP_Sigil(props: { className?: string }) {
+    return (
+        <SigilWrapper {...props}>
+            <mesh>
+                <icosahedronGeometry args={[1, 0]} />
+                {SharedSigilMaterial}
+            </mesh>
+             <mesh>
+                <icosahedronGeometry args={[1, 0]} />
+                 <meshBasicMaterial wireframe color="hsl(var(--primary))" />
+            </mesh>
+        </SigilWrapper>
+    );
+}
+
 export function MicroAppsSigil(props: { className?: string }) {
     return (
         <SigilWrapper {...props}>
