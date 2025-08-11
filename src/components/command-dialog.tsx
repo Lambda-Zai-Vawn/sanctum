@@ -6,37 +6,39 @@ import ReactMarkdown from "react-markdown"
 import {
   CommandDialog as CommandPrimitive,
   CommandEmpty,
-  CommandGroup,
   CommandInput,
-  CommandItem,
   CommandList,
 } from "@/components/ui/command"
-import { getDefinition, GlossaryOutput, GlossaryInput } from "@/ai/flows/glossary-flow"
+import { getDefinition, GlossaryOutput } from "@/ai/flows/glossary-flow"
 import { Loader2 } from "lucide-react"
 import { LambdaXiVONIcon } from "./icons"
+import { useCommand } from "@/hooks/use-command"
+import { useDebounce } from "@/hooks/use-debounce"
 
 export function CommandDialog() {
-  const [open, setOpen] = React.useState(false)
-  const [searchTerm, setSearchTerm] = React.useState("")
+  const { open, setOpen, searchTerm, setSearchTerm } = useCommand()
   const [loading, setLoading] = React.useState(false)
   const [result, setResult] = React.useState<GlossaryOutput | null>(null)
   const [error, setError] = React.useState<string | null>(null)
+
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault()
-        setOpen((open) => !open)
+        setOpen(!open)
       }
     }
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
-  }, [])
+  }, [open, setOpen])
 
-  const handleSearch = async (term: string) => {
+  const handleSearch = React.useCallback(async (term: string) => {
     if (!term) {
       setResult(null)
       setError(null)
+      setLoading(false)
       return
     }
     setLoading(true)
@@ -51,20 +53,29 @@ export function CommandDialog() {
     } finally {
       setLoading(false)
     }
-  }
+  }, []);
+
+  React.useEffect(() => {
+    handleSearch(debouncedSearchTerm)
+  }, [debouncedSearchTerm, handleSearch])
+
 
   const handleInputChange = (value: string) => {
     setSearchTerm(value)
-    if (!value) {
-        setResult(null)
-        setError(null)
-    }
   }
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     handleSearch(searchTerm);
   }
+
+  // When dialog opens with a search term, run the search
+  React.useEffect(() => {
+    if (open && searchTerm) {
+      handleSearch(searchTerm);
+    }
+  }, [open, searchTerm, handleSearch]);
+
 
   return (
     <CommandPrimitive open={open} onOpenChange={setOpen}>

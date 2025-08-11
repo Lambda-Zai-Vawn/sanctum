@@ -1,13 +1,13 @@
 
 "use client";
 
-import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { GlassCard } from "@/components/glass-card";
 import { ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 import dynamic from 'next/dynamic';
+import { useCommand } from "@/hooks/use-command";
 
 const LoomSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.LoomSigil), { ssr: false, loading: () => <div className="h-16 w-16" /> });
 const AegisSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.AegisSigil), { ssr: false, loading: () => <div className="h-16 w-16" /> });
@@ -52,13 +52,11 @@ const components = [
 
 export default function PantheonContent() {
   const componentsSection = useScrollAnimation();
+  const { setOpen, setSearchTerm } = useCommand();
 
-  // In a real app, this would be handled by a global command/modal state
   const openCommandPaletteWithTerm = (term: string) => {
-    // This is a placeholder for the real implementation
-    // A real implementation would likely use a global state manager (Zustand, Context)
-    // to open the command palette and set its initial input value.
-    alert(`The Scriptorium has been summoned for: ${term}\n\n(This would open the command palette)`);
+    setSearchTerm(term);
+    setOpen(true);
   };
 
   return (

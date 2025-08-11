@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { CommandProvider } from "@/hooks/use-command";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.aevon.io'),
@@ -61,7 +62,9 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Lexend:wght@400;500;700&display=swap" rel="stylesheet" />
       </head>
       <body className={cn("font-body", "antialiased", "bg-background", "text-foreground")}>
-        {children}
+        <CommandProvider>
+            {children}
+        </CommandProvider>
         <Toaster />
       </body>
     </html>

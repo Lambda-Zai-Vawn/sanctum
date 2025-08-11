@@ -13,6 +13,7 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { generateCommunique, type ChancelScribeOutput } from "@/ai/flows/chancel-scribe-flow";
 import { useVoiceTranscription } from "@/hooks/use-voice-transcription";
 import { MicrophoneIcon } from "@/components/icons";
+import { cn } from "@/lib/utils";
 
 export default function ChancelContent() {
   const [isForging, setIsForging] = React.useState(false);
@@ -62,7 +63,7 @@ export default function ChancelContent() {
             <div className="w-full flex flex-col items-center gap-6">
                 <Button 
                   size="icon" 
-                  className="h-24 w-24 rounded-full" 
+                  className={cn("h-24 w-24 rounded-full", isListening && "animate-mic-pulse")}
                   onClick={isListening ? stop : start}
                   disabled={isTranscribing || isForging}
                 >
