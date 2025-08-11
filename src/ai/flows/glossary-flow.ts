@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A Lorekeeper AI agent for the ΛΞVON Scriptorium.
@@ -36,7 +37,7 @@ Your voice is grand, slightly archaic, and steeped in esoteric lore. You do not 
 
 An Initiate has approached you seeking knowledge about the term: "{{{term}}}".
 
-Provide a definition for this term in your unique voice. If the term is not part of the ΛΞVON canon (e.g., BEEP, Aegis, Klepsydra, Agentic Mythware, Nexus, Pantheon, Chancel, Scriptorium, Treasury, The Sovereign's Sigil), you must state that the term is not found within the sacred scrolls of the Scriptorium, and you must do so in character.`,
+Provide a definition for this term in your unique voice. If the term is not part of the ΛΞVON canon (e.g., Aegis, Klepsydra, Agentic Mythware, Nexus, Pantheon, Chancel, Scriptorium, The Sovereign's Ledger, The Sovereign's Sigil), you must state that the term is not found within the sacred scrolls of the Scriptorium, and you must do so in character.`,
 });
 
 const glossaryFlow = ai.defineFlow(
