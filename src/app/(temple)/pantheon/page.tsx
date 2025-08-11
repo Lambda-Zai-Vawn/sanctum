@@ -24,37 +24,31 @@ const components = [
     sigil: BEEP_Sigil,
     name: "BEEP",
     domain: "The Oracle. The voice and will of the machine.",
-    position: [-4, 0, 0],
   },
   {
     sigil: AegisSigil,
     name: "Aegis",
     domain: "The Guardian. The ever-present bodyguard ensuring absolute integrity.",
-    position: [-2, 0, 0],
   },
   {
     sigil: KlepsydraSigil,
     name: "KLEPSYDRA Engine",
     domain: "The Engine. The economic heart that transforms work into power.",
-    position: [0, 0, 0],
   },
   {
     sigil: LoomSigil,
     name: "Loom Studio",
     domain: "The Forge. The Architect's Sanctum for designing autonomous agents.",
-    position: [2, 0, 0],
   },
   {
     sigil: ArmorySigil,
     name: "Armory Marketplace",
     domain: "The Sanctified Repository for Micro-Apps and Chaos Cards.",
-    position: [4, 0, 0],
   },
    {
     sigil: ObeliskMarketplaceSigil,
     name: "Obelisk Marketplace",
     domain: "The Vault of Manifested Sovereignty.",
-    position: [6, 0, 0],
   },
 ];
 
@@ -90,7 +84,7 @@ export default function PantheonPage() {
                     </Link>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>{component.domain}</p>
+                  <p>Learn more about {component.name} in the Scriptorium.</p>
                 </TooltipContent>
               </Tooltip>
               <h3 className="font-headline text-2xl font-semibold text-center text-glow">{component.name}</h3>

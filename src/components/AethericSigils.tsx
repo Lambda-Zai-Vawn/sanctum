@@ -5,6 +5,21 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 /**
+ * A reusable group that rotates its children on the X and Y axes.
+ * @param {React.PropsWithChildren} props - The component's props.
+ */
+function RotatingGroup({ children }: React.PropsWithChildren<{}>) {
+    const groupRef = React.useRef<THREE.Group>(null!);
+    useFrame((_, delta) => {
+        if (groupRef.current) {
+            groupRef.current.rotation.y += delta * 0.3;
+            groupRef.current.rotation.x += delta * 0.2;
+        }
+    });
+    return <group ref={groupRef}>{children}</group>;
+}
+
+/**
  * A shared, memoized material component for all sigils.
  * It creates a physically-based material with a metallic, slightly rough surface.
  * The emissive color pulses over time to create a living, energetic effect.
@@ -32,20 +47,12 @@ const SigilMaterial = React.memo(() => {
 });
 SigilMaterial.displayName = 'SigilMaterial';
 
-
 const SharedSigilMaterial = <SigilMaterial />;
 
 /**
  * The primary sigil representing the ΛΞVON brand itself.
  */
 export function LambdaXiVON_Sigil() {
-    const meshRef = React.useRef<THREE.Group>(null!);
-    useFrame((_, delta) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.y += delta * 0.3;
-            meshRef.current.rotation.x += delta * 0.2;
-        }
-    });
     const shape = React.useMemo(() => {
         const s = new THREE.Shape();
         s.moveTo(-1, -1);
@@ -68,12 +75,12 @@ export function LambdaXiVON_Sigil() {
     }), []);
 
     return (
-        <group ref={meshRef}>
+        <RotatingGroup>
             <mesh scale={1.2}>
-            <extrudeGeometry args={[shape, extrudeSettings]} />
-            {SharedSigilMaterial}
-        </mesh>
-        </group>
+                <extrudeGeometry args={[shape, extrudeSettings]} />
+                {SharedSigilMaterial}
+            </mesh>
+        </RotatingGroup>
     );
 }
 
@@ -82,15 +89,8 @@ export function LambdaXiVON_Sigil() {
  * Represented by a wireframe-overlaid icosahedron, symbolizing its complex, multi-faceted intelligence.
  */
 export function BEEP_Sigil() {
-    const meshRef = React.useRef<THREE.Group>(null!);
-    useFrame((_, delta) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.y += delta * 0.3;
-            meshRef.current.rotation.x += delta * 0.2;
-        }
-    });
     return (
-        <group ref={meshRef}>
+        <RotatingGroup>
             <mesh>
                 <icosahedronGeometry args={[1, 0]} />
                 {SharedSigilMaterial}
@@ -99,7 +99,7 @@ export function BEEP_Sigil() {
                 <icosahedronGeometry args={[1, 0]} />
                  <meshBasicMaterial wireframe color="hsl(var(--primary))" />
             </mesh>
-        </group>
+        </RotatingGroup>
     );
 }
 
@@ -108,20 +108,13 @@ export function BEEP_Sigil() {
  * Represented by a hexagonal cylinder, symbolizing a self-contained module.
  */
 export function MicroAppsSigil() {
-    const meshRef = React.useRef<THREE.Group>(null!);
-    useFrame((_, delta) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.y += delta * 0.3;
-            meshRef.current.rotation.x += delta * 0.2;
-        }
-    });
     return (
-        <group ref={meshRef}>
+        <RotatingGroup>
             <mesh>
                 <cylinderGeometry args={[0.8, 0.8, 0.5, 6]} />
                 {SharedSigilMaterial}
             </mesh>
-        </group>
+        </RotatingGroup>
     );
 }
 
@@ -130,15 +123,8 @@ export function MicroAppsSigil() {
  * Represented by a flat, square panel, symbolizing a canvas or blueprint.
  */
 export function LoomSigil() {
-    const meshRef = React.useRef<THREE.Group>(null!);
-    useFrame((_, delta) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.y += delta * 0.3;
-            meshRef.current.rotation.x += delta * 0.2;
-        }
-    });
     return (
-        <group ref={meshRef}>
+        <RotatingGroup>
             <mesh>
                 <boxGeometry args={[1.5, 1.5, 0.2]} />
                 {SharedSigilMaterial}
@@ -147,7 +133,7 @@ export function LoomSigil() {
                 <boxGeometry args={[1.5, 1.5, 0.2]} />
                 <meshBasicMaterial wireframe color="hsl(var(--primary))" />
             </mesh>
-        </group>
+        </RotatingGroup>
     );
 }
 
@@ -156,20 +142,13 @@ export function LoomSigil() {
  * Represented by an octahedron, a platonic solid symbolizing strength and stability.
  */
 export function AegisSigil() {
-    const meshRef = React.useRef<THREE.Group>(null!);
-    useFrame((_, delta) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.y += delta * 0.3;
-            meshRef.current.rotation.x += delta * 0.2;
-        }
-    });
     return (
-        <group ref={meshRef}>
+        <RotatingGroup>
             <mesh>
                 <octahedronGeometry args={[1, 0]} />
                 {SharedSigilMaterial}
             </mesh>
-        </group>
+        </RotatingGroup>
     );
 }
 
@@ -178,15 +157,8 @@ export function AegisSigil() {
  * Represented by two cones joined at their apex, like an hourglass, symbolizing the flow of time and resources.
  */
 export function KlepsydraSigil() {
-    const meshRef = React.useRef<THREE.Group>(null!);
-    useFrame((_, delta) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.y += delta * 0.3;
-            meshRef.current.rotation.x += delta * 0.2;
-        }
-    });
     return (
-        <group ref={meshRef}>
+        <RotatingGroup>
             <mesh position={[0, 0.5, 0]}>
                 <coneGeometry args={[0.8, 1, 4]} />
                 {SharedSigilMaterial}
@@ -195,7 +167,7 @@ export function KlepsydraSigil() {
                 <coneGeometry args={[0.8, 1, 4]} />
                 {SharedSigilMaterial}
             </mesh>
-        </group>
+        </RotatingGroup>
     );
 }
 
@@ -204,20 +176,13 @@ export function KlepsydraSigil() {
  * Represented by a dodecahedron, another platonic solid often associated with the universe or the whole.
  */
 export function PantheonSigil() {
-    const meshRef = React.useRef<THREE.Group>(null!);
-    useFrame((_, delta) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.y += delta * 0.3;
-            meshRef.current.rotation.x += delta * 0.2;
-        }
-    });
     return (
-        <group ref={meshRef}>
+        <RotatingGroup>
             <mesh>
                 <dodecahedronGeometry args={[1, 0]} />
                 {SharedSigilMaterial}
             </mesh>
-        </group>
+        </RotatingGroup>
     );
 }
 
@@ -226,20 +191,13 @@ export function PantheonSigil() {
  * Represented by a complex Torus Knot, symbolizing a woven collection of powerful tools.
  */
 export function ArmorySigil() {
-    const meshRef = React.useRef<THREE.Group>(null!);
-    useFrame((_, delta) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.y += delta * 0.3;
-            meshRef.current.rotation.x += delta * 0.2;
-        }
-    });
     return (
-        <group ref={meshRef}>
+        <RotatingGroup>
             <mesh>
                 <torusKnotGeometry args={[0.7, 0.2, 128, 16, 2, 3]} />
                 {SharedSigilMaterial}
             </mesh>
-        </group>
+        </RotatingGroup>
     );
 }
 
@@ -248,20 +206,13 @@ export function ArmorySigil() {
  * Represented by a simple Torus, a ring symbolizing value and economy.
  */
 export function ObeliskMarketplaceSigil() {
-    const meshRef = React.useRef<THREE.Group>(null!);
-    useFrame((_, delta) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.y += delta * 0.3;
-            meshRef.current.rotation.x += delta * 0.2;
-        }
-    });
     return (
-        <group ref={meshRef}>
+        <RotatingGroup>
             <mesh>
                 <torusGeometry args={[0.8, 0.3, 16, 100]} />
                 {SharedSigilMaterial}
             </mesh>
-        </group>
+        </RotatingGroup>
     );
 }
 
@@ -270,15 +221,8 @@ export function ObeliskMarketplaceSigil() {
  * Represented by a scepter, a symbol of command and authority, with a glowing gem at its tip.
  */
 export function SovereignsSigil() {
-    const meshRef = React.useRef<THREE.Group>(null!);
-    useFrame((_, delta) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.y += delta * 0.3;
-            meshRef.current.rotation.x += delta * 0.2;
-        }
-    });
     return (
-        <group ref={meshRef}>
+        <RotatingGroup>
             <group>
                 <mesh position={[0, -0.25, 0]}>
                     <cylinderGeometry args={[0.1, 0.1, 2.5, 8]} />
@@ -293,6 +237,6 @@ export function SovereignsSigil() {
                     {SharedSigilMaterial}
                 </mesh>
             </group>
-        </group>
+        </RotatingGroup>
     );
 }
