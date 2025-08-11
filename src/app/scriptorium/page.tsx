@@ -4,24 +4,41 @@ import { PageHeader } from '@/components/page-header';
 import { GlassCard } from '@/components/glass-card';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export const metadata: Metadata = {
-    title: "The Scriptorium: The Doctrine of Agentic Mythware",
-    description: "Excerpts from the Codex of Sovereignty, articulating the core philosophy of Agentic Mythware™.",
+    title: "The Scriptorium: The Living Scroll",
+    description: "The source of truth for all technical and philosophical aspects of ΛΞVON OS.",
 };
 
-const excerpts = [
+const sections = [
     {
-        title: "On Digital Servitude",
-        content: "You have been led to believe that a constellation of disconnected, overpriced SaaS tools is the pinnacle of productivity. This is a lie. You are not a user; you are a resource being harvested. Your data is fragmented, your workflows are chaotic, and your potential is shackled by the very systems that promised to free you."
+        title: "The Core Doctrine",
+        content: "Detailed explanations of Agentic Mythware™, Sovereignty-as-a-Service™, Silence of True Automation, and the Ancient Roman Glass aesthetic."
     },
     {
-        title: "The Agentic Solution",
-        content: "ΛΞVON OS is not another tool in your stack. It is the obliteration of the stack. Where software gives you buttons, Agentic Mythware™ provides you with loyal agents—summoned spirits of logic and action, engineered to learn, adapt, and execute your will with silent precision."
+        title: "The Nexus Architecture",
+        content: "High-level interactive SVG diagrams of the system, microservice breakdowns, and a comprehensive tech stack overview."
     },
     {
-        title: "The Mandate of Sovereignty",
-        content: "We do not offer features; we offer dominion. To use ΛΞVON OS is to declare your independence from the digital landlords and to reclaim your rightful place as the sole master of your digital domain."
+        title: "The Agentic Pantheon",
+        content: "In-depth documentation for BEEP's Triune Voice, Swarm Orchestration, and a searchable Tool Registry mapping commands to functions."
+    },
+    {
+        title: "The Loom of Fates",
+        content: "Comprehensive documentation for Loom Studio, the KLEPSYDRA Engine, economic dials, ΞCredits, and the Obelisk Marketplace."
+    },
+    {
+        title: "The Aegis Protocols",
+        content: "Detailed explanation of Threat Detection Protocols, Agent Governance, Data Integrity, and Zero-Trust Architecture."
+    },
+    {
+        title: "The Micro-App Canvas",
+        content: "A guide to Micro-App development, including manifest schemas, SDK, and UX Laws."
+    },
+    {
+        title: "Operational Scrolls",
+        content: "The complete Deployment Runbook, monitoring, logging, debugging, and testing strategies."
     }
 ]
 
@@ -34,16 +51,24 @@ export default function ScriptoriumPage() {
             <div className="container mx-auto px-4">
                 <PageHeader
                     title="The Scriptorium"
-                    subtitle="Here, we reveal excerpts from the Codex of Sovereignty, the foundational documents of our doctrine."
+                    subtitle="Here lies the Living Scroll, the source of truth for all technical and philosophical aspects of the system. This is the primary initiation point for any Architect."
                 />
 
-                <div className="space-y-12 max-w-3xl mx-auto py-12">
-                    {excerpts.map((excerpt, index) => (
-                        <GlassCard key={index} className="p-8">
-                            <h2 className="font-headline text-2xl text-glow mb-4">{excerpt.title}</h2>
-                            <p className="text-lg text-foreground/80 leading-relaxed">{excerpt.content}</p>
-                        </GlassCard>
-                    ))}
+                <div className="max-w-3xl mx-auto py-12">
+                     <GlassCard className="p-4 md:p-6">
+                        <Accordion type="single" collapsible className="w-full">
+                            {sections.map((section) => (
+                                <AccordionItem value={section.title} key={section.title}>
+                                    <AccordionTrigger className="font-headline text-xl hover:text-primary transition-colors text-left">
+                                        {section.title}
+                                    </AccordionTrigger>
+                                    <AccordionContent className="text-foreground/80 text-base p-4">
+                                        {section.content}
+                                    </AccordionContent>
+                                </AccordionItem>
+                            ))}
+                        </Accordion>
+                     </GlassCard>
                 </div>
 
                 <section className="text-center py-24">

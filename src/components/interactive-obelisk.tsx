@@ -36,6 +36,7 @@ export function InteractiveObelisk() {
   return (
     <div 
       className="relative w-64 h-[40rem] flex items-center justify-center"
+      data-ai-hint="futuristic obelisk"
     >
       <Canvas 
         camera={{ position: [0, 1, 8], fov: 50 }} 

@@ -18,23 +18,23 @@ const AegisSigil = dynamic(() => import('@/components/AethericSigils').then(mod 
 const features = [
   {
     icon: <ShieldCheck className="h-8 w-8 text-accent" />,
-    title: "The Sentinel's Vow",
-    description: "We do not merely protect your data; we protect your reality. Our Zero-Trust architecture assumes threats are everywhere, rendering them inert before they can manifest.",
+    title: "Threat Detection Protocol",
+    description: "Aegis employs a multi-phased protocol, combining rules-based analysis with ML-powered heuristics via Vertex AI to neutralize threats before they manifest.",
   },
   {
     icon: <Bot className="h-8 w-8 text-accent" />,
     title: "Agent Governance",
-    description: "Aegis is the unassailable enforcer of our architectural law, ensuring every agent operates with unwavering loyalty and within its designated sphere of influence.",
+    description: "Aegis monitors and enforces Agent Integrity Certifications (AICs), ensuring every agent operates with unwavering loyalty and within its designated sphere of influence.",
   },
   {
     icon: <LockKeyhole className="h-8 w-8 text-accent" />,
-    title: "Data Classification: Confidential & Sacred",
-    description: "You dictate what is confidential and what is sacred. Aegis enforces these classifications with cryptographic certainty, making data breaches a concept of the old world.",
+    title: "Data Integrity Protocol",
+    description: "All transactions and logs are cryptographically signed by Aegis, creating an immutable, trustworthy ledger resistant to tampering.",
   },
   {
     icon: <Fingerprint className="h-8 w-8 text-accent" />,
-    title: "The Final Vow",
-    description: "For your most vital assets, a 'Final Vow' requires your unique biometric signature. This protocol makes you the ultimate, unforgeable gatekeeper to your digital dominion.",
+    title: "Zero-Trust Architecture",
+    description: "We do not merely protect your data; we protect your reality. Our Zero-Trust architecture assumes threats are everywhere, making security brainless and invisible to the operator.",
   },
 ];
 

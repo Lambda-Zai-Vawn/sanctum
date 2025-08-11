@@ -17,7 +17,7 @@ export default {
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        'obsidian-black': '#000000',
+        'obsidian-black': '#0a0a0a',
         'vitreous-white': '#fefefe',
         card: {
           DEFAULT: 'hsl(var(--card))',

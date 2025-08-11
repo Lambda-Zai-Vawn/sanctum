@@ -2,7 +2,6 @@
 "use client";
 
 import { PageHeader } from "@/components/page-header";
-import { GlassCard } from "@/components/glass-card";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 import dynamic from 'next/dynamic';
@@ -19,6 +18,8 @@ const BEEP_Sigil = dynamic(() => import('@/components/AethericSigils').then(mod 
 const LoomSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.LoomSigil), { ssr: false, loading: () => <div className="h-32 w-32" /> });
 const AegisSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.AegisSigil), { ssr: false, loading: () => <div className="h-32 w-32" /> });
 const KlepsydraSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.KlepsydraSigil), { ssr: false, loading: () => <div className="h-32 w-32" /> });
+const ArmorySigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.ArmorySigil), { ssr: false, loading: () => <div className="h-32 w-32" /> });
+const ObeliskMarketplaceSigil = dynamic(() => import('@/components/AethericSigils').then(mod => mod.ObeliskMarketplaceSigil), { ssr: false, loading: () => <div className="h-32 w-32" /> });
 
 
 const components = [
@@ -42,6 +43,16 @@ const components = [
     name: "Loom Studio",
     domain: "The Forge. The Architect's Sanctum for designing autonomous agents.",
   },
+  {
+    sigil: <ArmorySigil className="h-32 w-32" />,
+    name: "Armory Marketplace",
+    domain: "The Sanctified Repository for Micro-Apps and Chaos Cards.",
+  },
+   {
+    sigil: <ObeliskMarketplaceSigil className="h-32 w-32" />,
+    name: "Obelisk Marketplace",
+    domain: "The Vault of Manifested Sovereignty.",
+  },
 ];
 
 export default function PantheonContent() {
@@ -51,11 +62,11 @@ export default function PantheonContent() {
     <div className="container mx-auto px-4">
       <PageHeader
         title="The Pantheon"
-        subtitle="These are not products. They are the fundamental forces of the ΛΞVON ecosystem. The deities of the new digital reality. Click to witness their Saga."
+        subtitle="These are not products. They are the fundamental forces of the ΛΞVON ecosystem. The deities of the new digital reality. Click a sigil to learn more in the Scriptorium."
       />
       
       <TooltipProvider>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 py-16" ref={componentsSection.ref}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 py-16" ref={componentsSection.ref}>
           {components.map((component, index) => (
             <div
               key={component.name}
@@ -64,9 +75,9 @@ export default function PantheonContent() {
             >
               <Tooltip>
                 <TooltipTrigger asChild>
-                    <div className="h-32 w-32 mb-6 cursor-pointer transition-transform hover:scale-110">
+                    <Link href="/scriptorium" className="h-32 w-32 mb-6 cursor-pointer transition-transform hover:scale-110 block">
                         {component.sigil}
-                    </div>
+                    </Link>
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>{component.domain}</p>
