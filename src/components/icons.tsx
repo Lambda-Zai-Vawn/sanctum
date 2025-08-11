@@ -1,6 +1,8 @@
 
 import { cn } from "@/lib/utils";
+import { Canvas, useFrame } from "@react-three/fiber";
 import * as React from "react";
+import * as THREE from 'three';
 
 const IconWrapper = ({ className, children, ...props }: React.HTMLAttributes<SVGElement>) => (
     <svg
@@ -25,35 +27,65 @@ export const LambdaXiVONIcon = (props: React.HTMLAttributes<SVGElement>) => (
     </IconWrapper>
 );
 
-export const OrbIcon = (props: React.HTMLAttributes<SVGElement>) => (
-    <IconWrapper viewBox="0 0 100 100" {...props}>
-      <defs>
-        <clipPath id="ice-clip">
-          <path d="M50 0 L85.3 14.7 L100 50 L85.3 85.3 L50 100 L14.7 85.3 L0 50 L14.7 14.7 Z" />
-        </clipPath>
-        <radialGradient id="iceGradient" cx="50%" cy="50%" r="70%" fx="30%" fy="30%">
-          <stop offset="0%" stopColor="hsl(var(--accent) / 0.9)" />
-          <stop offset="50%" stopColor="hsl(var(--primary) / 0.8)" />
-          <stop offset="100%" stopColor="hsl(var(--primary) / 0.6)" />
-        </radialGradient>
-        <filter id="iceGlow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
-          <feMerge>
-            <feMergeNode in="coloredBlur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-      <g clipPath="url(#ice-clip)" filter="url(#iceGlow)">
-        <path d="M50 0 L85.3 14.7 L100 50 L85.3 85.3 L50 100 L14.7 85.3 L0 50 L14.7 14.7 Z" fill="url(#iceGradient)" />
-        <path d="M50 0 L85.3 14.7 L100 50 L85.3 85.3 L50 100 L14.7 85.3 L0 50 L14.7 14.7 Z" stroke="hsl(var(--accent) / 0.5)" strokeWidth="1" />
-      </g>
-       <g className="transition-transform duration-300 ease-in-out" style={{ transformOrigin: 'center' }}>
-            <line x1="35" y1="50" x2="65" y2="50" strokeWidth="4" className="transition-transform duration-300 ease-in-out" style={{ transform: props['data-state'] === 'open' ? 'rotate(45deg)' : 'rotate(0deg)', transformOrigin: 'center' }}/>
-            <line x1="35" y1="50" x2="65" y2="50" strokeWidth="4" className="transition-transform duration-300 ease-in-out" style={{ transform: props['data-state'] === 'open' ? 'rotate(-45deg)' : 'rotate(0deg)', transformOrigin: 'center' }}/>
-        </g>
-    </IconWrapper>
-);
+function Orb3DIcon({ state }: { state: 'open' | 'closed' }) {
+    const groupRef = React.useRef<THREE.Group>(null!);
+    const line1Ref = React.useRef<THREE.Mesh>(null!);
+    const line2Ref = React.useRef<THREE.Mesh>(null!);
+
+    useFrame((_, delta) => {
+        groupRef.current.rotation.y += delta * 0.2;
+        groupRef.current.rotation.x += delta * 0.1;
+
+        const targetRotation = state === 'open' ? Math.PI / 4 : 0;
+        
+        if (line1Ref.current) {
+            line1Ref.current.rotation.z = THREE.MathUtils.lerp(line1Ref.current.rotation.z, targetRotation, 0.1);
+        }
+        if (line2Ref.current) {
+            line2Ref.current.rotation.z = THREE.MathUtils.lerp(line2Ref.current.rotation.z, -targetRotation, 0.1);
+        }
+    });
+    
+    return (
+        <group ref={groupRef}>
+            <mesh>
+                <icosahedronGeometry args={[1.2, 0]} />
+                 <meshStandardMaterial 
+                    color="hsl(var(--accent))" 
+                    emissive="hsl(var(--primary))" 
+                    emissiveIntensity={0.6}
+                    metalness={0.9} 
+                    roughness={0.1} 
+                    transparent
+                    opacity={0.6}
+                />
+            </mesh>
+            <group>
+                <mesh ref={line1Ref}>
+                    <boxGeometry args={[1, 0.1, 0.1]} />
+                    <meshBasicMaterial color="white" toneMapped={false} />
+                </mesh>
+                <mesh ref={line2Ref}>
+                    <boxGeometry args={[1, 0.1, 0.1]} />
+                    <meshBasicMaterial color="white" toneMapped={false} />
+                </mesh>
+            </group>
+        </group>
+    )
+}
+
+export const OrbIcon = ({className, ...props}: React.HTMLAttributes<HTMLElement> & { 'data-state': 'open' | 'closed' }) => {
+    return (
+        <div className={className}>
+             <Canvas camera={{ position: [0, 0, 3], fov: 50 }}>
+                <ambientLight intensity={1.5} />
+                <pointLight position={[5, 5, 5]} intensity={2} color="hsl(var(--primary))" />
+                <pointLight position={[-5, -5, -5]} intensity={1} color="hsl(var(--accent))" />
+                <Orb3DIcon state={props['data-state']} />
+            </Canvas>
+        </div>
+    )
+};
 
 
 export const ObeliskIcon = (props: React.HTMLAttributes<SVGElement>) => (
