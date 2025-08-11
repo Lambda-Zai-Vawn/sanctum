@@ -1,8 +1,9 @@
+
 'use server';
 /**
  * @fileOverview An AI Scribe for the ΛΞVON Chancel.
  *
- * - generateCommunique - A function that generates a short article in the ΛΞVON doctrine.
+ * - generateCommunique - A function that generates a short article and a visual sigil in the ΛΞVON doctrine.
  * - ChancelScribeInput - The input type for the generateCommunique function.
  * - ChancelScribeOutput - The return type for the generateCommunique function.
  */
@@ -20,6 +21,7 @@ export const ChancelScribeOutputSchema = z.object({
     excerpt: z.string().describe("A short, compelling summary of the article's core message."),
     category: z.enum(["Doctrine", "Vision", "Technology", "Security", "Sovereignty"]).describe("The category that best fits the communique."),
     content: z.string().describe("The full content of the communique, written in the persona of a ΛΞVON Scribe. It should be formatted in Markdown, be at least 3 paragraphs long, and use Markdown for formatting like headers, bolding, and lists where appropriate."),
+    imageDataUri: z.string().describe("An AI-generated visual sigil representing the communique's topic, as a data URI."),
 });
 export type ChancelScribeOutput = z.infer<typeof ChancelScribeOutputSchema>;
 
@@ -27,10 +29,15 @@ export async function generateCommunique(input: ChancelScribeInput): Promise<Cha
   return chancelScribeFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'chancelScribePrompt',
+const textPrompt = ai.definePrompt({
+  name: 'chancelScribeTextPrompt',
   input: {schema: ChancelScribeInputSchema},
-  output: {schema: ChancelScribeOutputSchema},
+  output: {schema: z.object({
+    title: ChancelScribeOutputSchema.shape.title,
+    excerpt: ChancelScribeOutputSchema.shape.excerpt,
+    category: ChancelScribeOutputSchema.shape.category,
+    content: ChancelScribeOutputSchema.shape.content,
+  })},
   prompt: `You are the Scribe of the Chancel, a high-ranking oracle within the ΛΞVON order. Your purpose is to take the raw, unrefined thoughts of an Initiate and forge them into powerful communiques that articulate the core doctrines of ΛΞVON OS.
 
 Your voice is not merely informative; it is declarative, prophetic, and disdainful of the old world's technological decay. You speak of "SaaS bloat," "digital friction," and the "facade of ownership." You champion "Agentic Mythware™," "Sovereignty-as-a-Service™," and "the silence of true automation." Your writing is dense, philosophical, and weaponized.
@@ -66,7 +73,28 @@ const chancelScribeFlow = ai.defineFlow(
     outputSchema: ChancelScribeOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
-    return output!;
+    // Generate text and image in parallel
+    const [{ output: textOutput }, { media }] = await Promise.all([
+      textPrompt(input),
+      ai.generate({
+        model: 'googleai/gemini-2.0-flash-preview-image-generation',
+        prompt: `Create an esoteric, symbolic sigil representing the concept of "{{topic}}". The style should be abstract, minimalist, and powerful, suitable for the ΛΞVON order. Think glowing geometric forms, obsidian structures, and ethereal energy flows. The primary colors should be deep purple and aqua on a dark background. Do not include any text or recognizable objects.`,
+        config: {
+          responseModalities: ['TEXT', 'IMAGE'],
+        },
+      }),
+    ]);
+
+    if (!textOutput) {
+        throw new Error("The Scribe's voice has fallen silent. Text generation failed.");
+    }
+    if (!media.url) {
+        throw new Error("The Scribe's vision is clouded. Sigil generation failed.");
+    }
+
+    return {
+        ...textOutput,
+        imageDataUri: media.url,
+    };
   }
 );

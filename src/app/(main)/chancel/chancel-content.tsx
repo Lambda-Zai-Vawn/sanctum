@@ -4,6 +4,7 @@
 
 import * as React from "react";
 import ReactMarkdown from "react-markdown";
+import Image from "next/image";
 import { PageHeader } from "@/components/page-header";
 import { GlassCard } from "@/components/glass-card";
 import { Loader2, Sparkles } from "lucide-react";
@@ -82,6 +83,18 @@ export default function ChancelContent() {
         {communique && !isLoading && !error && (
             <div className="mt-12 max-w-4xl mx-auto">
                 <GlassCard className="p-8 md:p-12">
+                    {communique.imageDataUri && (
+                      <div className="mb-8 aspect-video w-full overflow-hidden rounded-lg">
+                        <Image 
+                          src={communique.imageDataUri}
+                          alt={`A visual sigil representing: ${communique.title}`}
+                          width={1200}
+                          height={675}
+                          className="w-full h-full object-cover"
+                          data-ai-hint="esoteric symbol"
+                        />
+                      </div>
+                    )}
                     <div className="prose prose-invert max-w-none prose-p:text-foreground/80 prose-headings:font-headline prose-h2:font-semibold prose-headings:text-glow prose-headings:text-foreground prose-a:text-accent prose-strong:text-foreground">
                         <p className="font-headline text-accent text-sm mb-1">{communique.category}</p>
                         <h2 className="!text-3xl !mb-2">{communique.title}</h2>
