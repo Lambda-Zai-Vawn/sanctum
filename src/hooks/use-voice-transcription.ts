@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 // Define the shape of the speech recognition event
 interface SpeechRecognitionEvent extends Event {
@@ -27,6 +27,17 @@ export const useVoiceTranscription = ({ onTranscriptionEnd }: UseVoiceTranscript
   const [transcript, setTranscript] = useState('');
   
   const recognitionRef = useRef<any>(null);
+  const finalTranscriptRef = useRef('');
+
+  const processFinalTranscript = useCallback(() => {
+    const finalTranscript = finalTranscriptRef.current.trim();
+    if (finalTranscript) {
+      onTranscriptionEnd(finalTranscript);
+    }
+    finalTranscriptRef.current = '';
+    setIsTranscribing(false);
+  }, [onTranscriptionEnd]);
+
 
   useEffect(() => {
     // Check for browser support
@@ -45,12 +56,13 @@ export const useVoiceTranscription = ({ onTranscriptionEnd }: UseVoiceTranscript
 
     recognition.onstart = () => {
       setIsListening(true);
-      setTranscript(''); // Clear previous transcript
+      setTranscript('');
+      finalTranscriptRef.current = '';
     };
 
     recognition.onend = () => {
       setIsListening(false);
-      // isTranscribing will be set by the stop() function
+      processFinalTranscript();
     };
 
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
@@ -60,23 +72,24 @@ export const useVoiceTranscription = ({ onTranscriptionEnd }: UseVoiceTranscript
     };
 
     recognition.onresult = (event: SpeechRecognitionEvent) => {
-      let finalTranscript = '';
+      let interimTranscript = '';
       for (let i = event.resultIndex; i < event.results.length; ++i) {
         if (event.results[i].isFinal) {
-          finalTranscript += event.results[i][0].transcript;
+          finalTranscriptRef.current += event.results[i][0].transcript;
+        } else {
+          interimTranscript += event.results[i][0].transcript;
         }
       }
-      if (finalTranscript) {
-        setTranscript(prev => prev + finalTranscript);
-      }
+      setTranscript(finalTranscriptRef.current + interimTranscript);
     };
 
     return () => {
       if (recognition) {
+        recognition.onend = null; // Prevent onend from firing on unmount
         recognition.stop();
       }
     };
-  }, []);
+  }, [processFinalTranscript]);
 
   const start = () => {
     if (recognitionRef.current && !isListening) {
@@ -88,17 +101,7 @@ export const useVoiceTranscription = ({ onTranscriptionEnd }: UseVoiceTranscript
     if (recognitionRef.current && isListening) {
         setIsTranscribing(true); // Indicate that we are processing the result
         recognitionRef.current.stop();
-        // The onend event will fire, setting isListening to false.
-        // After a short delay, we process the final transcript.
-        setTimeout(() => {
-            setTranscript(currentTranscript => {
-                if (currentTranscript.trim()) {
-                    onTranscriptionEnd(currentTranscript.trim());
-                }
-                return currentTranscript; // Keep the transcript in state for display
-            });
-            setIsTranscribing(false);
-        }, 1000); // Delay to ensure all final results are processed
+        // The onend event will now handle the final transcript processing.
     }
   };
 
