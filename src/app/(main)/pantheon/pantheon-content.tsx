@@ -22,7 +22,7 @@ const components = [
   {
     icon: <BEEP_Sigil className="h-16 w-16" />,
     name: "BEEP: Behavioural Event and Execution Processor",
-    description: "The master orchestration agent. BEEP is the core intelligence of ΛΞVON OS, processing complex business workflows and executing tasks autonomously. It is the will of the sovereign, made manifest.",
+    description: "The agentic brain of ΛΞVON OS. The single, conversational interface to a universe of complexity. BEEP is the master conductor, translating human intent into precise, multi-agent workflows.",
   },
   {
     icon: <MicroAppsSigil className="h-16 w-16" />,
