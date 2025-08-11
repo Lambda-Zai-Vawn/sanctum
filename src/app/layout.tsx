@@ -1,16 +1,28 @@
-
 import type { Metadata } from "next";
+import { Comfortaa, Lexend } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { CommandProvider } from "@/hooks/use-command";
 
+const comfortaa = Comfortaa({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-comfortaa",
+});
+
+const lexend = Lexend({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-lexend",
+});
+
 export const metadata: Metadata = {
   title: {
-    default: "ΛΞVON OS: The Digital Temple",
+    default: "ΛΞVON OS: The Digital Temple of Sovereign Workflows",
     template: "%s | ΛΞVON OS",
   },
-  description: "This is not a website. This is the Gateway of Sovereignty. A meticulously crafted crucible designed to forge a new relationship between you and your digital dominion.",
+  description: "ΛΞVON OS is not another tool. It is the obliteration of the stack. A radically integrated, AI-native operating system designed to restore sovereignty to the operator.",
 };
 
 
@@ -20,12 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Lexend:wght@400;500;700&display=swap" rel="stylesheet" />
-      </head>
+    <html lang="en" className={cn("dark", comfortaa.variable, lexend.variable)}>
       <body className={cn("font-body", "antialiased", "bg-background", "text-foreground")}>
         <CommandProvider>
             {children}

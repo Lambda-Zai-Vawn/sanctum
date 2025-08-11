@@ -1,6 +1,4 @@
-# Allow all user-agents to crawl the entire site.
 User-agent: *
 Allow: /
 
-# Point crawlers to the sitemap.
-Sitemap: https://www.aevon.io/sitemap.xml
+Sitemap: https://aevon.com/sitemap.xml

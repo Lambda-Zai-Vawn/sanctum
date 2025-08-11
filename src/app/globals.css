@@ -60,25 +60,34 @@
 
 @layer base {
   :root {
-    --background: 210 14% 10%; /* obsidian-black */
-    --foreground: 0 0% 99%; /* vitreous-white */
-    --card: 210 14% 15%;
-    --card-foreground: 0 0% 99%;
-    --popover: 210 14% 10%;
-    --popover-foreground: 0 0% 99%;
-    --primary: 275 100% 60%; /* imperial-purple */
-    --primary-foreground: 0 0% 99%;
-    --secondary: 210 14% 20%;
-    --secondary-foreground: 0 0% 99%;
-    --muted: 210 14% 25%;
-    --muted-foreground: 210 10% 80%;
-    --accent: 177 70% 50%; /* roman-aqua */
-    --accent-foreground: 210 14% 10%;
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 0 0% 99%;
-    --border: 210 14% 30%;
-    --input: 210 14% 20%;
-    --ring: 275 100% 60%;
+    --background: 206 9% 12%; /* Conchoidal Gray - Adjusted for more depth */
+    --foreground: 210 20% 98%; /* Vitreous White */
+    
+    --card: 206 9% 15%;
+    --card-foreground: 210 20% 98%;
+    
+    --popover: 206 9% 10%;
+    --popover-foreground: 210 20% 98%;
+    
+    --primary: 271 76% 54%; /* Imperial Purple */
+    --primary-foreground: 210 20% 98%;
+    
+    --secondary: 206 9% 20%;
+    --secondary-foreground: 210 20% 98%;
+    
+    --muted: 206 9% 25%;
+    --muted-foreground: 206 9% 65%;
+    
+    --accent: 175 75% 40%; /* Roman Aqua */
+    --accent-foreground: 206 9% 10%;
+    
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 20% 98%;
+    
+    --border: 206 9% 30%;
+    --input: 206 9% 20%;
+    --ring: 271 76% 54%;
+    
     --radius: 0.5rem;
   }
 }

@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Lexend', 'sans-serif'],
-        headline: ['Comfortaa', 'sans-serif'],
+        body: ['var(--font-lexend)', 'sans-serif'],
+        headline: ['var(--font-comfortaa)', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
