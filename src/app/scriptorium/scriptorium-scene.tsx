@@ -2,9 +2,8 @@
 "use client";
 import * as THREE from 'three'
 import { useRef } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useScroll, Image, Scroll, Preload, ScrollControls, Text } from '@react-three/drei'
-import Link from 'next/link';
+import { useFrame, useThree } from '@react-three/fiber'
+import { useScroll, Text } from '@react-three/drei'
 
 const CARDS = [
     {
@@ -35,11 +34,12 @@ const CARDS = [
 ];
 
 
-function Card({ url, ...props }) {
+function Card({ ...props }) {
   const ref = useRef<THREE.Group>(null!)
   const scroll = useScroll()
 
   useFrame((state, delta) => {
+    if (!ref.current) return;
     const y = scroll.delta * (scroll.pages - 1) * 50
     ref.current.rotation.y += delta * 0.1
     ref.current.rotation.x += delta * 0.2
@@ -74,7 +74,7 @@ export function ScriptoriumScene() {
     <Scroll>
       {CARDS.map((card, i) => (
         <group key={i} position={[THREE.MathUtils.randFloatSpread(width * 0.5), -height * i - height / 2, THREE.MathUtils.randFloatSpread(3)]}>
-          <Card url="" />
+          <Card />
             <Text
                 maxWidth={3}
                 anchorX="center"

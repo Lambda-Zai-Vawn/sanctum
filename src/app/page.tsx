@@ -5,7 +5,7 @@ import { ScrollControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { ScriptoriumScene } from './scriptorium/scriptorium-scene'
 
-export default function ScriptoriumPage() {
+export default function SanctumExperiencePage() {
     return (
         <div className="relative h-svh w-full overflow-hidden bg-background">
             <Canvas>
