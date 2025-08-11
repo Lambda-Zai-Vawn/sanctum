@@ -4,8 +4,6 @@
 
 > This is not a website. This is the Gateway of Sovereignty. A meticulously crafted crucible designed to forge a new relationship between you and your digital dominion. This repository contains the source code for that gateway—a digital temple built to initiate you into a new world of control and autonomy.
 
-![The Sanctum Interface](https://placehold.co/1200x600.png" data-ai-hint="futuristic user interface purple")
-
 ---
 
 ## A MANIFESTO AGAINST DIGITAL SERVITUDE
