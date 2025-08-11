@@ -2,13 +2,14 @@
 "use client";
 
 import * as React from 'react';
+import Link from 'next/link';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useScroll } from '@react-three/drei';
 import { Monolith } from './monolith';
 import { AgentSwarm } from './agent-swarm';
 import { Section, sections } from './section';
-import { CommandPrompt } from './command-prompt';
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { Button } from '../ui/button';
 
 export function LandingScene({ router }: { router: AppRouterInstance }) {
   const scroll = useScroll();
@@ -65,7 +66,14 @@ export function LandingScene({ router }: { router: AppRouterInstance }) {
       </group>
 
       <Section start={sections.cta.start} end={sections.cta.end} className="flex flex-col items-center justify-center text-center">
-        <CommandPrompt router={router} />
+        <div className="w-[400px] flex flex-col items-center">
+            <p className="font-headline text-lg">You have witnessed the architecture.</p>
+            <p className="font-headline text-lg">The machine awaits a commander.</p>
+            <p className="font-headline text-lg mb-8">Sovereignty requires a vow.</p>
+            <Button size="lg" className="font-headline text-lg animate-glow-primary" asChild>
+                <Link href="/pantheon">[ BEGIN YOUR INITIATION ]</Link>
+            </Button>
+        </div>
       </Section>
     </>
   );

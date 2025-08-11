@@ -7,7 +7,6 @@ import { MobileLanding } from '@/components/landing/mobile-landing';
 import { Canvas } from '@react-three/fiber';
 import { ScrollControls } from '@react-three/drei';
 import { LandingScene } from '@/components/landing/scene';
-import { LandingFooter } from '@/components/landing/footer';
 import { useRouter } from 'next/navigation';
 
 export default function HomeContent() {
@@ -28,7 +27,7 @@ export default function HomeContent() {
   }
 
   return (
-    <div className="h-svh w-full bg-background">
+    <div className="h-svh w-full bg-background absolute top-0 left-0">
       <Canvas>
         <ScrollControls pages={6} damping={0.2}>
           <LandingScene router={router} />
