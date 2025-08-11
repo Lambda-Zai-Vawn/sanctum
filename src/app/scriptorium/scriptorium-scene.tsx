@@ -3,7 +3,7 @@
 import * as THREE from 'three'
 import { useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { useScroll, Text } from '@react-three/drei'
+import { useScroll, Text, Scroll } from '@react-three/drei'
 
 const CARDS = [
     {
