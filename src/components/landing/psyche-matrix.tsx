@@ -1,21 +1,31 @@
+
 "use client";
 
 import * as React from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-export function PsycheMatrix({ showRealms }: { showRealms: boolean }) {
+export function PsycheMatrix({ onAwaken }: { onAwaken: () => void }) {
     const meshRef = React.useRef<THREE.Mesh>(null);
+    const [isAwakened, setIsAwakened] = React.useState(false);
+
+    const handleDoubleClick = () => {
+      setIsAwakened(true);
+      onAwaken();
+    }
 
     useFrame((state, delta) => {
         if (!meshRef.current) return;
 
-        meshRef.current.rotation.y += delta * 0.1;
-        meshRef.current.rotation.x += delta * 0.05;
+        // Only rotate if not awakened, to save resources
+        if (!isAwakened) {
+            meshRef.current.rotation.y += delta * 0.1;
+            meshRef.current.rotation.x += delta * 0.05;
+        }
 
         // Pulse the crystal when realms are shown
-        const targetScale = showRealms ? 1.2 : 1.0;
-        const targetIor = showRealms ? 2.3 : 1.7;
+        const targetScale = isAwakened ? 1.2 : 1.0;
+        const targetIor = isAwakened ? 2.3 : 1.7;
 
         if (meshRef.current.scale.x !== targetScale) {
             meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
@@ -28,7 +38,7 @@ export function PsycheMatrix({ showRealms }: { showRealms: boolean }) {
     });
 
     return (
-        <mesh ref={meshRef}>
+        <mesh ref={meshRef} onDoubleClick={handleDoubleClick}>
             <icosahedronGeometry args={[1, 1]} />
             <meshPhysicalMaterial 
                 roughness={0}

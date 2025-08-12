@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import { PsycheMatrix } from '@/components/landing/psyche-matrix';
@@ -17,26 +17,15 @@ const realms = [
 export default function SanctumNexus() {
   const [showRealms, setShowRealms] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
-  const lastTap = useRef(0);
-
-  const handleCanvasClick = () => {
-    const now = Date.now();
-    const DOUBLE_TAP_DELAY = 300; // ms
-    if (now - lastTap.current < DOUBLE_TAP_DELAY) {
-      setShowRealms(true);
-    }
-    lastTap.current = now;
-  };
-
 
   return (
     <div className="relative h-svh w-full overflow-hidden bg-background">
-      <Canvas onClick={handleCanvasClick} camera={{ position: [0, 0, 8], fov: 50 }}>
+      <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
         <ambientLight intensity={1.5} />
         <pointLight position={[10, 10, 10]} intensity={3} color="hsl(var(--primary))" />
         <pointLight position={[-10, -10, -10]} intensity={2} color="hsl(var(--accent))" />
 
-        <PsycheMatrix showRealms={showRealms} />
+        <PsycheMatrix onAwaken={() => setShowRealms(true)} />
         
         <Text
           font="/fonts/Comfortaa-Bold.ttf"
