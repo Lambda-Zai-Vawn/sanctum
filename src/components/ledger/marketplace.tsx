@@ -4,12 +4,12 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 import { GlassCard } from "@/components/glass-card";
-import { Award, Briefcase, GemIcon, SquareTerminal } from "lucide-react";
+import { Award, Briefcase, Gem, SquareTerminal } from "lucide-react";
 import Link from "next/link";
 
 const transmutationItems = [
     { icon: <SquareTerminal className="h-6 w-6 text-accent"/>, title: "Acquire Instruments of the Craft", description: "Transmute Ξ into perpetual licenses for elite, sovereign-focused software and tools." },
-    { icon: <GemIcon className="h-6 w-6 text-accent"/>, title: "Forge Physical Artifacts", description: "Commission custom, ΛΞVON-branded hardware—obsidian-cased servers, minimalist keyboards, hardware wallets." },
+    { icon: <Gem className="h-6 w-6 text-accent"/>, title: "Forge Physical Artifacts", description: "Commission custom, ΛΞVON-branded hardware—obsidian-cased servers, minimalist keyboards, hardware wallets." },
     { icon: <Briefcase className="h-6 w-6 text-accent"/>, title: "Retain Sovereign Counsel", description: "Convert winnings into one-on-one consultations with world-class experts in law, finance, and automation." },
     { icon: <Award className="h-6 w-6 text-accent"/>, title: "Claim A Seat in the Pantheon", description: "For titans: transmute an astronomical sum of Ξ into a token fraction of actual equity in ΛΞVON OS." },
 ];

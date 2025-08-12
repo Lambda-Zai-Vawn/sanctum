@@ -14,7 +14,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { BEEP_Sigil, AegisSigil, KlepsydraSigil, LoomSigil, ArmorySigil, ObeliskMarketplaceSigil } from "@/components/AethericSigils";
+import { BEEP_Sigil, AegisSigil, KlepsydraSigil, LoomSigil, ArmorySigil, ObeliskMarketplaceSigil, PantheonSigil } from "@/components/AethericSigils";
 
 
 const components = [
@@ -48,10 +48,16 @@ const components = [
     name: "Obelisk Marketplace",
     domain: "The Vault of Manifested Sovereignty.",
   },
+  {
+    sigil: PantheonSigil,
+    name: "The Pantheon",
+    domain: "The collection of core system deities.",
+  }
 ];
 
 export default function PantheonPage() {
   const componentsSection = useScrollAnimation();
+  const radius = 4; // The radius of the circle on which sigils will be placed
 
   return (
     <div className="container mx-auto px-4">
