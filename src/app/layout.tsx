@@ -3,7 +3,6 @@ import { Comfortaa, Lexend } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { CommandProvider } from "@/hooks/use-command";
 
 const comfortaa = Comfortaa({
   subsets: ["latin"],
@@ -34,9 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("dark", comfortaa.variable, lexend.variable)}>
       <body className={cn("font-body", "antialiased", "bg-background", "text-foreground")}>
-        <CommandProvider>
-            {children}
-        </CommandProvider>
+        {children}
         <Toaster />
       </body>
     </html>
